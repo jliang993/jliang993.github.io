@@ -1,6 +1,15 @@
 toc:
     - type: preprint
       papers:
+          - authors: R. Tovey, JL and C. Schönlieb
+            title: "The Fun is Finite:  Douglas--Rachford and Sudoku Puzzle --- Finite Termination and Local Linear Convergence"
+            journal: 
+            volume: 
+            page: 
+            year: 2020
+            url: assets/files/journal/Sudoku.pdf
+            misc:
+
           - authors: C. Poon and JL
             title: Geometry of First-order Methods and Adaptive Acceleration
             journal: 
@@ -8,7 +17,7 @@ toc:
             page: 
             year: 2020
             url: assets/files/journal/a2fom.pdf
-            misc: 
+            misc:	
 
           - authors: D. Driggs, J. Tang, JL, M. Davies and C. Schönlieb 
             title: "SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization" 
