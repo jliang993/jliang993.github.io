@@ -1,0 +1,199 @@
+I"�I<!-- #### Publications -->
+
+<!-- Tab links -->
+<!-- <div class="tab" style="margin-top:1rem;">
+  <button class="tablinks" onclick="openType(event, 'preprint')" id="defaultOpen" style="color: #2eb82e;">Preprints</button>
+</div> -->
+
+<h5 id="preprints">Preprints</h5>
+
+<!-- Tab content -->
+<!-- <div id="preprint" class="tabcontent"> -->
+<ol reversed="">
+  
+  <!-- {"authors"=>"JL and C. Poon", "title"=>"Screening for Sparse Online Learning", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2021, "url"=>"assets/files/journal/sgd-screening.pdf", "misc"=>nil} -->
+      <li>
+        JL and C. Poon: <a href="assets/files/journal/sgd-screening.pdf"><i>Screening for Sparse Online Learning</i></a>, 2021. 
+      </li>
+  
+  <!-- {"authors"=>"JL and C. Poon", "title"=>"Screening for Sparse Online Learning", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2021, "url"=>"assets/files/journal/sgd-screening.pdf", "misc"=>nil} -->
+      <li>
+        JL and C. Poon: <a href="assets/files/journal/sgd-screening.pdf"><i>Screening for Sparse Online Learning</i></a>, 2021. 
+      </li>
+  
+  <!-- {"authors"=>"R. Tovey and JL", "title"=>"The Fun is Finite:  Douglas--Rachford and Sudoku Puzzle --- Finite Termination and Local Linear Convergence", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2020, "url"=>"assets/files/journal/Sudoku.pdf", "misc"=>nil} -->
+      <li>
+        R. Tovey and JL: <a href="assets/files/journal/Sudoku.pdf"><i>The Fun is Finite:  Douglas--Rachford and Sudoku Puzzle --- Finite Termination and Local Linear Convergence</i></a>, 2020. 
+      </li>
+  
+  <!-- {"authors"=>"C. Poon and JL", "title"=>"Geometry of First-order Methods and Adaptive Acceleration", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2020, "url"=>"assets/files/journal/a2fom.pdf", "misc"=>nil} -->
+      <li>
+        C. Poon and JL: <a href="assets/files/journal/a2fom.pdf"><i>Geometry of First-order Methods and Adaptive Acceleration</i></a>, 2020. 
+      </li>
+  
+  <!-- {"authors"=>"D. Driggs, J. Tang, JL, M. Davies and C. Schönlieb", "title"=>"SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2020, "url"=>"assets/files/conference/spring.pdf", "misc"=>nil} -->
+      <li>
+        D. Driggs, J. Tang, JL, M. Davies and C. Schönlieb: <a href="assets/files/conference/spring.pdf"><i>SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization</i></a>, 2020. 
+      </li>
+  
+  <!-- {"authors"=>"D. Driggs, JL and C. Schönlieb", "title"=>"On the Bias-Variance Tradeoff in Stochastic Gradient Methods", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2019, "url"=>"assets/files/conference/bias.pdf", "misc"=>nil} -->
+      <li>
+        D. Driggs, JL and C. Schönlieb: <a href="assets/files/conference/bias.pdf"><i>On the Bias-Variance Tradeoff in Stochastic Gradient Methods</i></a>, 2019. 
+      </li>
+  
+  <!-- {"authors"=>"A. Lewis, JL", "title"=>"Partial Smoothness and Constant Rank", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2019, "url"=>"https://arxiv.org/pdf/1807.03134", "misc"=>nil} -->
+      <li>
+        A. Lewis, JL: <a href="https://arxiv.org/pdf/1807.03134"><i>Partial Smoothness and Constant Rank</i></a>, 2019. 
+      </li>
+  
+  <!-- {"authors"=>"JL, T. Luo and C. Schönlieb", "title"=>"Improving “Fast Iterative Shrinkage-Thresholding Algorithm”: Faster, Smarter and Greedier", "journal"=>nil, "volume"=>nil, "page"=>nil, "year"=>2019, "url"=>"assets/files/journal/faster-fista.pdf", "misc"=>"<a href=\"https://github.com/jliang993/Faster-FISTA\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+      <li>
+        JL, T. Luo and C. Schönlieb: <a href="assets/files/journal/faster-fista.pdf"><i>Improving “Fast Iterative Shrinkage-Thresholding Algorithm”: Faster, Smarter and Greedier</i></a>, 2019.  (<a href="https://github.com/jliang993/Faster-FISTA"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+      </li>
+  
+  </ol>
+<!-- </div> -->
+
+<!-- <div class="tab" style="margin-top:1rem;">
+  <button class="tablinks" onclick="openType(event, 'journal')" id="defaultOpen" style="color: #0066ff;">Journal papers</button>
+</div> -->
+
+<h5 id="journal-papers">Journal papers</h5>
+
+<!-- <div id="journal" class="tabcontent"> -->
+<ol reversed="">
+
+<!-- {"authors"=>"A. Dutta, F. Hanzely, JL and P. Richtárik", "title"=>"Best Pair Formulation & Accelerated Scheme for Non-convex Principal Component Pursuit", "journal"=>"to appear IEEE Trans. on Signal Processing", "volume"=>nil, "page"=>nil, "year"=>2020, "url"=>"assets/files/journal/bp-pcp.pdf", "misc"=>nil} -->
+    <li>
+      A. Dutta, F. Hanzely, JL and P. Richtárik: <a href="assets/files/journal/bp-pcp.pdf"><i>Best Pair Formulation &amp; Accelerated Scheme for Non-convex Principal Component Pursuit</i></a>, to appear IEEE Trans. on Signal Processing, :, 2020. 
+    </li>
+
+<!-- {"authors"=>"C. Molinari, JL and J. Fadili", "title"=>"Convergence Rates of Forward–Douglas–Rachford Splitting Method", "journal"=>"Journal of Optimization Theory and Applications", "volume"=>"182(2)", "page"=>"606-639", "year"=>2019, "url"=>"assets/files/journal/rate-fdr.pdf", "misc"=>"<a href=\"https://github.com/jliang993/Rate-FDR\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+    <li>
+      C. Molinari, JL and J. Fadili: <a href="assets/files/journal/rate-fdr.pdf"><i>Convergence Rates of Forward–Douglas–Rachford Splitting Method</i></a>, Journal of Optimization Theory and Applications, 182(2):606-639, 2019.  (<a href="https://github.com/jliang993/Rate-FDR"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Local Linear Convergence Analysis of Primal–Dual Splitting Methods", "journal"=>"Optimization", "volume"=>"67(6)", "page"=>"821-853", "year"=>2018, "url"=>"assets/files/journal/rate-pd.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/journal/rate-pd.pdf"><i>Local Linear Convergence Analysis of Primal–Dual Splitting Methods</i></a>, Optimization, 67(6):821-853, 2018. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Activity Identification and Local Linear Convergence of Forward-Backward-type methods", "journal"=>"SIAM Journal on Optimization", "volume"=>"27(1)", "page"=>"408-437", "year"=>2017, "url"=>"assets/files/journal/rate-ifb.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/journal/rate-ifb.pdf"><i>Activity Identification and Local Linear Convergence of Forward-Backward-type methods</i></a>, SIAM Journal on Optimization, 27(1):408-437, 2017. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Local Convergence Properties of Douglas–Rachford and Alternating Direction Method of Multipliers", "journal"=>"Journal of Optimization Theory and Applications", "volume"=>"172(3)", "page"=>"874-913", "year"=>2017, "url"=>"assets/files/journal/rate-dr.pdf", "misc"=>"More details on ADMM can be found at <a href=\"http://arxiv.org/pdf/1606.02116.pdf\"><span style=\"font-weight:600;color:#1a8cff;\">arXiv</span></a>"} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/journal/rate-dr.pdf"><i>Local Convergence Properties of Douglas–Rachford and Alternating Direction Method of Multipliers</i></a>, Journal of Optimization Theory and Applications, 172(3):874-913, 2017.  (More details on ADMM can be found at <a href="http://arxiv.org/pdf/1606.02116.pdf"><span style="font-weight:600;color:#1a8cff;">arXiv</span></a>) 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Convergence Rates with Inexact Nonexpansive Operators", "journal"=>"Mathematical Programming", "volume"=>"59(1)", "page"=>"403-434", "year"=>2016, "url"=>"assets/files/journal/rate-nonexpansive-opt.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/journal/rate-nonexpansive-opt.pdf"><i>Convergence Rates with Inexact Nonexpansive Operators</i></a>, Mathematical Programming, 59(1):403-434, 2016. 
+    </li>
+
+<!-- {"authors"=>"JL, X. Zhang", "title"=>"Retinex by Higher order Total Variation \\(L^1\\) Decomposition", "journal"=>"Journal of Mathematical Imaging and Vision", "volume"=>"52(3)", "page"=>"345-355", "year"=>2015, "url"=>"assets/files/journal/jmiv-retinex.pdf", "misc"=>nil} -->
+    <li>
+      JL, X. Zhang: <a href="assets/files/journal/jmiv-retinex.pdf"><i>Retinex by Higher order Total Variation \(L^1\) Decomposition</i></a>, Journal of Mathematical Imaging and Vision, 52(3):345-355, 2015. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Ma and X. Zhang", "title"=>"Seismic Data Restoration via Data-driven Framelet", "journal"=>"Geophysics", "volume"=>"79(3)", "page"=>"65-74", "year"=>2014, "url"=>"assets/files/resources/journal/geophysics-ddtf.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Ma and X. Zhang: <a href="assets/files/resources/journal/geophysics-ddtf.pdf"><i>Seismic Data Restoration via Data-driven Framelet</i></a>, Geophysics, 79(3):65-74, 2014. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Li, Z. Shen and X. Zhang", "title"=>"Wavelet Frame based Color Image Demosaicing", "journal"=>"Inverse Problems and Imaging", "volume"=>"7(3)", "page"=>"777-794", "year"=>2013, "url"=>"assets/files/journal/ipi-demosaicing.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Li, Z. Shen and X. Zhang: <a href="assets/files/journal/ipi-demosaicing.pdf"><i>Wavelet Frame based Color Image Demosaicing</i></a>, Inverse Problems and Imaging, 7(3):777-794, 2013. 
+    </li>
+
+</ol>
+<!-- </div> -->
+
+<!-- <div class="tab" style="margin-top:1rem;">
+  <button class="tablinks" onclick="openType(event, 'conference')" id="defaultOpen" style="color: #ff3333;">Conference proceedings</button>
+</div> -->
+
+<h5 id="conference-proceedings">Conference proceedings</h5>
+
+<!-- <div id="conference" class="tabcontent"> -->
+<ol reversed="">
+
+<!-- {"authors"=>"K. Wei, A. Aviles-Rivero, JL, Y. Fu, C. Schönlieb and H. Huang", "title"=>"Tuning-free Plug-and-Play Proximal Algorithm for Inverse Imaging Problems", "conference"=>"International Conference on Machine Learning (<span style=\"font-weight:600;\">ICML</span>)", "year"=>2020, "url"=>"assets/files/conference/PnP.pdf", "misc"=>"<a href=\"https://icml.cc/Conferences/2020/Awards\"><span style=\"font-weight:600;color:#ee3377;\">Outstanding paper award</span></a>, <a href=\"https://github.com/Vandermode/TFPnP\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+    <li>
+      K. Wei, A. Aviles-Rivero, JL, Y. Fu, C. Schönlieb and H. Huang: <a href="assets/files/conference/PnP.pdf"><i>Tuning-free Plug-and-Play Proximal Algorithm for Inverse Imaging Problems</i></a>, International Conference on Machine Learning (<span style="font-weight:600;">ICML</span>), 2020.  (<a href="https://icml.cc/Conferences/2020/Awards"><span style="font-weight:600;color:#ee3377;">Outstanding paper award</span></a>, <a href="https://github.com/Vandermode/TFPnP"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+    </li>
+
+<!-- {"authors"=>"C. Poon, JL", "title"=>"Trajectory of Alternating Direction Method of Multipliers and Adaptive Acceleration", "conference"=>"Advances in Neural Information Processing Systems (<span style=\"font-weight:600;\">NeurIPS</span>)", "year"=>2019, "url"=>"assets/files/conference/nips19.pdf", "misc"=>"<span style=\"font-weight:600;color:#ee3377;\">Oral</span>, <a href=\"assets/files/slides/admm_neurips19.pdf\"><span style=\"font-weight:600;color:#1a8cff;\">slides</span></a>, <a href=\"assets/files/slides/admm_neurips19_poster.pdf\"><span style=\"font-weight:600;color:#1a8cff;\">poster</span></a>, <a href=\"https://github.com/jliang993/A3DMM\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+    <li>
+      C. Poon, JL: <a href="assets/files/conference/nips19.pdf"><i>Trajectory of Alternating Direction Method of Multipliers and Adaptive Acceleration</i></a>, Advances in Neural Information Processing Systems (<span style="font-weight:600;">NeurIPS</span>), 2019.  (<span style="font-weight:600;color:#ee3377;">Oral</span>, <a href="assets/files/slides/admm_neurips19.pdf"><span style="font-weight:600;color:#1a8cff;">slides</span></a>, <a href="assets/files/slides/admm_neurips19_poster.pdf"><span style="font-weight:600;color:#1a8cff;">poster</span></a>, <a href="https://github.com/jliang993/A3DMM"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+    </li>
+
+<!-- {"authors"=>"JL, C. Schönlieb", "title"=>"Faster FISTA", "conference"=>"European Signal Processing Conference (<span style=\"font-weight:600;\">EUSIPCO</span>)", "year"=>2018, "url"=>"assets/files/conference/eusipco18.pdf", "misc"=>"<a href=\"https://github.com/jliang993/Faster-FISTA\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+    <li>
+      JL, C. Schönlieb: <a href="assets/files/conference/eusipco18.pdf"><i>Faster FISTA</i></a>, European Signal Processing Conference (<span style="font-weight:600;">EUSIPCO</span>), 2018.  (<a href="https://github.com/jliang993/Faster-FISTA"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+    </li>
+
+<!-- {"authors"=>"C. Poon, JL and C. Schönlieb", "title"=>"Local Convergence Properties of SAGA/Prox-SVRG and Acceleration", "conference"=>"International Conference on Machine Learning (<span style=\"font-weight:600;\">ICML</span>)", "year"=>2018, "url"=>"assets/files/conference/icml18.pdf", "misc"=>"<a href=\"https://github.com/jliang993/Local-VRSGD\"><span style=\"font-weight:600;color:#1a8cff;\">code</span></a>"} -->
+    <li>
+      C. Poon, JL and C. Schönlieb: <a href="assets/files/conference/icml18.pdf"><i>Local Convergence Properties of SAGA/Prox-SVRG and Acceleration</i></a>, International Conference on Machine Learning (<span style="font-weight:600;">ICML</span>), 2018.  (<a href="https://github.com/jliang993/Local-VRSGD"><span style="font-weight:600;color:#1a8cff;">code</span></a>) 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"A Multi-step Inertial Forward-Backward Splitting Method for Non-convex Optimization", "conference"=>"Advances in Neural Information Processing Systems (<span style=\"font-weight:600;\">NeurIPS</span>)", "year"=>2016, "url"=>"assets/files/conference/nips16.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/conference/nips16.pdf"><i>A Multi-step Inertial Forward-Backward Splitting Method for Non-convex Optimization</i></a>, Advances in Neural Information Processing Systems (<span style="font-weight:600;">NeurIPS</span>), 2016. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Identification en Temps Fini et Convergence Linéaire Locale de l'Algorithme Proximal Implicite-Explicite Inertiel", "conference"=>"Colloque sur le Traitement du Signal et des Images (<span style=\"font-weight:600;\">GRETSI</span>)", "year"=>2015, "url"=>"assets/files/conference/gretsi15.pdf", "misc"=>"<span style=\"font-weight:600;color:#ee3377;\">Oral</span>"} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/conference/gretsi15.pdf"><i>Identification en Temps Fini et Convergence Linéaire Locale de l'Algorithme Proximal Implicite-Explicite Inertiel</i></a>, Colloque sur le Traitement du Signal et des Images (<span style="font-weight:600;">GRETSI</span>), 2015.  (<span style="font-weight:600;color:#ee3377;">Oral</span>) 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili, G. Peyré and R. Luke", "title"=>"Activity Identification and Local Linear Convergence of Douglas-Rachford\\/ADMM under Partial Smoothness", "conference"=>"International Conference on Scale Space and Variational Methods in Computer Vision (<span style=\"font-weight:600;\">SSVM</span>)", "year"=>2015, "url"=>"assets/files/conference/ssvm15.pdf", "misc"=>"<span style=\"font-weight:600;color:#ee3377;\">Oral</span>"} -->
+    <li>
+      JL, J. Fadili, G. Peyré and R. Luke: <a href="assets/files/conference/ssvm15.pdf"><i>Activity Identification and Local Linear Convergence of Douglas-Rachford\/ADMM under Partial Smoothness</i></a>, International Conference on Scale Space and Variational Methods in Computer Vision (<span style="font-weight:600;">SSVM</span>), 2015.  (<span style="font-weight:600;color:#ee3377;">Oral</span>) 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"Local Linear Convergence of Forward-Backward under Partial Smoothness", "conference"=>"Advances in Neural Information Processing Systems (<span style=\"font-weight:600;\">NeurIPS</span>)", "year"=>2014, "url"=>"assets/files/conference/nips14.pdf", "misc"=>nil} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/conference/nips14.pdf"><i>Local Linear Convergence of Forward-Backward under Partial Smoothness</i></a>, Advances in Neural Information Processing Systems (<span style="font-weight:600;">NeurIPS</span>), 2014. 
+    </li>
+
+<!-- {"authors"=>"JL, J. Fadili and G. Peyré", "title"=>"On the Convergence Rates of Proximal Splitting Algorithms", "conference"=>"International Conference on Image Processing (<span style=\"font-weight:600;\">ICIP</span>)", "year"=>2014, "url"=>"assets/files/conference/icip14.pdf", "misc"=>"<span style=\"font-weight:600;color:#ee3377;\">Top 10% Papers</span>"} -->
+    <li>
+      JL, J. Fadili and G. Peyré: <a href="assets/files/conference/icip14.pdf"><i>On the Convergence Rates of Proximal Splitting Algorithms</i></a>, International Conference on Image Processing (<span style="font-weight:600;">ICIP</span>), 2014.  (<span style="font-weight:600;color:#ee3377;">Top 10% Papers</span>) 
+    </li>
+
+</ol>
+<!-- </div> -->
+
+<!-- <div class="tab" style="margin-top:1rem;">
+  <button class="tablinks" onclick="openType(event, 'thesis')" id="defaultOpen" style="color: #646464;">PhD thesis</button>
+</div> -->
+
+<h5 id="phd-thesis">PhD Thesis</h5>
+<!-- <div id="thesis" class="tabcontent"> -->
+<ul style="margin-left:1.5rem; padding:0;">
+    <li>
+      <b>Title:</b> <a href="assets/files/thesis.pdf">Convergence Rates of First-Order Splitting Methods</a>
+    </li>
+    <li>
+      <b>Chapter 4</b> contains unpublished result on a general multi-step inertial operator splitting scheme for monotone inclusion problem, which can be used to derive multi-step inertial versions of 
+          <ul>
+              <li>Forward--Backward splitting, Generalized Forward--Backward, Forward--Douglas--Rachford splitting</li> 
+              <li>A class of Primal--Dual splitting methods</li> 
+              <li>Proximal Point Algorithm, Douglas--Rachford splitting and Alternating Direction Method of Multipliers (ADMM)</li>
+          </ul>
+    </li>
+</ul>
+<!-- </div> -->
+
+<!-- #### Preprints
+
+#### Journal papers
+
+#### Conference proceedings
+
+#### PhD thesis -->
+:ET
