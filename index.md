@@ -24,7 +24,7 @@ description: "Welcome to my homepage"
 
 
 ## Contact
-- E-mail: jingwei dot leung AT gmail dot com
+- E-mail: firstname dot lastname AT sjtu dot edu dot cn
 - Office: Room 355, No. 6 Science Building 
 
 ## Research interests
