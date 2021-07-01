@@ -1,5 +1,5 @@
 ---
-layout: maths
+layout: project
 title: "Pricipal Component Pursuit"
 description: "Model and algorithms" 
 data_title: 
@@ -12,7 +12,7 @@ code_url: projects/src_Project1.zip
 In this project, we will apply several classic operator splitting schemes to solve the Principal Component Pursuit (PCP, a.k.a. Robust Principal Component Analysis) problem, proposed by Candès, Li, Ma and Wright, 2009. 
 
 
-##### 1. Forward model
+### 1. Forward model
 
 Suppose we have the following observation 
 \\[\tag{1}
@@ -24,7 +24,7 @@ where \\(x \in \mathbb{R}^{m \times n}\\) is a sparse matrix, \\(y \in \mathbb{R
 
 
 
-##### 2. Noiseless case
+### 2. Noiseless case
 
 When there is no noise, i.e. \\(\epsilon=0\\), the decomposition problem can be achieved via the following constrained convex optimisation problem
 \\[\tag{2}\label{eq:pcp-1}
@@ -159,7 +159,7 @@ where \\(\mathcal{T}_{\gamma}(\cdot)\\) is the soft-thresholding operation and \
 
 
 
-##### 3. Noisy case
+### 3. Noisy case
 
 When \\(\epsilon \neq 0\\), then instead of the constrained optimisation problem, we need to consider the following regularised least square
 \\[\tag{6}\label{eq:pcp-7}
@@ -181,7 +181,7 @@ where \\({ ^1\left({ \nu \\\|{\cdot}\\\|\_1}\right)(f-x) }\\) is the Moreau enve
 
 
 
-##### 4. MATLAB implementation
+### 4. MATLAB implementation
 
 *Generating \\(f\\) based on \eqref{eq:forward}*  	
 ~~~matlab
@@ -214,7 +214,7 @@ Details of the codes can be found [here](projects/src_Project2.zip). In the foll
 
 
 
-###### 4.1 Exact case and Douglas--Rachford splitting
+#### 4.1 Exact case and Douglas--Rachford splitting
 
 The numerical comparison of *Douglas--Rachford and its inertial versions* is illustrated in the figure below.
 - *1-DR* inertial parameter \\(a = [0.4, 0]\\).
@@ -233,7 +233,7 @@ Example for which $2$-step inertial DR is much faster under the same parameter c
 ![Comparison](projects/PCP_exact_DR-good.png) -->
 
 
-###### 4.2 Noiseless case and Forward--Backward splitting/FISTA
+#### 4.2 Noiseless case and Forward--Backward splitting/FISTA
 
 Numerical comparison of *Forward--Backward and FISTA*. 
 

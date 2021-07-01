@@ -1,5 +1,5 @@
 ---
-layout: maths
+layout: project
 title: "Descent methods and acceleration"
 description: "Gradient descent, Nesterov's acceleration and FISTA" 
 data_title: Data
@@ -38,10 +38,9 @@ x_{k+1} &= x_k - \gamma \nabla F(x_k) \\\\
 In the experiment, consider \\(n = 50\\) and simply set \\(b = 0\\).
 
 **Creating matrix \\(A\\)**
-```matlab
+``` matlab
 A = 2*eye(n) - diag(ones(n-1,1), -1) - diag(ones(n-1,1), 1);
 ```
-
 
 **Parameters** All the parameters of the algorithm will be stored in a structure +para+
 ```matlab
@@ -215,3 +214,7 @@ X^i \left( \frac{\partial Y^k}{\partial x^i} + \Gamma_{im}^k Y^m \right)\\]
 x^2 + y^2 = 1.
 \\]
  -->
+
+
+
+

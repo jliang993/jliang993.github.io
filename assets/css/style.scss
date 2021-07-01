@@ -1,288 +1,473 @@
 ---
 ---
 
-@import 'jekyll-theme-cayman';
+@import "jekyll-theme-minimal";
 
+table#tlayout {
+	border: none;
+	border-collapse: separate;
+	background: white;
+	/* line-height: 1.25; */
+}
 
+body {
+	background: white;
+	color: #333333;
+	font-size: 18px;
+	font-family: Georgia, serif;
+	padding-bottom: 0px;
+	padding-right: 48px;
+	padding-left: 0px;
+	// margin: 0 auto;	
+    margin-left: 0;
+    margin-top: 0;
+	// width: 90%;
+	line-height: 1.25;
+}
 
-.MathJax {
-font-size: 1.2rem !important;
+#layout-menu {
+	background: #f6f6f6;
+	border: 1px solid #dddddd;
+	padding-top: 10px;
+	padding-left: 32px;
+	padding-right: 12px;
+	font-size: 18px;
+	width: 140px;
+    // min-width: 10%;
+    // max-width: 200px;
+	white-space: nowrap;
+	text-align: left;
+	vertical-align: top;
+}
+
+#layout-menu td {
+	background: #f4f4f4;
+	vertical-align: top;
+}
+
+#layout-content {
+	padding-top: 0.0em;
+	padding-left: 1.0em;
+	padding-right: 1.0em;
+	padding-bottom: 1.0em;
+	border: none;
+	background: white;
+	text-align: left;
+	vertical-align: top;
+	padding-top: 6px;
+	/* width: 80%; */
+	/* line-height: 11.25; */
+}
+
+p {
+	clor: #000000;
+}
+
+#layout-menu a {
+	line-height: 1.5em;
+	margin-left: 0.5em;
+}
+
+tt {
+	background: #ffffdd;
+}
+
+pre, tt {
+	font-size: 90%;
+	font-family: monaco, monospace;
+}
+
+a, a > tt {
+	color: #2d62b9;
+	text-decoration: none;
+}
+
+a:hover {
+	border-bottom: 1px gray dotted;
+}
+
+#layout-menu a.active:link, #layout-menu a.active:visited {
+	color: #0445af;
+	border-bottom: 1px gray solid;
+}
+#layout-menu a.current:link, #layout-menu a.current:visited {
+	color: #0445af;
+	border-bottom: 1px gray solid;
+}
+#layout-menu a:link, #layout-menu a:visited, #layout-menu a:hover {
+	color: #4672b9;
+	text-decoration: none;
+}
+#layout-menu a:hover {
+	text-decoration: none;
+}
+
+#layout-menu a {
+	line-height: 1.125;
+}
+
+#menu-item div.actice{
+	border-bottom: 1px rgb(241, 12, 12) solid;
+}
+
+div.menu-category {
+	border-bottom: 1px solid gray;
+	margin-top: 0.8em;
+	padding-top: 0.2em;
+	padding-bottom: 0.1em;
+	font-weight: bold;
+	/* padding-left: -6px; */
+}
+
+a.active {
+	color: #0445af;
+	border-bottom: 1px gray solid;
+}
+
+div.menu-item {
+	padding-left: 16px;
+	text-indent: -16px;
+	margin: 2px 0;
+}
+
+div#toptitle {
+	padding-bottom: 0.2em;
+	margin-bottom: 1.5em;
+	border-bottom: 3px double gray;
+}
+
+/* Reduce space if we begin the page with a title. */
+div#toptitle + h2, div#toptitle + h3 {
+	margin-top: -0.7em;
+}
+
+div#subtitle {
+	margin-top: 0.0em;
+	margin-bottom: 0.0em;
+	padding-top: 0em;
+	padding-bottom: 0.1em;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: bold;
+}
+
+.MathJax_CHTML {
+	font-size: 100% !important;
+}
+
+h1, h2, h3 {
+	color: #407acc;
+	margin-top: 0.5em;
+	margin-bottom: 0.3em;
+	padding-bottom: 0.2em;
+	line-height: 1.0;
+	padding-top: 0.5em;
+	border-bottom: 1px solid #aaaaaa;
+	width: 100%;
+}
+
+h1 {
+	font-size: 150%;
+}
+
+h2 {
+	padding-top: 0.5em;
+	font-size: 125%;
+}
+
+h2 + h3 {
+	padding-top: 0.2em;
+}
+
+h3 {
+	font-size: 115%;
+	border-bottom: none;
+}
+
+h4 {
+	font-size: 100%;
+	border-bottom: none;
+	margin-bottom: -0.25em;
+}
+
+p {
+	font-size: 100%;
+	margin-top: 0.0em;
+	margin-bottom: 0.6em;
+	padding: 0;
+	line-height: 1.125;
+}
+
+pre {
+	padding: 0;
+	margin: 0;
+}
+
+div#footer {font-size: small;
+	border-top: 1px solid #cccccc;
+	padding-top: 0.1em;
+	margin-top: 4.0em;
+	color: #c0c0c0;
+}
+
+div#footer a {
+	color: #80a0b0;
+}
+
+div#footer-text {
+	float: right;
+	padding-top: 4px;
+	padding-bottom: 0px;
+}
+
+ul, ol, dl {
+	margin-top: 0.2em;
+	padding-top: 0;
+	margin-bottom: 0.4em;
+}
+
+dt {
+	margin-top: 0.5em;
+	margin-bottom: 0;
+}
+
+dl {
+	margin-left: 20px;
+}
+
+dd {
+	color: #222222;
+}
+
+dd > *:first-child {
+	margin-top: 0;
+}
+
+ul {
+	list-style-position: outside;
+	list-style-type: square;
+}
+
+li{
+	margin: 5px 0;
+}
+
+p + ul, p + ol {
+	margin-top: -0.5em;
+}
+
+li ul, li ol {
+	margin-top: 0.2em;
+}
+
+ol {
+	list-style-position: outside;
+	list-style-type: decimal;
+}
+
+li p, dd p {
+	margin-bottom: 0.3em;
 }
 
 
-.profile_img {
-  vertical-align: middle;
-  //height: 50px;
-  //border-radius: 50%;
-  min-width:100px !important;
-  max-width:200px !important;
+ol ol {
+	list-style-type: lower-alpha;
 }
 
-////============================================
-//// navigation bar
-////============================================
-.bg_img {
-  /* The image used */
-  background-image: url("../img/qmsht/qmsht01-600p.jpg");
-
-  min-height: 380px;
-  width: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  /* Needed to position the navbar */
-  position: relative;
-}
-.bg_img_index {
-  background-image: url("../img/qmsht/qmsht01-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.bg_img_pub {
-  background-image: url("../img/qmsht/qmsht02-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.bg_img_act {
-  background-image: url("../img/qmsht/qmsht03-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.bg_img_code {
-  background-image: url("../img/qmsht/qmsht04-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.bg_img_tea {
-  background-image: url("../img/qmsht/qmsht05-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
-.bg_img_math {
-  background-image: url("../img/qmsht/qmsht06-600p.jpg");
-  min-height: 380px;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
+ol ol ol {
+	list-style-type: lower-roman;
 }
 
-/* Position the navbar container inside the image */
-.container {
-  position: sticky;
-  top: 0;
-  //margin: 20px;
-  //width: auto;
-  width: 100%;
-  //margin-left: 10%;
-  margin-right: auto;
+p + div.codeblock {
+	font-size: 85%;
+	margin-top: -0.6em;
 }
 
-/* The navbar */
-.topnav {
-  //position: sticky;
-  overflow: hidden;
-  background-color: rgba(0,0,0,0.3);
+div.codeblock, div.infoblock {
+	margin-right: 0%;
+	margin-top: 1.2em;
+	margin-bottom: 1.3em;
 }
 
-/* Navbar links */
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 10px 16px;
-  text-decoration: none;
-  font-size: 1rem;
+div.blocktitle {
+	font-weight: bold;
+	color: #cd7b62;
+	margin-top: 1.2em;
+	margin-bottom: 0.1em;
 }
 
-.topnav a:hover {
-  background-color: rgba(0,0,0,0.2);
-  color: white;
+div.blockcontent {
+	border: 1px solid silver;
+	padding: 0.3em 0.5em;
 }
 
-.topnav .icon {
-  display: none;
+div.infoblock > div.blockcontent {
+	background: #ffffee;
 }
 
-
-@include small {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-@include small {
-    .topnav.responsive {position: relative;}
-    .topnav.responsive .icon {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .topnav.responsive a {
-      float: none;
-      display: block;
-      text-align: center;
-    }
+div.blockcontent p + ul, div.blockcontent p + ol {
+	margin-top: 0.4em;
 }
 
-
-a.topnav_home {
-    float: left;
-    //width: 50%;
-    margin-left:11%;
-    
-    @include medium {margin-left:1%; }
-    @include small {margin-left:1%;}
-}
-a.topnav_home:hover {
-  font-style: normal;
-  font-weight: 600;
+div.infoblock p {
+	margin-bottom: 0em;
 }
 
-a.topnav_item {
-    float: right;
-    //width: 50%;
-    @include medium {margin-left:1%;}
-    @include small {margin-left:1%;}
-}
-a.topnav_item:hover {
-  font-style: normal;
-  font-weight: 600;
+div.infoblock li p, div.infoblock dd p {
+	margin-bottom: 0.5em;
 }
 
-a.topnav_right {
-    float: right;
-    //width: 50%;
-    margin-right:11%;
-    
-    @include medium {margin-right:1%;}
-    @include small {margin-right:1%;}
+div.infoblock p + p {
+	margin-top: 0.8em;
 }
-a.topnav_right:hover {
-  font-style: normal;
-  font-weight: 600;
+
+div.codeblock > div.blockcontent {
+	background: #f6f6f6;
+}
+
+span.pycommand {
+	color: #000070;
+}
+
+span.statement {
+	color: #008800;
+}
+span.builtin {
+	color: #000088;
+}
+span.special {
+	color: #990000;
+}
+span.operator {
+	color: #880000;
+}
+span.error {
+	color: #aa0000;
+}
+span.comment, span.comment > *, span.string, span.string > * {
+	color: #606060;
+}
+
+@media print {
+	#layout-menu {
+		display: none;
+	}
+
+}
+
+#fwtitle {
+	margin: 2px;
+}
+
+#fwtitle #toptitle {
+	padding-left: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+#layout-content h1:first-child, #layout-content h2:first-child, #layout-content h3:first-child {
+	margin-top: -0.7em;
+}
+
+div#toptitle h1, #layout-content div#toptitle h1 {
+	margin-bottom: 0.0em;
+	padding-bottom: 0.1em;
+	padding-top: 0;
+	margin-top: 0.5em;
+	border-bottom: none;
+}
+
+img.eq {
+	padding: 0;
+	padding-left: 0.1em;
+	padding-right: 0.1em;
+	margin: 0;
+}
+
+img.eqwl {
+	padding-left: 2em;
+	padding-top: 0.6em;
+	padding-bottom: 0.2em;
+	margin: 0;
+}
+
+table {
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+td {
+	padding: 2px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	text-align: center;
+	border: 1px solid gray;
+}
+
+table + table {
+	margin-top: 1em;
+}
+
+tr.heading {
+	font-weight: bold;
+	border-bottom: 2px solid black;
+}
+
+img {
+	border: none;
+}
+
+table.imgtable, table.imgtable td {
+	border: none;
+	text-align: left;
 }
 
 
-.page_title {
-  text-align: center;
-  color: white;
-  margin-top: 80px;
-  //position: relative;
-  
-  text-shadow:-1px 0 0.1em #808080, 0 1px 0.1em #808080, 1px 0 0.1em #808080, 0 -1px 0.1em #808080;
-
-  @include large { font-size: 2.75rem; }
-  @include medium { font-size: 2.0rem; }
-  @include small { font-size: 1.75rem; }
+table.imgtable p {
+	line-height: 1.75;
 }
 
-.page_description {
-  text-align: center;
-  font-weight: normal;
-  color: white;
-  opacity: 0.88;
-  
-  text-shadow:-1px 0 0.05em #808080, 0 1px 0.05em #808080, 1px 0 0.05em #808080, 0 -1px 0.05em #808080;
+/*Text color*/
+tcr {
+/*	font-weight: bold;*/
+	color: #ff0066;
+}
 
-  @include large { font-size: 1.5rem; }
+btcr {
+	font-weight: bold;
+	color: #ff0066;
+}
 
-  @include medium { font-size: 1.25rem; }
+tcb {
+/*	font-weight: bold;*/
+	color: #0066ff;
+}
 
-  @include small { font-size: 1rem; }
+btcb {
+	font-weight: bold;
+	color: #0066ff;
 }
 
 
-
-
-//============================================
-// Mouse hovering
-//============================================
-a {
-    //color: #428bca;
-    text-decoration: none;
-}
-a:focus, a:hover {
-    color: #1a8cff;
-    font-weight: 500;
-    font-style: italic;
-    text-decoration: none;
-}
-a:focus {
-    outline: dotted thin;
-    outline: -webkit-focus-ring-color auto 5px;
-    outline-offset: -2px;
-    /*background-color: rgba(0,0,0,.4);*/
-}
-
-//============================================
-// gradient background img
-//============================================
-#gradRed2Yellow {
-  height: 500px;
-  background-color: red; /* For browsers that do not support gradients */
-  background-image: linear-gradient(to bottom right, red, yellow); /* Standard syntax (must be last) */
-}
-#gradYellow2Green {
-  height: 500px;
-  background-color: yellow; 
-  background-image: linear-gradient(to bottom right, yellow, green); 
-}
-#gradGreen2Blue {
-  height: 500px;
-  background-color: green; 
-  background-image: linear-gradient(to bottom right, green, blue);
-}
-#gradBlue2Red {
-  height: 500px;
-  background-color: blue; 
-  background-image: linear-gradient(to bottom right, blue, red);
-}
-
-
-
-
-//============================================
+/* //============================================
 // tabcontent
-//============================================
+//============================================ */
  /* Style the tab */
 .tab {
-  //overflow: hidden;
-  //border: 1px solid #ccc;
-  //background-color: #f1f1f1;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
   overflow: hidden;
   width: 98%;
   margin-left: auto;
   margin-right: auto;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  // height: 36px;
+  /* // height: 36px; */
   vertical-align: center;
   font-weight: 550;
   color: rgb(169,169,169);
@@ -290,13 +475,13 @@ a:focus {
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-//  background-color: inherit;
-//  float: left;
-//  border: none;
-//  outline: none;
-//  cursor: pointer;
-//  padding: 14px 16px;
-//  transition: 0.3s;
+/* background-color: inherit;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s; */
 background-color: inherit;
 float: center;
 border: none;
@@ -318,29 +503,24 @@ font-size: 1.0rem;
   background-color: #ccc;
 }
 
+
 /* Style the tab content */
-//.tabcontent {
-//  display: none;
-//  padding: 6px 12px;
-//  border: 1px solid #ccc;
-//  border-top: none;
-//}
 .tabcontent {
   display: none;
   width: 98%;
   margin-left: auto;
   margin-right: auto;
-  padding: 6px 6px;
+  /* padding: 8px 8px; */
   border: 1px solid #ccc;
   border-top: none;
-  padding-top: 18px;
-  padding-bottom: 0px;
-  padding-right: 16px;
-  // border-color: rgb(255, 109, 109);
+  padding-top: 8px;
+  padding-bottom: 10px;
+  /* padding-right: 16px; */
+  /* border-color: rgb(255, 109, 109); */
 }
 
 
-// embed video
+/* embed video */
 .embed-container {
   position: relative;
   padding-left: 10%;
@@ -352,9 +532,38 @@ font-size: 1.0rem;
 }
 
 .embed-container iframe, .embed-container object, .embed-container embed {
-//  position: absolute;
+/* position: absolute; */
   top: 0;
   left: 100px;
   width: 100%;
   height: 100%;
+}
+
+
+
+
+
+@media print, screen and (max-width: 480px) {
+    #layout-menu {
+        padding-left: 16px;
+        // width: 10%;
+    }
+}
+
+
+@media print, screen and (min-width: 2048) {
+    #layout-menu {
+        padding-left: 128px;
+        // width: 10%;
+    }
+
+	body {
+		padding-bottom: 32px;
+		padding-right: 32px;
+		padding-left: 2px;
+		margin-left: 0;
+		margin-top: 0;
+		width: 90%;
+		line-height: 1.25;
+	}
 }

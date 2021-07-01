@@ -2,6 +2,6 @@ title: "Jingwei Liang (梁经纬)"
 description: "Homepage of Jingwei Liang"
 show_downloads: true
 google_analytics:
-theme: jekyll-theme-cayman
+theme: jekyll-theme-minimal
 markdown: kramdown
 mathjax: true

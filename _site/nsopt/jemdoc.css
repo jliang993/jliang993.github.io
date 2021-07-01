@@ -1,20 +1,26 @@
 /* Modified css file for jemdoc. */
+---
+---
+
+@import 'jekyll-theme-cayman';
 
 table#tlayout {
 	border: none;
 	border-collapse: separate;
 	background: white;
+	/* line-height: 1.25; */
 }
 
 body {
 	background: white;
 	font-size: 18px;
-	font-family: Arial,Helvetica;
+	font-family: Georgia, serif;
 	padding-bottom: 32px;
 	padding-right: 2px;
 	padding-left: 2px;
 	margin: 0 auto;	
-	width: 80%;
+	width: 84%;
+	line-height: 1.25;
 	/* min-height:100%; */
 }
 
@@ -24,7 +30,7 @@ body {
 	padding-top: 0.25em;
 	padding-left: 12px;
 	padding-right: 12px;
-	padding-top:10px;
+	padding-top: 10px;
 	font-size: 18px;
 	width: auto;
 	white-space: nowrap;
@@ -46,7 +52,9 @@ body {
 	background: white;
 	text-align: left;
 	vertical-align: top;
-	padding-top:6px;
+	padding-top: 6px;
+	/* width: 80%; */
+	/* line-height: 11.25; */
 }
 
 #layout-menu a {
@@ -72,6 +80,10 @@ a:hover {
 	border-bottom: 1px gray dotted;
 }
 
+#layout-menu a.active:link, #layout-menu a.active:visited {
+	color: #0445af;
+	border-bottom: 1px gray solid;
+}
 #layout-menu a.current:link, #layout-menu a.current:visited {
 	color: #0445af;
 	border-bottom: 1px gray solid;
@@ -84,17 +96,27 @@ a:hover {
 	text-decoration: none;
 }
 
+#layout-menu a {
+	line-height: 1.125;
+}
+
+#menu-item div.actice{
+	border-bottom: 1px rgb(241, 12, 12) solid;
+}
+
 div.menu-category {
 	border-bottom: 1px solid gray;
 	margin-top: 0.8em;
 	padding-top: 0.2em;
 	padding-bottom: 0.1em;
 	font-weight: bold;
+	/* padding-left: -6px; */
 }
 
 div.menu-item {
 	padding-left: 16px;
 	text-indent: -16px;
+	margin: 2px 0;
 }
 
 div#toptitle {
@@ -135,7 +157,7 @@ h1, h2, h3 {
 	line-height: 1.0;
 	padding-top: 0.5em;
 	border-bottom: 1px solid #aaaaaa;
-/*	min-width: 1024px;*/
+	/* width: 80%; */
 }
 
 h1 {
@@ -214,12 +236,16 @@ ul {
 	list-style-type: square;
 }
 
+li{
+	margin: 5px 0;
+}
+
 p + ul, p + ol {
 	margin-top: -0.5em;
 }
 
 li ul, li ol {
-	margin-top: -0.3em;
+	margin-top: 0.2em;
 }
 
 ol {
@@ -384,6 +410,10 @@ table.imgtable, table.imgtable td {
 }
 
 
+table.imgtable p {
+	line-height: 1.25;
+}
+
 /*Text color*/
 tcr {
 /*	font-weight: bold;*/
@@ -405,3 +435,110 @@ btcb {
 	color: #0066ff;
 }
 
+
+/* //============================================
+// tabcontent
+//============================================ */
+ /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  overflow: hidden;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  /* // height: 36px; */
+  vertical-align: center;
+  font-weight: 550;
+  color: rgb(169,169,169);
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+/* background-color: inherit;
+float: left;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 14px 16px;
+transition: 0.3s; */
+background-color: inherit;
+float: center;
+border: none;
+outline: none;
+cursor: pointer;
+padding: 8px 8px;
+transition: 0.3s;
+font-size: 1.0rem;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    color: rgb(72,72,72);
+  background-color: #ccc;
+}
+
+
+a.active {
+	color: #0445af;
+	border-bottom: 1px gray solid;
+}
+
+
+/* .tab {
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+	overflow: hidden;
+	width: 98%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+	vertical-align: center;
+	font-weight: 550;
+	color: rgb(169,169,169);
+  } */
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  /* padding: 8px 8px; */
+  border: 1px solid #ccc;
+  border-top: none;
+  padding-top: 8px;
+  padding-bottom: 10px;
+  /* padding-right: 16px; */
+  /* border-color: rgb(255, 109, 109); */
+}
+
+
+/* embed video */
+.embed-container {
+  position: relative;
+  padding-left: 10%;
+  margin: 0 auto;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.embed-container iframe, .embed-container object, .embed-container embed {
+/* position: absolute; */
+  top: 0;
+  left: 100px;
+  width: 100%;
+  height: 100%;
+}
