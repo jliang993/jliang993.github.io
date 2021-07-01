@@ -30,8 +30,8 @@ description: "Welcome to my homepage"
 ## Research interests
 &emsp; Non-smooth Optimization, Mathematical Imaging and Data Science.
 
-## Recruiting
-&emsp; Self motivated undergraduate, master and Ph.D students with solid mathematical background. Email me for details.
+<!-- ## Recruiting
+&emsp; Self motivated undergraduate, master and Ph.D students with solid mathematical background. Email me for details. -->
 
 ## Short bio
 - <b>Tenure-track Associate Professor</b> <br> &ensp; Institute of Natural Science and School of Mathematical Sciences, Shanghai Jiao Tong University.
