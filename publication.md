@@ -11,36 +11,36 @@ description: Preprints, Journal papers, Conference proceedings
 
 ## Preprints 
 
-<ol reversed="reversed">  <!-- start="26"> -->
+<ul reversed="reversed">  <!-- start="26"> -->
   {% for item in site.data.pub_journal.toc[0].papers %}
       <li>
         <a href="{{ item.url }}">{{ item.title }}</a> <br> &emsp;{{ item.authors }} {% if item.venue %} , {{ item.venue }}. {% endif %} {% if item.misc %} ({{ item.misc }}) {% endif %}
       </li>
   {% endfor %}
-  </ol>
+</ul>
 
 
 
 ## Journal papers 
 
-<ol reversed="reversed">  <!-- start="19"> -->
+<ul reversed="reversed">  <!-- start="19"> -->
 {% for item in site.data.pub_journal.toc[1].papers %}
     <li>
 	  <a href="{{ item.url }}">{{ item.title }}</a> <br> &emsp;{{ item.authors }}, <i>{{ item.venue }}</i>, {{ item.year }}. {% if item.misc %} ({{ item.misc }}) {% endif %}
     </li>
 {% endfor %}
-</ol>
+</ul>
 
 
 ## Conference proceedings
 
-<ol reversed>
+<ul reversed>
 {% for item in site.data.pub_conference %}
     <li>
       <a href="{{ item.url }}">{{ item.title }}</a> <br> &emsp;{{ item.authors }}, <b><i>{{ item.venue }}</i></b>, {{ item.year }}. {% if item.misc %} ({{ item.misc }}) {% endif %}
     </li>
 {% endfor %}
-</ol>
+</ul>
 
 
 
