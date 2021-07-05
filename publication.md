@@ -47,7 +47,7 @@ description: Preprints, Journal papers, Conference proceedings
 
 ## PhD Thesis 
 <!-- <div id="thesis" class="tabcontent"> -->
-<ul style="margin-left:1.5rem; padding:0;">
+<ul>
     <li>
       <b>Title:</b> <a href="assets/files/thesis.pdf">Convergence Rates of First-Order Splitting Methods</a>
     </li>
