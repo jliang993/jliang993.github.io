@@ -1,11 +1,11 @@
 ---
 layout: post
 title: Activities
-description: Invited talks, Seminars and Workshop presentations
+description: Events and selected presentations
 ---
 
 
-## Event organised
+## Events organised
 
 <ul style="margin-top:1rem; margin-right:1rem">
 {% for item in site.data.act_event %}
@@ -18,7 +18,7 @@ description: Invited talks, Seminars and Workshop presentations
 
 
 
-## Selected invited talks
+## Selected presentations
 
 <ul style="margin-top:1rem; margin-right:1rem">
 {% for item in site.data.act_selected %}
