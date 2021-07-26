@@ -29,13 +29,6 @@ toc:
             url: assets/files/journal/a2fom.pdf
             misc: 
 
-          - authors: D. Driggs, J. Tang, J. Liang, M. Davies and C. Schönlieb 
-            title: "SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization" 
-            venue: 
-            year: 2020
-            url: assets/files/conference/spring.pdf
-            misc: 
-
           - authors: D. Driggs, J. Liang and C. Schönlieb 
             title: On the Bias-Variance Tradeoff in Stochastic Gradient Methods 
             venue: 
@@ -53,6 +46,13 @@ toc:
           
     - type: journal
       papers:
+          - authors: D. Driggs, J. Tang, J. Liang, M. Davies and C. Schönlieb 
+            title: "SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization" 
+            venue: SIAM Journal on Imaging Science
+            year: 2021
+            url: assets/files/conference/spring.pdf
+            misc: accepted 
+
           - authors: A. Lewis, J. Liang and T. Tian
             title: Partial Smoothness and Constant Rank
             venue: SIAM Journal on Optimization
@@ -65,7 +65,7 @@ toc:
             venue: Inverse Problems
             year: 2021
             url: https://arxiv.org/abs/2012.07401
-            misc: accepted
+            misc: <a href="https://doi.org/10.1088/1361-6420/ac0966">DOI:&thinsp;https://doi.org/10.1088/1361-6420/ac0966</a> 
 
           - authors: A. Dutta, F. Hanzely, J. Liang and P. Richtárik
             title: Best Pair Formulation & Accelerated Scheme for Non-convex Principal Component Pursuit
@@ -129,14 +129,3 @@ toc:
             year: 2013
             url: assets/files/journal/ipi-demosaicing.pdf
             misc: 
-  
-  
-  
-  
-#           - authors:
-#             title:
-#             journal:
-#             volume:
-#             page:
-#             year:
-#             url:
