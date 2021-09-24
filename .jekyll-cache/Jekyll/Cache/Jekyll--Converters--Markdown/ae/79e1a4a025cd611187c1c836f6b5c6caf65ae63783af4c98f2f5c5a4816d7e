@@ -1,24 +1,21 @@
----
-layout: interact
-title: Reading group
-description: Reading group 21 Fall
----
+I"ó	<h2 id="book-to-read">Book to read</h2>
+<ul>
+  <li>Bauschke H H, Combettes P L. Convex analysis and monotone operator theory in Hilbert spaces, New York: Springer, 2nd Edition, 2017.</li>
+</ul>
 
-  
+<h2 id="time-and-location">Time and location</h2>
+<ul>
+  <li>Time: 19:00 - 22:00 Friday</li>
+  <li>Room: TBD</li>
+</ul>
 
-## Book to read
-- Bauschke H H, Combettes P L. Convex analysis and monotone operator theory in Hilbert spaces, New York: Springer, 2nd Edition, 2017.
-
-## Time and location
-- Time: 19:00 - 22:00 Friday
-- Room: TBD 
-
-
-## Schedule
-- <b>NOT</b> every section has to be covered. 
-- People who pick Chp12 or Chp19 have to choose another one to read.
-- As a result, in total we have 11 person-time presentation.
-- <b>My three students have to present and take turns</b>, others are welcome to join the presentation. 
+<h2 id="schedule">Schedule</h2>
+<ul>
+  <li><b>NOT</b> every section has to be covered.</li>
+  <li>People who pick Chp12 or Chp19 have to choose another one to read.</li>
+  <li>As a result, in total we have 11 person-time presentation.</li>
+  <li><b>My three students have to present and take turns</b>, others are welcome to join the presentation.</li>
+</ul>
 
 <table style="margin-left:auto;margin-right:auto;">
   <tr id="tab-title">
@@ -116,4 +113,4 @@ description: Reading group 21 Fall
   
 </table>
 
-
+:ET
