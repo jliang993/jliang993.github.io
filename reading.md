@@ -1,0 +1,118 @@
+---
+layout: interact
+title: Reading group
+description: Reading group 21 Fall
+---
+
+  
+
+## Book to read
+- Bauschke H H, Combettes P L. Convex analysis and monotone operator theory in Hilbert spaces, New York: Springer, 2nd Edition, 2017.
+
+## Time and location
+- Time: 19:00 - 22:00 Friday
+- Room: TBD 
+
+
+## Schedule
+- People who pick Chp12 or Chp19 have to choose another one to read.
+- As a result, in total we have 11 person-time presentation.
+- <b>My three students have to present and take turns</b>, others are welcome to join the presentation. 
+
+<table style="margin-left:auto;margin-right:auto;">
+  <tr id="tab-title">
+    <th style="width:75%">Chapters</th>
+    <th style="width:15%">Presenter</th>
+    <th style="width:10%">Time</th>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 1-3:</b> Background, Hilbert Spaces and Convex Sets </td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 4-5:</b> Convexity and Notions of Nonexpansiveness; Fejer Monotonicity and Fixed Point Iterations</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 6-7:</b> Convex Cones and Generalized Interiors; Support Functions and Polar Sets</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 8-11:</b> Convex Functions and Convex Optimization</td>
+    <td></td>
+    <td></td>
+  </tr>
+
+  
+  <tr>
+    <td><b>Chp 12:</b> <a style="color:#00f;">Infimal Convolution</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 13-15:</b> Conjugation and Duality</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 16-18:</b> Differentiability</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 19:</b> <a style="color:#00f;">Duality in Convex Optimization</a></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 20-22:</b> Monotone Operators</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 23-24:</b> Resolvents of Monotone Operators; Proximity Operators</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 25-26:</b> Sums of Monotone Operators</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td><b>Chp 27-28:</b> Fermat's Rule; Proximal Minimization</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  
+  <tr>
+    <td><b>Chp 29-30:</b> Projection Operators; Best Approximation Algorithms</td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  
+  <!-- <tr>
+    <td><b>Chp :</b></td>
+    <td></td>
+    <td></td>
+  </tr> -->
+  
+</table>
+
+
