@@ -15,13 +15,6 @@ toc:
             url: assets/files/journal/programme.pdf
             misc:
 
-          - authors: R. Tovey and J. Liang
-            title: "The Fun is Finite:  Douglas--Rachford and Sudoku Puzzle --- Finite Termination and Local Linear Convergence"
-            venue: 
-            year: 2020
-            url: assets/files/journal/Sudoku.pdf
-            misc:
-
           - authors: C. Poon and J. Liang
             title: Geometry of First-order Methods and Adaptive Acceleration
             venue: 
@@ -29,36 +22,50 @@ toc:
             url: assets/files/journal/a2fom.pdf
             misc: 
 
-          - authors: D. Driggs, J. Liang and C. Schönlieb 
-            title: On the Bias-Variance Tradeoff in Stochastic Gradient Methods 
-            venue: 
-            year: 2019
-            url: assets/files/conference/bias.pdf
-            misc: 
-
-          - authors: J. Liang, T. Luo and C. Schönlieb
-            title: "Improving “Fast Iterative Shrinkage-Thresholding Algorithm”: Faster, Smarter and Greedier"
-            venue: 
-            year: 2019
-            url: assets/files/journal/faster-fista.pdf
-            misc: <a href="https://github.com/jliang993/Faster-FISTA"><span style="font-weight:600;color:#1a8cff;">code</span></a>
-
           
     - type: journal
       papers:
+          - authors: K. Wei, A. Aviles-Rivero, J. Liang, Y. Fu, H. Huang and C. Schönlieb 
+            title: "TFPnP: Tuning-free Plug-and-Play Proximal Algorithms with Applications to Inverse Imaging Problems" 
+            venue: Journal of Machine Learning and Research
+            year: 2022
+            url: https://www.jmlr.org/papers/volume23/20-1297/20-1297.pdf
+            misc: 
+
+          - authors: D. Driggs, J. Liang and C. Schönlieb 
+            title: On the Bias-Variance Tradeoff in Stochastic Gradient Methods 
+            venue: Journal of Machine Learning and Research
+            year: 2022
+            url: https://www.jmlr.org/papers/volume23/20-316/20-316.pdf
+            misc: 
+
+          - authors: R. Tovey and J. Liang
+            title: "The Fun is Finite:  Douglas--Rachford and Sudoku Puzzle --- Finite Termination and Local Linear Convergence"
+            venue:  Journal of Applied and Numerical Optimization 
+            year: 2021
+            url: assets/files/journal/Sudoku.pdf
+            misc:
+
+          - authors: J. Liang, T. Luo and C. Schönlieb
+            title: "Improving “Fast Iterative Shrinkage-Thresholding Algorithm”: Faster, Smarter and Greedier"
+            venue: SIAM Journal on Scientific Computing
+            year: 2021
+            url: assets/files/journal/faster-fista.pdf
+            misc: <a href="https://github.com/jliang993/Faster-FISTA"><span style="font-weight:600;color:#1a8cff;">code</span></a>
+
           - authors: D. Driggs, J. Tang, J. Liang, M. Davies and C. Schönlieb 
             title: "SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization" 
             venue: SIAM Journal on Imaging Science
             year: 2021
             url: assets/files/conference/spring.pdf
-            misc: accepted 
+            misc:  
 
           - authors: A. Lewis, J. Liang and T. Tian
             title: Partial Smoothness and Constant Rank
             venue: SIAM Journal on Optimization
             year: 2021
             url: https://arxiv.org/pdf/1807.03134
-            misc: accepted
+            misc: 
 
           - authors: F. Bian, J. Liang and X. Zhang
             title: A Stochastic Alternating Direction Method of Multipliers for Non-smooth and Non-convex Optimization

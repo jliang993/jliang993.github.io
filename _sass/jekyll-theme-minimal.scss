@@ -3,7 +3,7 @@
 
 body {
   background-color: #fff;
-  padding:00px;
+  padding:50px;
   font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#727272;
   font-weight:400;
@@ -41,7 +41,7 @@ a {
 
 a:hover, a:focus {
   color:#069;
-  // font-weight: bold;
+  font-weight: bold;
 }
 
 a small {
@@ -55,10 +55,10 @@ a:hover small {
   color:#777;
 }
 
-// .wrapper {
-//   width:640px;
-//   margin:0 auto;
-// }
+.wrapper {
+  width:860px;
+  margin:0 auto;
+}
 
 blockquote {
   border-left:1px solid #e5e5e5;
@@ -265,7 +265,7 @@ footer {
 
 @media print, screen and (max-width: 480px) {
   body {
-    padding:00px;
+    padding:15px;
   }
 
   .downloads {

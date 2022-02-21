@@ -14,7 +14,7 @@ description: "Welcome to my homepage"
         </td>
             
         <td align="left">
-            <p>Jingwei Liang (梁经纬)<br/>  <a href="https://ins.sjtu.edu.cn/" >Institute of Natural Sciences</a> and <a href="https://www.math.sjtu.edu.cn" >School of Mathematical Sciences</a>  <br /> <a href="https://www.sjtu.edu.cn/">Shanghai Jiao Tong University</a> <br /></p>
+            <p><h5>Jingwei Liang (梁经纬)</h5>  <a href="https://ins.sjtu.edu.cn/" >Institute of Natural Sciences</a> and <a href="https://www.math.sjtu.edu.cn" >School of Mathematical Sciences</a>  <br /> <a href="https://www.sjtu.edu.cn/">Shanghai Jiao Tong University</a> <br /></p>
         </td>
 	</tr>
 </table>
@@ -36,9 +36,6 @@ description: "Welcome to my homepage"
 - <b>Lecturer in Mathematical Data Science</b> (2020.11-2021.06) <br> &ensp; School of Mathematical Sciences, Queen Mary University of London.
 - <b>Postdoc research associate</b> (2017.04-2020.08) <br> &ensp; Department of Applied Mathematics and Theoretical Physics, University of Cambridge.
 - <b>Ph.D. in Mathematics</b> (2016.10) <br> &ensp; GREYC, ENSICAEN and University of Caen Normandy. 
-- <b>M.S. in Mathematics</b> (2013.03) <br> &ensp; School of Mathematics & Institute of Natural Sciences, Shanghai Jiao Tong University. 
-- <b>B.S. in Electrical & Information Engineering</b> (2010.06) <br> &ensp; School of Telecommunication and Information Engineering, Nanjing University of Posts and Telecommunications.
-
-
-
+<!-- - <b>M.S. in Mathematics</b> (2013.03) <br> &ensp; School of Mathematics & Institute of Natural Sciences, Shanghai Jiao Tong University.  -->
+<!-- - <b>B.S. in Electrical & Information Engineering</b> (2010.06) <br> &ensp; School of Telecommunication and Information Engineering, Nanjing University of Posts and Telecommunications. -->
 

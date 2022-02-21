@@ -132,7 +132,7 @@
 
 .highlight { background-color: #f8f8f8; }
 
-body { background-color: #fff; padding: 00px; font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #727272; font-weight: 400; }
+body { background-color: #fff; padding: 50px; font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: #727272; font-weight: 400; }
 
 h1, h2, h3, h4, h5, h6 { color: #222; margin: 0 0 20px; }
 
@@ -148,11 +148,13 @@ h3, h4, h5, h6 { color: #494949; }
 
 a { color: #267CB9; text-decoration: none; }
 
-a:hover, a:focus { color: #069; }
+a:hover, a:focus { color: #069; font-weight: bold; }
 
 a small { font-size: 11px; color: #777; margin-top: -0.3em; display: block; }
 
 a:hover small { color: #777; }
+
+.wrapper { width: 860px; margin: 0 auto; }
 
 blockquote { border-left: 1px solid #e5e5e5; margin: 0; padding: 0 0 0 20px; font-style: italic; }
 
@@ -206,84 +208,46 @@ footer { width: 270px; float: left; position: fixed; bottom: 50px; -webkit-font-
 
 @media print, screen and (max-width: 720px) { body { word-wrap: break-word; } header { padding: 0; } header ul, header p.view { position: static; } pre, code { word-wrap: normal; } }
 
-@media print, screen and (max-width: 480px) { body { padding: 00px; } .downloads { width: 99%; } .downloads li, .downloads li + li + li { width: 33%; } }
+@media print, screen and (max-width: 480px) { body { padding: 15px; } .downloads { width: 99%; } .downloads li, .downloads li + li + li { width: 33%; } }
 
 @media print { body { padding: 0.4in; font-size: 12pt; color: #444; } }
 
-table#tlayout { border: none; border-collapse: separate; background: white; /* line-height: 1.25; */ }
+table #tlayout { border: none; border-collapse: separate; background: white; /* line-height: 1.25; */ }
 
-body { background: white; color: #333333; font-size: 18px; font-family: Georgia, serif; padding-bottom: 0px; padding-right: 48px; padding-left: 0px; margin-left: 0; margin-top: 0; line-height: 1.25; }
+body { background: white; color: #333333; font-size: 18px; font-family: Georgia, serif; padding-bottom: 0px; padding-right: 48px; padding-left: 0px; margin-left: 0; margin-top: 0; line-height: 1.25; margin: 0 !important; padding: 0 !important; }
 
-#layout-menu { background: #f6f6f6; border: 1px solid #dddddd; padding-top: 10px; padding-left: 32px; padding-right: 12px; font-size: 18px; width: 140px; white-space: nowrap; text-align: left; vertical-align: top; }
+#layout-menu { background: #f6f6f6; border: 1px solid #dddddd; padding-top: 10px; padding-left: 32px; padding-right: 16px; font-size: 18px; width: 140px; white-space: nowrap; text-align: left; vertical-align: top; }
 
 #layout-menu td { background: #f4f4f4; vertical-align: top; }
 
 #layout-content { padding-top: 0.0em; padding-left: 1.0em; padding-right: 1.0em; padding-bottom: 1.0em; border: none; background: white; text-align: left; vertical-align: top; padding-top: 6px; /* width: 80%; */ /* line-height: 11.25; */ }
 
-p { clor: #000000; }
-
-#layout-menu a { line-height: 1.5em; margin-left: 0.5em; }
-
-tt { background: #ffffdd; }
-
-pre, tt { font-size: 90%; font-family: monaco, monospace; }
-
-a, a > tt { color: #2d62b9; text-decoration: none; }
-
-a:hover { border-bottom: 1px gray dotted; }
-
-#layout-menu a.active:link, #layout-menu a.active:visited { color: #0445af; border-bottom: 1px gray solid; }
-
-#layout-menu a.current:link, #layout-menu a.current:visited { color: #0445af; border-bottom: 1px gray solid; }
-
-#layout-menu a:link, #layout-menu a:visited, #layout-menu a:hover { color: #4672b9; text-decoration: none; }
-
-#layout-menu a:hover { text-decoration: none; }
-
-#layout-menu a { line-height: 1.125; }
-
-#menu-item div.actice { border-bottom: 1px #f10c0c solid; }
-
 div.menu-category { border-bottom: 1px solid gray; margin-top: 0.8em; padding-top: 0.2em; padding-bottom: 0.1em; font-weight: bold; /* padding-left: -6px; */ }
 
-a.active { color: #0445af; border-bottom: 1px gray solid; }
-
 div.menu-item { padding-left: 16px; text-indent: -16px; margin: 2px 0; }
-
-div#toptitle { padding-bottom: 0.2em; margin-bottom: 1.5em; border-bottom: 3px double gray; }
 
 /* Reduce space if we begin the page with a title. */
 div#toptitle + h2, div#toptitle + h3 { margin-top: -0.7em; }
 
 div#subtitle { margin-top: 0.0em; margin-bottom: 0.0em; padding-top: 0em; padding-bottom: 0.1em; }
 
-em { font-style: italic; }
-
-strong { font-weight: bold; }
-
-.MathJax_CHTML { font-size: 100% !important; }
-
-h1, h2, h3 { color: #407acc; margin-top: 0.5em; margin-bottom: 0.3em; padding-bottom: 0.2em; line-height: 1.0; padding-top: 0.5em; border-bottom: 1px solid #aaaaaa; width: 100%; }
-
-h1 { font-size: 150%; }
-
-h2 { padding-top: 0.5em; font-size: 125%; }
-
-h2 + h3 { padding-top: 0.2em; }
-
-h3 { font-size: 115%; border-bottom: none; }
-
-h4 { font-size: 100%; border-bottom: none; margin-bottom: -0.25em; }
-
-p { font-size: 100%; margin-top: 0.0em; margin-bottom: 0.6em; padding: 0; line-height: 1.125; }
-
-pre { padding: 0; margin: 0; }
+div.menu-item { padding-left: 16px; text-indent: -16px; margin: 2px 0; }
 
 div#footer { font-size: small; border-top: 1px solid #cccccc; padding-top: 0.1em; margin-top: 4.0em; color: #c0c0c0; }
 
 div#footer a { color: #80a0b0; }
 
 div#footer-text { float: right; padding-top: 4px; padding-bottom: 0px; }
+
+div#toptitle h1, #layout-content div#toptitle h1 { margin-bottom: 0.0em; padding-bottom: 0.1em; padding-top: 0; margin-top: 0.5em; border-bottom: none; }
+
+div#toptitle { padding-bottom: 0.2em; margin-bottom: 1.5em; border-bottom: 3px double gray; }
+
+table + table { margin-top: 1em; }
+
+tr.heading { font-weight: bold; border-bottom: 2px solid black; }
+
+pre { padding: 0; margin: 0; }
 
 ul, ol, dl { margin-top: 0.2em; padding-top: 0; margin-bottom: 0.4em; }
 
@@ -311,108 +275,46 @@ ol ol { list-style-type: lower-alpha; }
 
 ol ol ol { list-style-type: lower-roman; }
 
-p + div.codeblock { font-size: 85%; margin-top: -0.6em; }
+p { clor: #000000; }
 
-div.codeblock, div.infoblock { margin-right: 0%; margin-top: 1.2em; margin-bottom: 1.3em; }
+#layout-menu a { line-height: 1.5em; margin-left: 0.5em; }
 
-div.blocktitle { font-weight: bold; color: #cd7b62; margin-top: 1.2em; margin-bottom: 0.1em; }
+tt { background: #ffffdd; }
 
-div.blockcontent { border: 1px solid silver; padding: 0.3em 0.5em; }
+pre, tt { font-size: 90%; font-family: monaco, monospace; }
 
-div.infoblock > div.blockcontent { background: #ffffee; }
+a, a > tt { color: #2d62b9; text-decoration: none; }
 
-div.blockcontent p + ul, div.blockcontent p + ol { margin-top: 0.4em; }
+a:hover { border-bottom: 1px gray dotted; }
 
-div.infoblock p { margin-bottom: 0em; }
+#layout-menu a.active:link, #layout-menu a.active:visited { color: #0445af; border-bottom: 1px gray solid; }
 
-div.infoblock li p, div.infoblock dd p { margin-bottom: 0.5em; }
+#layout-menu a.current:link, #layout-menu a.current:visited { color: #0445af; border-bottom: 1px gray solid; }
 
-div.infoblock p + p { margin-top: 0.8em; }
+#layout-menu a:link, #layout-menu a:visited, #layout-menu a:hover { color: #4672b9; text-decoration: none; }
 
-div.codeblock > div.blockcontent { background: #f6f6f6; }
+#layout-menu a:hover { text-decoration: none; }
 
-span.pycommand { color: #000070; }
+#layout-menu a { line-height: 1.125; }
 
-span.statement { color: #008800; }
+em { font-style: italic; }
 
-span.builtin { color: #000088; }
+strong { font-weight: bold; }
 
-span.special { color: #990000; }
+.MathJax_CHTML { font-size: 100% !important; }
 
-span.operator { color: #880000; }
+h1, h2, h3 { color: #407acc; margin-top: 0.5em; margin-bottom: 0.3em; padding-bottom: 0.2em; line-height: 1.0; padding-top: 0.5em; border-bottom: 1px solid #aaaaaa; width: 100%; }
 
-span.error { color: #aa0000; }
+h1 { font-size: 150%; }
 
-span.comment, span.comment > *, span.string, span.string > * { color: #606060; }
+h2 { padding-top: 0.5em; font-size: 125%; }
 
-@media print { #layout-menu { display: none; } }
+h2 + h3 { padding-top: 0.2em; }
 
-#fwtitle { margin: 2px; }
+h3 { font-size: 115%; border-bottom: none; }
 
-#fwtitle #toptitle { padding-left: 0.5em; margin-bottom: 0.5em; }
+h4 { font-size: 100%; border-bottom: none; margin-bottom: -0.25em; }
 
-#layout-content h1:first-child, #layout-content h2:first-child, #layout-content h3:first-child { margin-top: -0.7em; }
-
-div#toptitle h1, #layout-content div#toptitle h1 { margin-bottom: 0.0em; padding-bottom: 0.1em; padding-top: 0; margin-top: 0.5em; border-bottom: none; }
-
-img.eq { padding: 0; padding-left: 0.1em; padding-right: 0.1em; margin: 0; }
-
-img.eqwl { padding-left: 2em; padding-top: 0.6em; padding-bottom: 0.2em; margin: 0; }
-
-table { border: 2px solid black; border-collapse: collapse; }
-
-td { padding: 2px; padding-left: 0.5em; padding-right: 0.5em; text-align: center; border: 1px solid gray; }
-
-table + table { margin-top: 1em; }
-
-tr.heading { font-weight: bold; border-bottom: 2px solid black; }
-
-img { border: none; }
-
-table.imgtable, table.imgtable td { border: none; text-align: left; }
-
-table.imgtable p { line-height: 1.75; }
-
-/*Text color*/
-tcr { /*	font-weight: bold;*/ color: #ff0066; }
-
-btcr { font-weight: bold; color: #ff0066; }
-
-tcb { /*	font-weight: bold;*/ color: #0066ff; }
-
-btcb { font-weight: bold; color: #0066ff; }
-
-/* //============================================
-// tabcontent
-//============================================ */
-/* Style the tab */
-.tab { overflow: hidden; border: 1px solid #ccc; background-color: #f1f1f1; overflow: hidden; width: 98%; margin-left: auto; margin-right: auto; border: 1px solid #ccc; background-color: #f1f1f1; /* // height: 36px; */ vertical-align: center; font-weight: 550; color: darkgray; }
-
-/* Style the buttons that are used to open the tab content */
-.tab button { /* background-color: inherit;
-float: left;
-border: none;
-outline: none;
-cursor: pointer;
-padding: 14px 16px;
-transition: 0.3s; */ background-color: inherit; float: center; border: none; outline: none; cursor: pointer; padding: 8px 8px; transition: 0.3s; font-size: 1.0rem; }
-
-/* Change background color of buttons on hover */
-.tab button:hover { background-color: #ddd; }
-
-/* Create an active/current tablink class */
-.tab button.active { color: #484848; background-color: #ccc; }
-
-/* Style the tab content */
-.tabcontent { display: none; width: 98%; margin-left: auto; margin-right: auto; /* padding: 8px 8px; */ border: 1px solid #ccc; border-top: none; padding-top: 8px; padding-bottom: 10px; /* padding-right: 16px; */ /* border-color: rgb(255, 109, 109); */ }
-
-/* embed video */
-.embed-container { position: relative; padding-left: 10%; margin: 0 auto; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; }
-
-.embed-container iframe, .embed-container object, .embed-container embed { /* position: absolute; */ top: 0; left: 100px; width: 100%; height: 100%; }
-
-@media print, screen and (max-width: 480px) { #layout-menu { padding-left: 16px; } }
-
-@media print, screen and (min-width: 2048) { #layout-menu { padding-left: 128px; } body { padding-bottom: 32px; padding-right: 32px; padding-left: 2px; margin-left: 0; margin-top: 0; width: 90%; line-height: 1.25; } }
+h5 { padding-top: 0.5em; font-size: 125%; }
 
 /*# sourceMappingURL=style.css.map */
