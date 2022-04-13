@@ -5,7 +5,6 @@ description: "Welcome to my homepage"
 ---
 
 
-
 <div>
 <table class="imgtable">
     <tr>
@@ -19,7 +18,6 @@ description: "Welcome to my homepage"
 	</tr>
 </table>
 </div>
-
 
 
 
