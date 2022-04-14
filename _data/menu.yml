@@ -13,9 +13,9 @@ toc:
          #   href: code.html
          #   current:
 
-         - name: Activities
-           href: activity.html
-           current:
+         #  - name: Activities
+         #  href: activity.html
+         #  current:
 
     - type: Teaching
       mitem:

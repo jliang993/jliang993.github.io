@@ -62,14 +62,14 @@ toc:
 
           - authors: D. Driggs, J. Tang, J. Liang, M. Davies and C. Schönlieb 
             title: "SPRING: A Fast Stochastic Proximal Alternating Method for Non-smooth Non-convex Optimization" 
-            venue: SIAM Journal on Imaging Science
+            venue: SIAM Journal on Imaging Science, 14(04):1932-1970
             year: 2021
             url: assets/files/conference/spring.pdf
             misc: 
 
           - authors: F. Bian, J. Liang and X. Zhang
             title: A Stochastic Alternating Direction Method of Multipliers for Non-smooth and Non-convex Optimization
-            venue: Inverse Problems
+            venue: Inverse Problems, 37(7)
             year: 2021
             url: https://arxiv.org/abs/2012.07401
             misc: <a href="https://doi.org/10.1088/1361-6420/ac0966">DOI:&thinsp;https://doi.org/10.1088/1361-6420/ac0966</a> 
