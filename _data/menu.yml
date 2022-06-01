@@ -19,8 +19,12 @@ toc:
 
     - type: Teaching
       mitem:
-         - name: Non-smooth<br />&ensp;Optimization
-           href: nsopt.html
+        #  - name: Non-smooth<br />&ensp;Optimization
+        #    href: nsopt.html
+        #    current:
+
+         - name: MATH8004
+           href: math8004.html
            current:
 
          # - name: Reading<br />&ensp;Group
