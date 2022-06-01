@@ -6,7 +6,7 @@ description: Introductory course on non-smooth optimization
 
 
 ## Description
-The course mainly covers topics in non-smooth optimization and first-order proximal splitting methods. This includes gradient based methods ((sub)gradient method, proximal gradient method, accelerated gradient methods), operator splitting methods (augmented Lagrangian method, alternating direction method of multipliers, monotone operators and operator splitting schemes), and (possibly) interior-point algorithms. Non-convex optimisation and stochastic optimisation will also be introduced. 
+The course mainly covers topics in non-smooth optimization and first-order proximal splitting methods. This includes gradient based methods ((sub)gradient method, proximal gradient method, accelerated gradient methods), operator splitting methods (augmented Lagrangian method, alternating direction method of multipliers, monotone operators and operator splitting schemes), and (possibly) interior-point algorithms. Non-convex optimization and stochastic optimization will also be introduced. 
 
 
 <!-- ### Lectures
