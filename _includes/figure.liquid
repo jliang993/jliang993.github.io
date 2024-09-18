@@ -1,6 +1,4 @@
 {% assign img_path = include.path | remove: '.jpg' | remove: '.jpeg' | remove: '.png' | remove: '.tiff' | remove: '.gif' %}
-{% assign parts = include.path | split: '.' %}
-{% assign ext = parts.last %}
 
 <figure
   {% if include.slot %}
@@ -16,23 +14,23 @@
     {% if site.imagemagick.enabled %}
       <source
         class="responsive-img-srcset"
-        {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.tiff' or ext == '.gif' %}
-          srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{i}}w,{% endfor %}"
-          type="image/webp"
-        {% else %}
-          srcset="{{ include.path | relative_url }}"
-        {% endif %}
+        srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{i}}w,{% endfor %}"
         {% if include.sizes %}
           sizes="{{include.sizes}}"
         {% else %}
           sizes="95vw"
         {% endif %}
+        type="image/webp"
       >
     {% endif %}
+
     <img
       src="{% if include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
       {% if include.class %}
         class="{{ include.class }}"
+      {% endif %}
+      {% if include.align %}
+        class="{{ include.align }}"
       {% endif %}
       {% if include.width %}
         width="{{ include.width }}"
@@ -76,9 +74,11 @@
       {% endif %}
       onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
     >
+  
   </picture>
 
   {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
+    <figcaption class="caption">{{ include.caption }}
+    </figcaption>
   {% endif %}
 </figure>

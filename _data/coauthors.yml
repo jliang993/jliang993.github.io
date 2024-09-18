@@ -1,34 +1,145 @@
-"adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"zhang":
+  - firstname: ["Xiaoqun", "X."]
+    url: https://math.sjtu.edu.cn/faculty/xqzhang/
 
-"podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"ding":
+  - firstname: ["Qiaoqiao", "Q."]
+    url: https://insimaging.github.io/people/qiaoqiaoding/
 
-"rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"liang":
+  - firstname: ["Jingwei", "J."]
+    url: https://jliang993.github.io/
 
-"bach":
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"schönlieb":
+  - firstname: ["Carola-Bibiane", "C.-B."]
+    url: https://www.damtp.cam.ac.uk/user/cbs31
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"schonlieb":
+  - firstname: ["Carola-Bibiane", "C.-B."]
+    url: https://www.damtp.cam.ac.uk/user/cbs31
 
-"przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"wang":
+  - firstname: ["Yu Guang", "Yuguang"]
+    url: https://yuguangwang.github.io/
 
-"schrodinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"tang":
+  - firstname: ["Junqi", "J."]
+    url: https://junqitang.com/
 
-"lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"poon":
+    - firstname: ["Clarice"]
+      url: https://cmhsp2.github.io/
 
-"planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"peyre":
+    - firstname: ["Gabriel"]
+      url: https://www.gpeyre.com/
+
+"fadili":
+    - firstname: ["Jalal"]      
+      url: https://fadili.users.greyc.fr/
+
+"davies":
+    - firstname: ["Mike"]      
+      url: https://www.eng.ed.ac.uk/about/people/professor-michael-e-davies
+
+
+"ehrhardt":
+    - firstname: ["Matthias J.", "Matthias"]      
+      url: https://mehrhardt.github.io/
+
+"kereta":
+    - firstname: ["Zeljko"]      
+      url: http://www0.cs.ucl.ac.uk/people/Z.Kereta.html
+
+"aviles-rivero":
+    - firstname: ["Angelica I.", "Angelica"]      
+      url: https://angelicaiaviles.wordpress.com/
+
+"lewis":
+    - firstname: ["Adrian S."]      
+      url: https://people.orie.cornell.edu/aslewis/
+
+"driggs":
+    - firstname: ["Derek"]      
+      url: https://derekdriggs.github.io/
+
+"dutta":
+    - firstname: ["Aritra"]      
+      url: https://sciences.ucf.edu/math/person/aritra-dutta/
+
+"li":
+    - firstname: ["Xin"]      
+      url: https://sciences.ucf.edu/math/xli/
+
+"richtarik":
+    - firstname: ["Peter"]      
+      url: https://richtarik.org/
+
+"molinari":
+    - firstname: ["Cesare"]      
+      url: https://ceciomolinari.wixsite.com/my-site-3
+
+"luke":
+    - firstname: ["Russell"]      
+      url: https://num.math.uni-goettingen.de/~r.luke/
+
+"ma":
+    - firstname: ["Jianwei"]      
+      url: https://homepage.hit.edu.cn/jma
+
+
+"shen":
+    - firstname: ["Zuowei"]      
+      url: https://blog.nus.edu.sg/matzuows/
+
+
+"li":
+    - firstname: ["Jia"]      
+      url: https://math.sysu.edu.cn/teacher/550
+
+
+"zhu":
+    - firstname: ["Yanan", "Ya-Nan"]      
+      url: https://www.kumc.edu/yzhu4.html
+
+
+"jiang":
+    - firstname: ["Ming"]      
+      url: https://web.xidian.edu.cn/mingjiang/
+
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 
+
+# "":
+#     - firstname: [""]      
+#       url: 

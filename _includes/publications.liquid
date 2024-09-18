@@ -1,0 +1,65 @@
+<!-- Bibsearch Feature -->
+<!-- {% include bib_search.liquid %} -->
+
+{% comment %} <div class="publications"> {% endcomment %}
+{% comment %} {% bibliography %} {% endcomment %}
+{% comment %} {% bibliography -q @*[category=image-processing] %} {% endcomment %}
+{% comment %} </div> {% endcomment %}
+
+{% comment %} <br style="padding: 2rem 2rem;"> {% endcomment %}
+
+{% comment %} <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> {% endcomment %}
+<style>
+    .category-button {
+        margin: 5px;
+        padding: 5px;
+        cursor: pointer;
+
+        display:inline-block;
+        /* padding:.15em .3em; */
+        font-size: 0.95rem;
+        font-weight: 500;
+        line-height: 1;
+        color: var(--global-text-color);
+
+        vertical-align:baseline;
+        border-radius:.2rem;
+
+        border: 1px solid var(--global-badge-color);
+        /* background-color: var(--global-badge-color);  // _themes.scss */
+        /* color: var(--global-card-bg-color); */
+    }
+</style>
+
+
+<div id="category-buttons" style="padding-top: 1rem; padding-bottom:0rem;margin-bottom:0rem;">
+    <span class="category-button" onclick="filterPublications('all')">All</span>
+    <span class="category-button" onclick="filterPublications('optimization')">Optimization</span>
+    <span class="category-button" onclick="filterPublications('image-processing')">Image Processing</span>
+    <span class="category-button" onclick="filterPublications('machine-learning')">Machine Learning</span>
+</div>
+
+<div class="publications" id="publications-type">
+  {% bibliography %}
+</div>
+
+
+<script>
+    function filterPublications(category) {
+        const list = document.getElementById('publications-type');
+        list.innerHTML = ''; // Clear existing content
+
+        if (category == 'optimization') { 
+          list.innerHTML = `{% bibliography -q @*[category=optimization] %}`;
+        } else if (category == 'image-processing') { 
+          list.innerHTML = `{% bibliography -q @*[category=image-processing] %}`;
+        } else if (category == 'machine-learning') { 
+          list.innerHTML = `{% bibliography -q @*[category=machine-learning] %}`;
+        } else {
+          list.innerHTML = `{% bibliography %}`;
+        }
+    }
+</script>
+
+
