@@ -15,7 +15,5 @@ and
 <a href="https://github.com/jliang993" title="GitHub">Github <i class="fa-brands fa-github"></i></a> pages. 
 You can also view them by choosing the category below. 
 
-
-
 {% include publications.liquid %}
 

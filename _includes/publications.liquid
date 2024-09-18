@@ -6,8 +6,6 @@
         cursor: pointer;
         /* padding: 10px 20px; */
         /* margin-right: 5px; */
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
         display: inline-block;
 
         margin: 0px;
@@ -19,30 +17,34 @@
         font-size: 1.05rem;
         font-weight: 400;
         line-height: 1;
-        color: var(--global-text-color);
 
         vertical-align:baseline;
-        border-radius:.1rem;
+        /* border-radius:.1rem; */
 
         margin-bottom: 0rem;
 
-        border: 1px solid var(--global-badge-color);
-        background-color: var(--global-code-bg-color);  // _themes.scss
-        color: var(--global-card-bg-color);
+        /* border: 1px solid var(--global-badge-color); */
+        background-color: var(--global-tab-bg-color);  // _themes.scss
+        /* color: var(--global-tab-fg-color); */
     }
 
     /* Active tab styling */
     .tab.active {
-        color: #fff;
-        background-color: #787878;
+        color: var(--global-tab-fg-color);
+        /* border: 2px solid #787878; */
+        background-color: var(--global-tab-active-color);
     }
 
     /* Tab content styling */
     .tab-content {
         display: none;
-        padding: 5px;
-        border: 1px solid #ccc;
-        border-top: none;
+        padding-left: 15px;
+        padding-right: 0px;
+        /* margin-top: 111px; */
+        border: 2px solid var(--global-tab-bg-color); 
+        border-left: none;
+        border-right: none;
+        /* border-bottom: none; */
     }
 
     /* Show active tab content */
@@ -50,6 +52,8 @@
         display: block;
         margin-top: 0rem;
         padding-top: 0rem;
+
+        /* border: 1px dashed #bdbdbd; */
     }
 </style>
 
@@ -57,16 +61,16 @@
 <body>
 
     <!-- Tab buttons -->
-    <div>
+    <div style="padding-top:1rem;">
         <span class="tab active" onclick="openTab('tab1')">All</span>
         <span class="tab" onclick="openTab('tab2')">Optimization</span>
         <span class="tab" onclick="openTab('tab3')">Image processing</span>
         <span class="tab" onclick="openTab('tab4')">Machine learning</span>
     </div>
 
-    <!-- Tab contents -->
+    <!-- Tab contents -->    
     <div id="tab1" class="tab-content active">
-      <div class="publications">
+      <div class="publications" style="padding-top:rem;margin-top:0rem;">
         {% bibliography %}
       </div>
     </div>
