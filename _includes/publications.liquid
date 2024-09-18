@@ -1,67 +1,105 @@
-<!-- Bibsearch Feature -->
-<!-- {% include bib_search.liquid %} -->
-
-{% comment %} <div class="publications"> {% endcomment %}
-{% comment %} {% bibliography %} {% endcomment %}
-{% comment %} {% bibliography -q @*[category=image-processing] %} {% endcomment %}
-{% comment %} </div> {% endcomment %}
-
-{% comment %} <br style="padding: 2rem 2rem;"> {% endcomment %}
-
-{% comment %} <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> {% endcomment %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-    .category-button {
-        margin: 5px;
-        padding: 5px;
+    /* Basic styling for tab buttons */
+    .tab {
+        cursor: pointer;
+        /* padding: 10px 20px; */
+        /* margin-right: 5px; */
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        display: inline-block;
+
+        margin: 0px;
+        padding: 7px;
         cursor: pointer;
 
         display:inline-block;
         /* padding:.15em .3em; */
-        font-size: 0.95rem;
-        font-weight: 500;
+        font-size: 1.05rem;
+        font-weight: 400;
         line-height: 1;
         color: var(--global-text-color);
 
         vertical-align:baseline;
-        border-radius:.2rem;
+        border-radius:.1rem;
+
+        margin-bottom: 0rem;
 
         border: 1px solid var(--global-badge-color);
-        /* background-color: var(--global-badge-color);  // _themes.scss */
-        /* color: var(--global-card-bg-color); */
+        background-color: var(--global-code-bg-color);  // _themes.scss
+        color: var(--global-card-bg-color);
+    }
+
+    /* Active tab styling */
+    .tab.active {
+        color: #fff;
+        background-color: #787878;
+    }
+
+    /* Tab content styling */
+    .tab-content {
+        display: none;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    /* Show active tab content */
+    .tab-content.active {
+        display: block;
+        margin-top: 0rem;
+        padding-top: 0rem;
     }
 </style>
 
 
 <body>
 
-<div id="category-buttons" style="padding-top: 1rem; padding-bottom:0rem;margin-bottom:0rem;">
-    <span class="category-button" onclick="filterPublications('all')">All</span>
-    <span class="category-button" onclick="filterPublications('optimization')">Optimization</span>
-    <span class="category-button" onclick="filterPublications('image-processing')">Image Processing</span>
-    <span class="category-button" onclick="filterPublications('machine-learning')">Machine Learning</span>
-</div>
+    <!-- Tab buttons -->
+    <div>
+        <span class="tab active" onclick="openTab('tab1')">All</span>
+        <span class="tab" onclick="openTab('tab2')">Optimization</span>
+        <span class="tab" onclick="openTab('tab3')">Image processing</span>
+        <span class="tab" onclick="openTab('tab4')">Machine learning</span>
+    </div>
 
-<div class="publications" id="publications-type">
-  {% bibliography %}
-</div>
+    <!-- Tab contents -->
+    <div id="tab1" class="tab-content active">
+      <div class="publications">
+        {% bibliography %}
+      </div>
+    </div>
+    <div id="tab2" class="tab-content">
+      <div class="publications">
+        {% bibliography -q @*[category=optimization] %}
+      </div>
+    </div>
+    <div id="tab3" class="tab-content">
+      <div class="publications">
+        {% bibliography -q @*[category=image-processing] %}
+      </div>
+    </div>
+    <div id="tab4" class="tab-content">
+      <div class="publications">
+        {% bibliography -q @*[category=machine-learning] %}
+      </div>
+    </div>
 
+    <script>
+        function openTab(tabId) {
+            // Get all elements with class="tab-content" and hide them
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
 
-<script>
-    function filterPublications(category) {
-        const list = document.getElementById('publications-type');
-        list.innerHTML = ''; // Clear existing content
+            // Get all elements with class="tab" and remove the class "active"
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
 
-        if (category == 'optimization') { 
-          list.innerHTML = `{% bibliography -q @*[category=optimization] %}`;
-        } else if (category == 'image-processing') { 
-          list.innerHTML = `{% bibliography -q @*[category=image-processing] %}`;
-        } else if (category == 'machine-learning') { 
-          list.innerHTML = `{% bibliography -q @*[category=machine-learning] %}`;
-        } else {
-          list.innerHTML = `{% bibliography %}`;
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="openTab('${tabId}')"]`).classList.add('active');
         }
-    }
-</script>
+    </script>
 
 </body>
