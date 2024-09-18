@@ -9,12 +9,12 @@
         display: inline-block;
 
         margin: 0px;
-        padding: 7px;
+        padding: 5px;
         cursor: pointer;
 
         display:inline-block;
         /* padding:.15em .3em; */
-        font-size: 1.05rem;
+        font-size: 1.0rem;
         font-weight: 400;
         line-height: 1;
 
@@ -76,17 +76,17 @@
     </div>
     <div id="tab2" class="tab-content">
       <div class="publications">
-        {% bibliography -q @*[category=optimization] %}
+        {% bibliography -q @*[cate_primary=optimization] %}
       </div>
     </div>
     <div id="tab3" class="tab-content">
       <div class="publications">
-        {% bibliography -q @*[category=image-processing] %}
+        {% bibliography -q @*[cate_primary=imaging] %}
       </div>
     </div>
     <div id="tab4" class="tab-content">
       <div class="publications">
-        {% bibliography -q @*[category=machine-learning] %}
+        {% bibliography -q @*[cate_primary=learning || cate_secondary=learning] %}
       </div>
     </div>
 
