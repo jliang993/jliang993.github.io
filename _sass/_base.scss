@@ -1048,7 +1048,7 @@ footer.sticky-bottom {
         border: 1px solid var(--global-theme-color);
       }
 
-      .spot {
+      .highlights {
         // font-weight: 500;
         color: white; //var(--global-text-color) !important;
         border: 1px solid var(--global-theme-color);
@@ -1105,7 +1105,7 @@ footer.sticky-bottom {
           border-color: var(--global-highlight-color);
           background-color: var(--global-highlight-color);
         }
-        a.spot.btn {
+        a.highlights.btn {
           color: #fff;
           border-color: var(--global-highlight-color);
           background-color: var(--global-highlight-color);
@@ -1167,13 +1167,14 @@ footer.sticky-bottom {
         border-color: var(--global-text-color);
       }
 
-      div.spot.hidden {
+      div.highlights.hidden {
         border: dashed 1px var(--global-bg-color);
       }
-      div.spot.hidden.open {
+      div.highlights.hidden.open {
         border-color: var(--global-highlight-color);
       }
     }
+    
     div.award.hidden {
       border: dashed 1px var(--global-bg-color);
     }
@@ -1181,6 +1182,12 @@ footer.sticky-bottom {
       border-color: var(--global-highlight-color);
     }
 
+    div.highlights.hidden {
+      border: dashed 1px var(--global-bg-color);
+    }
+    div.highlights.hidden.open {
+      border-color: var(--global-highlight-color);
+    }
     
   }
 }
