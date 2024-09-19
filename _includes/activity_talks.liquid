@@ -20,14 +20,16 @@
             <tr>
               <td class="percentage-width">
                 <h6 class="item-badge" style="">
-                <b>{{- item.date -}} {{ ", " }} {{ item.year -}}</b>
+                  <b>{{- item.date -}} {{ ", " }} {{ item.year -}}</b>
                 </h6>
                 {% comment %} todo: add slides {% endcomment %}
-                {% comment %} <div class="slides-button">
-                  <span class="textbox font-weight-bold text-uppercase align-middle" style="min-width: 75px;">
-                    <a href="{{ item.slides }}">Slides</a>
-                  </span>
-                </div> {% endcomment %}
+                 {% if item.slides %}
+                  <div class="slides-button">
+                    <span class="textbox font-weight-bold text-uppercase align-middle" style="min-width: 75px;">
+                      <a href="{{ item.slides }}">Slides</a>
+                    </span>
+                  </div> 
+                 {% endif %}
               </td>
               <td>
                 <span style="font-weight: 400;">{{ item.title }}</span>
@@ -73,8 +75,16 @@
       <tr>
               <td class="percentage-width">
                 <h6 class="item-badge" style="">
-                <b>{{- item.date -}} {{ ", " }} {{ item.year -}}</b>
+                  <b>{{- item.date -}} {{ ", " }} {{ item.year -}}</b>
                 </h6>
+                {% comment %} todo: add slides {% endcomment %}
+                {% if item.slides %}
+                  <div class="slides-button">
+                    <span class="textbox font-weight-bold text-uppercase align-middle" style="min-width: 75px;">
+                      <a href="{{ item.slides }}">Slides</a>
+                    </span>
+                  </div> 
+                 {% endif %}
               </td>
               <td>
                 <span style="font-weight: 400;">{{ item.title }}</span>

@@ -5,7 +5,7 @@
 :root {
   --global-tab-bg-color: rgb(201, 201, 201);
   --global-tab-fg-color: rgb(0, 0, 0);
-  --global-tab-active-color: rgb(154, 198, 255);
+  --global-tab-active-color: rgb(206, 206, 206);
   --global-bg-color: #{$white-color};
   --global-code-bg-color: #{$code-bg-color-light};
   --global-text-color: #{$black-color};
@@ -74,7 +74,7 @@
 html[data-theme="dark"] {
   --global-tab-bg-color: rgb(105, 105, 105);
   --global-tab-fg-color: rgb(224, 224, 224);
-  --global-tab-active-color: rgb(142, 46, 142);
+  --global-tab-active-color: #{$cyan-color};
   --global-bg-color: #{$grey-color-dark};
   --global-code-bg-color: #{$code-bg-color-dark};
   --global-text-color: #{$grey-color-light};

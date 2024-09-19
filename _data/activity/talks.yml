@@ -6,7 +6,7 @@
   location: 嘉兴，浙江
   session_url: 
   conf_url: https://xshy.zjxu.edu.cn/hyjf.htm
-  slides: # /assets/slides/example_pdf.pdf
+  slides: /assets/slides/example_pdf.pdf
 - year: 2024
   date: 20-22 Sep
   title: Accelerating Sparse Over-parameterized Solvers via Fast Inexact Gradients

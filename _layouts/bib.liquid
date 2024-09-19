@@ -191,12 +191,12 @@
     <!-- Links/Buttons -->
     <div class="links">
       {% if entry.award %}
-        <a class="award btn btn-sm z-depth-0" role="button" style="background-color: #fcbae8;">
+        <a class="award btn btn-sm z-depth-0" role="button" style="background-color: #ffc8ee; border: 1px solid #ffc8ee;">
           {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
         </a>
       {% endif %}
       {% if entry.oral %}
-        <a class="oral btn btn-sm z-depth-0" role="button" style="background-color: #fcbae8;">
+        <a class="oral btn btn-sm z-depth-0" role="button" style="background-color: #ffc8ee; border: 1px solid #ffc8ee;">
           {{- entry.oral -}}
         </a>
       {% endif %}
