@@ -120,7 +120,7 @@ My main research interests are non-smooth optimization, data sciences and mathem
         <tr>
           <td class="percentage-width-shortbio">
             <h6 class="" style="font-size:0.9rem;padding-top:1px;">
-            <b>2020.11 - 2021.06</b>
+            <b>2013.10 - 2017.01</b>
             </h6>
           </td>
           <td>
