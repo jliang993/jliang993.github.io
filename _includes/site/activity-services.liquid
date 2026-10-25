@@ -1,0 +1,44 @@
+{% assign service_groups = site.data.activity[include.file] | default: site.data.activity[page.yaml] %}
+{% if include.limit %}
+  {% assign visible_groups = service_groups | slice: 0, 1 %}
+{% else %}
+  {% assign visible_groups = service_groups %}
+{% endif %}
+<div class="site-service-groups">
+  {% for group in visible_groups %}
+    <section class="site-service-group">
+      <h2>{{ group.title }}</h2>
+      {% if group.type == 'service' %}
+        {% assign item_limit = group.contents.size %}
+        {% if include.limit %}{% assign item_limit = 3 %}{% endif %}
+        <div class="site-activity-list">
+          {% for item in group.contents limit: item_limit %}
+            <article class="site-activity-item">
+              <time class="site-activity-item__date">
+                {{- item.date -}}
+                {{- item.year -}}
+              </time>
+              <div class="site-activity-item__body">
+                <p>
+                  {{ item.role }} of
+                  {% if item.venue_url -%}
+                    <a href="{{ item.venue_url }}">{{ item.venue }}</a>
+                  {%- else -%}
+                    <strong>{{ item.venue }}</strong>
+                  {%- endif %}
+                </p>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% elsif group.type == 'review' %}
+        <dl class="site-review-list">
+          {% for item in group.contents %}
+            <dt>{{ item.title }}</dt>
+            <dd>{{ item.description | join: '<span aria-hidden="true"> · </span>' }}</dd>
+          {% endfor %}
+        </dl>
+      {% endif %}
+    </section>
+  {% endfor %}
+</div>

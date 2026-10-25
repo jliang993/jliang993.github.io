@@ -1,0 +1,83 @@
+---
+layout: default
+---
+<div class="post site-home">
+  {% if page.hero %}
+    <header class="site-home-hero">
+      <div class="site-home-hero__copy">
+        {% if page.hero.eyebrow %}
+          <p class="site-home-hero__eyebrow">{{ page.hero.eyebrow }}</p>
+        {% endif %}
+        <h1 class="site-home-hero__title">{{ page.hero.title | default: site.title }}</h1>
+        {% if page.hero.text %}
+          <p class="site-home-hero__lead">{{ page.hero.text }}</p>
+        {% endif %}
+        {% if page.hero.actions %}
+          <nav class="site-home-hero__actions" aria-label="Profile shortcuts">
+            {% for action in page.hero.actions %}
+              <a
+                class="site-action-link{% if action.primary %} site-action-link--primary{% endif %}"
+                href="{{ action.url | relative_url }}"
+              >
+                {{ action.label }}
+              </a>
+            {% endfor %}
+          </nav>
+        {% endif %}
+      </div>
+
+      {% if page.hero.image %}
+        <figure class="site-home-hero__media">
+          <img
+            src="{{ '/assets/img/' | append: page.hero.image | relative_url }}"
+            alt="{{ page.hero.image_alt | default: site.title | escape }}"
+            width="600"
+            height="750"
+            fetchpriority="high"
+          >
+          {% if page.hero.caption %}
+            <figcaption>{{ page.hero.caption }}</figcaption>
+          {% endif %}
+        </figure>
+      {% endif %}
+    </header>
+  {% else %}
+    <header class="post-header site-home__header">
+      <h1 class="post-title site-home__title">{{ site.title }}</h1>
+      {% if page.subtitle %}
+        <p class="desc">{{ page.subtitle }}</p>
+      {% endif %}
+    </header>
+  {% endif %}
+
+  <article class="site-home__body">
+    <section class="site-home__intro" aria-labelledby="site-home-about">
+      <h2 id="site-home-about" class="site-section-title">About me</h2>
+      <div class="site-home__intro-copy">{{ content }}</div>
+    </section>
+
+    <div class="site-home__sections">
+      {% if page.news and site.announcements.enabled %}
+        <section class="site-home__section" aria-labelledby="site-home-news">
+          <div class="site-section-heading">
+            <h2 id="site-home-news" class="site-section-title">Latest news</h2>
+            <a href="{{ '/news/' | relative_url }}">All news <span aria-hidden="true">→</span></a>
+          </div>
+          {% include site/news-list.liquid limit=true compact=true %}
+        </section>
+      {% endif %}
+
+      {% if page.recent_papers %}
+        <section class="site-home__section" aria-labelledby="site-home-publications">
+          <div class="site-section-heading">
+            <h2 id="site-home-publications" class="site-section-title">Recent publications</h2>
+            <a href="{{ '/publications/' | relative_url }}">All publications <span aria-hidden="true">→</span></a>
+          </div>
+          {% include site/recent-publications.liquid %}
+        </section>
+      {% endif %}
+    </div>
+  </article>
+</div>
+
+<script src="{{ '/assets/js/site-publication-disclosures.js' | relative_url }}"></script>

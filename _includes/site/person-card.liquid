@@ -1,0 +1,63 @@
+{% assign member = include.member %}
+<article class="site-person-card" data-member-status="{{ member.status }}">
+  <img
+    src="{{ 'assets/img/people/' | append: member.img | relative_url }}"
+    alt="Portrait of {{ member.title | escape }}"
+    class="site-person-card__image"
+    width="88"
+    height="88"
+    loading="lazy"
+  >
+  <div class="site-person-card__body">
+    <div class="site-person-card__identity">
+      <h3 class="site-person-card__name">
+        {{ member.title -}}
+        {%- if member.name_zh %}
+          <span class="site-person-card__name-zh">({{ member.name_zh }})</span>
+        {%- endif %}
+      </h3>
+      {% unless include.hide_role %}
+        <p class="site-person-card__role">{{ member.position | default: member.category }}</p>
+      {% endunless %}
+    </div>
+    {% if include.hide_topics != true and member.research_areas and member.research_areas.size > 0 %}
+      <ul class="site-person-card__topics" aria-label="Research areas">
+        {% for area in member.research_areas limit: 3 %}
+          {% assign area_data = site.data.publication_topics | where: 'id', area | first %}
+          {% assign area_label = area_data.label %}
+          {% unless area_label %}
+            {% assign area_label = area | capitalize %}
+          {% endunless %}
+          <li>{{ area_label }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <div class="site-person-card__links" role="group" aria-label="Links for {{ member.title | escape }}">
+      {% if member.webpage %}
+        {% if member.local_profile %}
+          {% assign profile_url = member.local_profile | relative_url %}
+        {% elsif member.redirect %}
+          {% assign profile_url = member.redirect %}
+        {% else %}
+          {% assign profile_url = member.url | relative_url %}
+        {% endif %}
+        <a href="{{ profile_url }}" title="Personal page">
+          <i class="fa-solid fa-house-user" aria-hidden="true"></i>
+          <span class="site-visually-hidden">Personal page</span>
+        </a>
+      {% endif %}
+      {% if member.scholar %}
+        <a href="{{ member.scholar }}" title="Google Scholar">
+          <i class="ai ai-google-scholar-square" aria-hidden="true"></i>
+          <span class="site-visually-hidden">Google Scholar</span>
+        </a>
+      {% endif %}
+      {% if member.github %}
+        <a href="{{ member.github }}" title="GitHub">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span class="site-visually-hidden">GitHub</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</article>

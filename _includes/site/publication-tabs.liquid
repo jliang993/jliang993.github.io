@@ -1,0 +1,43 @@
+<div class="site-publication-tabs" data-site-publication-tabs>
+  <div class="site-publication-controls">
+    <label class="site-publication-controls__search">
+      <span class="site-publication-controls__label">Search publications</span>
+      <input
+        type="search"
+        inputmode="search"
+        autocomplete="off"
+        placeholder="Title, author, or venue"
+        data-site-publication-search
+      >
+    </label>
+
+    <div class="site-publication-controls__topics" role="group" aria-labelledby="site-publication-topic-label">
+      <span id="site-publication-topic-label" class="site-publication-controls__label">Research topic</span>
+      <div class="site-publication-tabs__list">
+        <button type="button" aria-pressed="true" data-site-publication-filter="all">All topics</button>
+        {% for topic in site.data.publication_topics %}
+          <button type="button" aria-pressed="false" data-site-publication-filter="{{ topic.id }}">{{ topic.label }}</button>
+        {% endfor %}
+      </div>
+    </div>
+
+    <label class="site-publication-controls__featured">
+      <input type="checkbox" data-site-publication-featured>
+      <span>Highlighted only</span>
+    </label>
+  </div>
+
+  <p class="site-publication-tabs__status" aria-live="polite">
+    <span data-site-publication-count></span>
+  </p>
+
+  <nav class="site-publication-years" aria-label="Jump to publication year" data-site-publication-years hidden></nav>
+
+  <div class="site-publication-tabs__content">
+    <div class="publications">{% bibliography %}</div>
+    <p class="site-publication-tabs__empty" data-site-publication-empty hidden>No publications match these filters.</p>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/site-publication-disclosures.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/site-publication-tabs.js' | relative_url }}"></script>

@@ -1,0 +1,60 @@
+<ol class="site-cv-timeline">
+  {% for content in entry.contents %}
+    <li class="site-cv-timeline__entry">
+      <div class="site-cv-timeline__meta">
+        {% if content.year -%}
+          <span class="site-cv-year">{{ content.year }}</span>
+        {%- endif %}
+        {% if content.location %}
+          <span class="site-cv-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ content.location }}</span>
+        {% endif %}
+      </div>
+      <div class="site-cv-timeline__content">
+        {% if content.title %}
+          <h3>{{ content.title }}</h3>
+        {% endif %}
+        {% if content.institution %}
+          <p class="site-cv-institution"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> {{ content.institution }}</p>
+        {% endif %}
+        {% if content.department %}
+          <p class="site-cv-department"><i class="fa-regular fa-circle-dot" aria-hidden="true"></i> {{ content.department }}</p>
+        {% endif %}
+        {% if content.maindescription %}
+          <div>{{ content.maindescription }}</div>
+        {% endif %}
+
+        {% assign detail_items = content.description | default: content.items %}
+        {% if detail_items %}
+          <ul>
+            {% for item in detail_items %}
+              <li>
+                {% if item.contents %}
+                  <span>{{ item.title }}</span>
+                  <ul>
+                    {% for subitem in item.contents %}
+                      <li>{{ subitem }}</li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  {{ item }}
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        {% if content.linkitems %}
+          <div class="site-cv-links">
+            {% for item in content.linkitems %}
+              {% if item.link %}
+                <a href="{{ item.link }}" class="site-cv-button">
+                  {% if item.linkname %}{{ item.linkname }}{% else %}Document{% endif %}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+</ol>

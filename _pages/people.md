@@ -2,36 +2,14 @@
 layout: page
 permalink: /people/
 title: Group
-description: Members of the group.
+description: Current students and alumni supervised by Jingwei Liang.
 nav: true
-nav_order: 2
-display_categories: [PhD student, Master student] #Faculty, Post-doc, Undergraduate, Alumni
+nav_order: 3
+display_categories: [PhD student, Master student, Alumni]
 ---
 
+<p class="site-page-lead">
+  Current students and alumni working across optimization, mathematical imaging, and machine learning. Select a member to view their profile and research background.
+</p>
 
-<!-- pages/people.md -->
-<div class="people">
-
-  <!-- Display categorized projects -->
-  {% for category in page.display_categories %}  
-
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h4 class="category">{{ category }}</h4>
-  </a>
-
-  {% assign categorized_people = site.people | where: "category", category %}
-  {% assign sorted_people = categorized_people | sort: "importance" %}
-
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for people in sorted_people %}
-      {% include people.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-
-  {% endfor %}
-
-
-</div>
-
+{% include site/people-directory.liquid %}

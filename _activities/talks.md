@@ -1,8 +1,8 @@
 ---
-layout: page #page-event
+layout: page
 title: Talks
+description: Selected invited talks and presentations by Jingwei Liang.
 yaml: talks
 ---
 
-
-{% include activity_talks.liquid %}
+{% include site/activity-talks.liquid %}

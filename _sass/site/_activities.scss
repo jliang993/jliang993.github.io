@@ -1,0 +1,123 @@
+.site-activity-year + .site-activity-year,
+.site-service-group + .site-service-group {
+  margin-top: 1.5rem;
+}
+
+.site-activity-year > h2 {
+  padding-top: 0.6rem;
+  margin: 0 0 0.4rem;
+  color: var(--global-text-color-light);
+  font-size: 1.25rem;
+  text-align: right;
+  border-top: 1px solid var(--site-border);
+}
+
+.site-service-group > h2 {
+  margin: 0.8rem 0 0.4rem;
+  color: var(--global-text-color-light);
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+.site-activity-list {
+  width: min(100%, 62rem);
+  margin: 0 auto;
+}
+
+.site-activity-item {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed var(--site-border);
+}
+
+.site-activity-item:last-child {
+  border-bottom: 0;
+}
+
+.site-activity-item__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: flex-end;
+}
+
+.site-activity-item__date {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.site-activity-item__body h3,
+.site-activity-item__body p {
+  margin: 0 0 0.3rem;
+}
+
+.site-activity-item__body h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.site-activity-item__abstract {
+  margin-top: 0.5rem;
+}
+
+.site-activity-item__abstract > summary {
+  width: fit-content;
+  color: var(--global-theme-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.site-activity-item__abstract > p {
+  margin: 0.5rem 0 0;
+}
+
+.site-activity-item__slides,
+.site-activity-archive > summary {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  color: var(--site-on-accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--site-accent-fill);
+  border-radius: 0.2rem;
+}
+
+.site-activity-archive {
+  margin-top: 1.25rem;
+}
+
+.site-activity-archive > summary {
+  margin-bottom: 1rem;
+}
+
+.site-review-list {
+  margin: 0;
+}
+
+.site-review-list dt {
+  margin-top: 0.75rem;
+  font-weight: 700;
+}
+
+.site-review-list dd {
+  margin: 0.2rem 0 0;
+}
+
+@media (max-width: 640px) {
+  .site-activity-item {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .site-activity-item__meta {
+    align-items: flex-start;
+  }
+
+  .site-activity-item__date {
+    text-align: left;
+  }
+}

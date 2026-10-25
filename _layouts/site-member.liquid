@@ -1,0 +1,87 @@
+---
+layout: default
+---
+<div class="post site-member">
+  <header class="site-member-hero">
+    <img
+      src="{{ 'assets/img/people/' | append: page.img | relative_url }}"
+      alt="Portrait of {{ page.title | escape }}"
+      class="site-member-hero__image"
+      width="180"
+      height="180"
+    >
+    <div>
+      <p class="site-member-hero__position">{{ page.position | default: page.category }}</p>
+      <h1 class="post-title">
+        {{ page.title }}
+        {% if page.name_zh %}
+          <span class="site-member-hero__name-zh">({{ page.name_zh }})</span>
+        {% endif %}
+      </h1>
+      {% if page.category != 'Faculty' and page.research_areas and page.research_areas.size > 0 %}
+        <ul class="site-member-hero__topics" aria-label="Research areas">
+          {% for area in page.research_areas %}
+            {% assign area_data = site.data.publication_topics | where: 'id', area | first %}
+            {% assign area_label = area_data.label %}
+            {% unless area_label %}
+              {% assign area_label = area | capitalize %}
+            {% endunless %}
+            <li>{{ area_label }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </header>
+
+  <article>
+    <div class="site-member__bio">{{ content }}</div>
+
+    {% if page.cv %}
+      <div class="site-cv">
+        {% for entry in site.data.cv[page.cv] %}
+          {% assign entry_id = entry.title | slugify %}
+          <section class="site-cv__section" aria-labelledby="{{ entry_id }}">
+            <h2 id="{{ entry_id }}" class="site-cv__section-title">{{ entry.title }}</h2>
+            {% case entry.type %}
+              {% when 'list' %}
+                {% include site/cv/list.liquid %}
+              {% when 'map' %}
+                {% include site/cv/map.liquid %}
+              {% when 'nested_list' %}
+                {% include site/cv/nested-list.liquid %}
+              {% when 'time_table' %}
+                {% include site/cv/timeline.liquid %}
+              {% when 'list_groups' %}
+                {% include site/cv/list-groups.liquid %}
+              {% when 'publications' %}
+                {% include site/cv/publications.liquid %}
+              {% else %}
+                {{ entry.contents }}
+            {% endcase %}
+          </section>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </article>
+
+  {% capture member_publication_count -%}
+    {% bibliography_count --query @*[site_members ~= \b{{ page.member_id }}\b] %}
+  {%- endcapture %}
+  {% assign member_publication_count = member_publication_count | strip | plus: 0 %}
+
+  {% if member_publication_count > 0 %}
+    <section class="site-member-publications" aria-labelledby="member-publications-heading">
+      <header class="site-section-heading site-member-publications__header">
+        <h2 id="member-publications-heading" class="site-section-title">Publications</h2>
+        <a href="{{ '/publications/' | relative_url }}">View all publications <span aria-hidden="true">→</span></a>
+      </header>
+      <div class="publications no_toc_section">
+        {% bibliography --group_by none --query @*[site_members ~= \b{{ page.member_id }}\b] %}
+      </div>
+    </section>
+  {% endif %}
+</div>
+
+{% if member_publication_count > 0 %}
+  <script src="{{ '/assets/js/site-publication-disclosures.js' | relative_url }}"></script>
+{% endif %}

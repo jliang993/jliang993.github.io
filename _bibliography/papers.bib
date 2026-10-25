@@ -1,34 +1,233 @@
----
----
+% Publications authored or co-authored by Jingwei Liang.
+% Source of truth for the personal site; entries are ordered by year.
 
-% Year 2024 ---------------------------------------------------------------
+% Year 2026 ---------------------------------------------------------------
+
+@article{qin2026mixednoise,
+  title={Mixed-Noise Plug-and-Play with Infimal Convolution Fidelities and Multiple Priors},
+  author={Qin, Ziqi and Tan, Hong Ye and Biguri, Ander and Liang, Jingwei and Schönlieb, Carola-Bibiane},
+  site_members={ziqi_qin},
+  journal={arXiv preprint arXiv:2609.33897},
+  year={2026},
+  month={9},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2609.33897},
+  abstract={Plug-and-Play (PnP) algorithms are a class of iterative methods for inverse imaging. Within an optimization algorithm, they combine a flexible fidelity term, encoding the forward operator, and a pretrained image denoiser, in order to deal with more severe corruptions such as blurring or downsampling when reconstructing an image. This work studies provably convergent PnP methods for mixed-noise forward processes by using the infimal convolution as a fidelity term, providing a statistical interpretation as a joint maximum a-posteriori estimator over both noises, and preserving the Bayesian MAP interpretation of PnP methods. Independently, we extend the PnP formulation to multiple prior terms using the Davis--Yin three-operator splitting. This extension can be combined with either standard fidelities or the proposed mixed-noise infimal-convolution fidelities. We verify that these generalized PnP methods are convergent under standard Kurdyka--Lojasiewicz conditions. Numerical experiments on Laplace-Gaussian and Poisson--Gaussian noise demonstrate stable convergence of single-prior and multiple-prior PnP methods, and divergence under fidelity mismatch. Furthermore, PnP with infimal convolution fidelities are able to scale to noise up to 38\% standard deviation, with multiple priors reaching different stationary points that qualitatively preserve more textural properties.},
+  cate_primary={optimization},
+  cate_secondary={imaging},
+  selected={false},
+}
+
+@article{xia2026dualguided,
+  title={Dual-guided Hierarchical Edge Localization for Large-scale Optimal Transport Across Dimensions},
+  author={Xia, Wenzhou and Ding, Qiaoqiao and Liang, Jingwei and Zhang, Xiaoqun},
+  journal={arXiv preprint arXiv:2609.13010},
+  year={2026},
+  month={9},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2609.13010},
+  abstract={Optimal transport (OT) compares distributions and aligns datasets in machine learning, yet unregularized discrete OT requires a linear program with quadratically many transport variables. We propose HELLO, a hierarchical solver that casts large-scale discrete OT as edge localization and uses dual potentials to guide both coarse-to-fine initialization and within-level refinement. Initialization propagates coarse dual potentials across a recursive subsampling hierarchy to assign candidate edges. Refinement then iteratively inserts the largest dual violators in each row and column until the relative KKT residual meets a prescribed tolerance, while budgeted pruning ensures linear memory complexity. For exact-arithmetic refinement, we prove finite termination at a global optimum under a symbolic lexicographic rule. At the million-point scale, HELLO attains lower transport objectives with order-of-magnitude runtime improvements over strong baselines across feature dimensions from single digits to thousands. It further scales to 1.28 million samples per marginal in 8192 dimensions on a single H100, using 41.6 GiB peak GPU memory while satisfying a full relative KKT residual below $10^{-6}$. Beyond standard discrete OT, the framework supports general pairwise costs and serves as a scalable balanced-OT oracle for semi-discrete OT, Gromov--Wasserstein, unbalanced OT, and OT-based Flow Matching.},
+  cate_primary={optimization},
+  cate_secondary={learning},
+  selected={false},
+}
+
+@inproceedings{cao2026physicsaugmented,
+  title={Physics-Augmented Graph Transformer for Multi-step Time-Domain Maxwell's Equations in Electromagnetic Scattering},
+  author={Cao, Huilin and Sun, Haoran and Liang, Jingwei and Li, Maokun and Ren, Yuxiang},
+  site_members={huilin_cao},
+  booktitle={Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2},
+  pages={10532--10542},
+  year={2026},
+  month={8},
+  publisher={ACM},
+  doi={10.1145/3770855.3818937},
+  abbr={Conference},
+  bibtex_show={true},
+  html={https://doi.org/10.1145/3770855.3818937},
+  cate_primary={learning},
+  selected={false},
+}
+
+@article{bai2026adaptive,
+  title={Adaptive Dimension Reduction for Overlapping Group Sparsity},
+  author={Bai, Yifan and Poon, Clarice and Liang, Jingwei},
+  site_members={yifan_bai},
+  journal={arXiv preprint arXiv:2601.20697},
+  year={2026},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2601.20697},
+  abstract={Typical dimension reduction techniques for nonoverlapping sparse optimization involve screening or sieving strategies based on a dual certificate derived from the first-order optimality condition, approximating the gradients or exploiting certain inherent low-dimensional structure of the sparse solution. In comparison, dimension reduction rules for overlapping group sparsity are generally less developed because the subgradient structure is more complex, making the link between sparsity pattern and the dual variable indirect due to the non-separability. In this work, we propose new dual certificates for overlapping group sparsity and a novel adaptive scheme for identifying the support of the overlapping group LASSO. We demonstrate how this scheme can be integrated into and significantly accelerate existing algorithms, including Primal-Dual splitting method, alternating direction method of multipliers and a recently developed variable projection scheme based on over-parameterization. We provide convergence analysis of the method and verify its practical effectiveness through experiments on standard datasets.},
+  cate_primary={optimization},
+  selected={false},
+}
+
+@article{bai2026formalization,
+  title={Formalization of Two Fixed-Point Algorithms in Hilbert Spaces},
+  author={Bai, Yifan and Li, Yantao and Yu, Jian and Liang, Jingwei},
+  site_members={yifan_bai},
+  journal={arXiv preprint arXiv:2602.17064},
+  year={2026},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2602.17064},
+  abstract={Iterative algorithms are fundamental tools for approximating fixed-points of nonexpansive operators in real Hilbert spaces. Among them, Krasnosel'skiĭ--Mann iteration and Halpern iteration are two widely used schemes. In this work, we formalize the convergence of these two fixed-point algorithms in the interactive theorem prover Lean4 based on type dependent theory. To this end, weak convergence and topological properties in the infinite-dimensional real Hilbert space are formalized. Definition and properties of nonexpansive operators are also provided. As a useful tool in convex analysis, we then formalize the Fejér monotone sequence. Building on these foundations, we verify the convergence of both the iteration schemes. Our formalization provides reusable components for machine-checked convergence analysis of fixed-point iterations and theories of convex analysis in real Hilbert spaces. Our code is available at https://github.com/TTony2019/fixed-point-iterations-in-lean.},
+  cate_primary={optimization},
+  selected={false},
+}
+
+@article{bai2026veriscale,
+  title={VeriScale: Adversarial Test-Suite Scaling for Verifiable Code Generation},
+  author={Bai, Yifan and Liu, Xiaoyang and Mou, Zihao and Wang, Guihong and Yu, Jian and Xie, Shuhan and Li, Yantao and Zhang, Yangyu and Liang, Jingwei and Luo, Tao},
+  site_members={yifan_bai},
+  journal={arXiv preprint arXiv:2605.22368},
+  year={2026},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2605.22368},
+  abstract={As large language models (LLMs) are increasingly deployed for software engineering, constructing high-quality benchmarks is crucial for evaluating not just the functional correctness, but also the formal verifiability of generated code. However, existing benchmarks are limited by the quantity and quality of positive and negative test cases, leading to an overestimation of model capabilities in generating specifications and implementations. To address this, we propose VeriScale, a novel framework driven by the adversarial implementations. It consists of two stages: test-suite expansion to construct diverse and challenging test cases, and test-suite reduction to distill them into compact yet discriminative suites. While VeriScale is general, we instantiate it on Verina to construct VerinaPlus, which expands the original test suites by over 83$\times$, and VerinaLite, a lightweight 14$\times$ variant. Our experiments across eight state-of-the-art LLMs demonstrate that VerinaPlus exposes substantial model weaknesses hidden by the original benchmark, evidenced by sharp score drops on both SpecGen and CodeGen tasks, whereas VerinaLite maintains this discriminative power at a fraction of the evaluation cost. The enhanced benchmarks and source code are publicly available at https://github.com/XiaoyangLiu-sjtu/VeriScale.},
+  cate_primary={learning},
+  selected={false},
+}
+
+@inproceedings{xia2026memory,
+  title={A Memory-Efficient Hierarchical Algorithm for Large-Scale Optimal Transport Problems},
+  author={Xia, Wenzhou and Zhu, Ya-Nan and Liang, Jingwei and Zhang, Xiaoqun},
+  booktitle={The Fourteenth International Conference on Learning Representations (ICLR)},
+  year={2026},
+  abbr={Conference},
+  bibtex_show={true},
+  html={https://openreview.net/forum?id=CkOBcyntGd},
+  abstract={We propose HALO, a memory-efficient hierarchical algorithm for solving large-scale optimal transport (OT) problems with squared Euclidean cost, particularly effective in moderate-dimensional settings. The core of HALO lies in combining a hierarchical representation of the OT problem with parallel-friendly linear programming solvers, within which an active pruning technique is integrated to further reduce memory usage and computational cost. Theoretically, we establish a scale-independent iteration-complexity upper bound for the refinement phase, which is consistent with our numerical observations. Numerically, experiments on the image dataset and the 3D point cloud dataset demonstrate that HALO effectively alleviates the memory and scalability bottlenecks of existing solvers. Our method demonstrates significant advantages compared to state-of-the-art baselines: for images with $n=1024^2$ pixels, it achieves an $8.9\times$ speedup and $70.5$\% reduction in memory usage under comparable accuracy; for 3D point clouds at scale $n=2^{18}$, it achieves a $1.84\times$ speedup and an $83.2$\% reduction in memory usage with $24.9$\% lower transport cost.},
+  cate_primary={optimization},
+  cate_secondary={learning},
+  selected={true},
+  homepage_featured={true},
+}
+
+% Year 2025 ---------------------------------------------------------------
 
 @article{ehrhardt2024guide,
   title={A Guide to Stochastic Optimisation for Large-Scale Inverse Problems},
   author={Ehrhardt, Matthias J. and Kereta, Zeljko and Liang, Jingwei and Tang, Junqi},
-  journal={arXiv preprint arXiv:2406.06342},
-  year={2024},
-  abbr={Preprint},
+  journal={Inverse Problems},
+  volume={41},
+  number={5},
+  pages={053001},
+  year={2025},
+  publisher={IOP Publishing},
+  abbr={Journal},
   bibtex_show={true},
-  html={https://arxiv.org/abs/2406.06342},
-  abstract={Stochastic optimisation algorithms are the de facto standard for machine learning with large amounts of data. Handling only a subset of available data in each optimisation step dramatically reduces the per-iteration computational costs, while still ensuring significant progress towards the solution. Driven by the need to solve large-scale optimisation problems as efficiently as possible, the last decade has witnessed an explosion of research in this area. Leveraging the parallels between machine learning and inverse problems has allowed harnessing the power of this research wave for solving inverse problems. In this survey, we provide a comprehensive account of the state-of-the-art in stochastic optimisation from the viewpoint of inverse problems. We present algorithms with diverse modalities of problem randomisation and discuss the roles of variance reduction, acceleration, higher-order methods, and other algorithmic modifications, and compare theoretical results with practical behaviour. We focus on the potential and the challenges for stochastic optimisation that are unique to inverse imaging problems and are not commonly encountered in machine learning. We conclude the survey with illustrative examples from imaging problems to examine the advantages and disadvantages that this new generation of algorithms bring to the field of inverse problems.},
+  html={https://iopscience.iop.org/article/10.1088/1361-6420/adc0b7},
+  abstract={Stochastic optimisation algorithms are the de facto standard for machine learning with large amounts of data. Handling only a subset of available data in each optimisation step dramatically reduces the per-iteration computational costs, while still ensuring significant progress towards the solution. Driven by the need to solve large-scale optimisation problems as efficiently as possible, the last decade has witnessed an explosion of research in this area. Leveraging the parallels between machine learning and inverse problems has allowed harnessing the power of this research wave for solving inverse problems. In this survey, we provide a comprehensive account of the state-of-the-art in stochastic optimisation from the viewpoint of variational regularisation for inverse problems where the solution is modelled as minimising an objective function. We present algorithms with diverse modalities of problem randomisation and discuss the roles of variance reduction, acceleration, higher-order methods, and other algorithmic modifications, and compare theoretical results with practical behaviour. We focus on the potential and the challenges for stochastic optimisation that are unique to variational regularisation for inverse imaging problems and are not commonly encountered in machine learning. We conclude the survey with illustrative examples from imaging on linear inverse problems to examine the advantages and disadvantages that this new generation of algorithms bring to the field of inverse problems.},
   cate_primary={optimization},
+  cate_secondary={imaging},
+  selected={true},
+  homepage_featured={true},
+}
+
+@article{cao2025physics,
+  title={Physics-Data Hybrid Driven Edge-Featured Graph Attention Networks for Surface Currents Learning of 3D PEC Targets},
+  author={Cao, Huilin and Sun, Haoran and Liang, Jingwei and Shan, Tao and Ren, Yuxiang and Li, Maokun},
+  site_members={huilin_cao},
+  journal={IEEE Transactions on Antennas and Propagation},
+  year={2025},
+  publisher={IEEE},
+  abbr={Journal},
+  bibtex_show={true},
+  html={https://doi.org/10.1109/tap.2025.3602467},
+  abstract={To achieve fast and accurate modeling of electrically large targets, this paper proposes a physics-data hybrid driven surface current learning method (PdEgatSCL), which can learn combined field integral operator and achieve end-to-end solving from incident fields to surface currents. The edge-feature graph attention network (EGAT) is employed as the foundational architecture of PdEgatSCL, where the Green’s function and its divergence are explicitly encoded as edge features into the network. The attention mechanism of EGAT is leveraged to model the scattering characteristics of the targets. Additionally, the center coordinates and area of the discretized surface elements are input as node features to ensure that the mesh information is fully utilized. Finally, PdEgatSCL is applied to solve the surface currents of three-dimensional perfect electric conductor (PEC) targets. Numerical results demonstrate that the surface current solutions obtained by PdEgatSCL align well with the ground truth computed by the Method of Moments (MoM). Moreover, compared to SOTA AI-based method, PdEgatSCL exhibits higher accuracy while accelerating the average inference time by 87.67\% and reducing memory consumption by 99.24\%.},
+  cate_primary={learning},
   cate_secondary={imaging},
   selected={true},
 }
 
+@article{zheng2025deep,
+  title={Deep Equilibrium Model with Weighted Densely-Connected Iteration Differences for Convergent Image Restoration},
+  author={Zheng, Ziyang and Dai, Wenrui and Liang, Jingwei and Peng, Xinyu and Xue, Duoduo and Xiong, Hongkai},
+  journal={IEEE Journal of Selected Topics in Signal Processing},
+  year={2025},
+  publisher={IEEE},
+  abbr={Journal},
+  bibtex_show={true},
+  html={https://doi.org/10.1109/jstsp.2025.3632532},
+  abstract={Deep equilibrium models (DEMs) are emerging as an efficient alternative to train deep unrolling networks (DUNs) realized by recasting iterative optimization algorithms for image restoration (IR) in a single iteration using constant memory usage and are potential to allow infinite iterations until convergence to fixed points. However, existing DEMs for IR suffer from architectural constraints in exploiting skip connections and adaptive parameters varying with iterations to simultaneously benefit feature learning and achieve stable reconstruction with theoretical convergence guarantees. To address these challenges, we formulate a novel IR optimization problem with a deep neural network (DNN)-based energy and propose DenseDiff, a DEM based on proximal gradient descent with weighted densely-connected iteration differences, to solve it. Specifically, for each iteration, we combine densely connected iteration differences from preceding iterations with adaptive weights and step sizes to facilitate feature learning, and reformulate multi-variable fixed-point computation as a two-variable problem to preserve the effective parameter space for optimization. Furthermore, we thoroughly explore the properties of common DNN components for theoretical guidance for constituting the energy in practice, and demonstrate that DenseDiff converges to a critical point of the objective function with at least a sublinear rate. Comprehensive evaluations on image deblurring, inpainting, and CS-MRI reveal that DenseDiff achieves state-of-the-art reconstruction performance with guaranteed convergence, suggesting a promising paradigm for designing interpretable DNNs for IR tasks.},
+  cate_primary={learning},
+  cate_secondary={imaging},
+  selected={true},
+}
+
+@article{qin2025partial,
+  title={Partial Smoothness, Subdifferentials and Set-Valued Operators},
+  author={Qin, Ziqi and Liang, Jingwei},
+  site_members={ziqi_qin},
+  journal={arXiv preprint arXiv:2501.15540},
+  year={2025},
+  abbr={Preprint},
+  bibtex_show={true},
+  html={https://arxiv.org/abs/2501.15540},
+  abstract={Over the past decades, the concept "partial smoothness" has been playing as a powerful tool in several fields involving nonsmooth analysis, such as nonsmooth optimization, inverse problems and operation research, etc. The essence of partial smoothness is that it builds an elegant connection between the optimization variable and the objective function value through the subdifferential. Identifiability is the most appealing property of partial smoothness, as locally it allows us to conduct much finer or even sharp analysis, such as linear convergence or sensitivity analysis. However, currently the identifiability relies on non-degeneracy condition and exact dual convergence, which limits the potential application of partial smoothness. In this paper, we provide an alternative characterization of partial smoothness through only subdifferentials. This new perspective enables us to establish stronger identification results, explain identification under degeneracy and non-vanishing error. Moreover, we can generalize this new characterization to set-valued operators, and provide a complement definition of partly smooth operator proposed in [14].},
+  cate_primary={optimization},
+  selected={false},
+}
+
+% Year 2026 ---------------------------------------------------------------
+
+@article{shen2025composed,
+  title={A Composed Alternating Relaxed Projection Algorithm for Convex Feasibility Problems},
+  author={Shen, Yuting and Liang, Jingwei},
+  site_members={yuting_shen},
+  journal={Journal of Scientific Computing},
+  volume={109},
+  number={2},
+  publisher={Springer US},
+  year={2026},
+  abbr={Journal},
+  bibtex_show={true},
+  html={https://doi.org/10.1007/s10915-026-03474-7},
+  abstract={Feasibility problem aims to find a common point of two or more closed (convex) sets whose intersection is nonempty. In the literature, projection based algorithms are widely adopted to solve the problem, such as the method of alternating projection (MAP), and Douglas--Rachford splitting method (DR). The performance of the methods are governed by the geometric properties of the underlying sets. For example, the fixed-point sequence of the Douglas--Rachford splitting method exhibits a spiraling behavior when solving the feasibility problem of two subspaces, leading to a slow convergence speed and slower than MAP. However, when the problem at hand is non-polyhedral, DR can demonstrate significant faster performance. Motivated by the behaviors of the DR method, in this paper we propose a new algorithm for solving convex feasibility problems. The method is designed based on DR method by further incorporating a composition of projection and reflection. A non-stationary version of the method is also designed, aiming to achieve faster practical performance. Theoretical guarantees of the proposed schemes are provided and supported by numerical experiments.},
+  cate_primary={optimization},
+  selected={false},
+}
+
+@article{gao2025model,
+  title={Model Consistency of the Iterative Regularization of Dual Ascent for Low-Complexity Regularization},
+  author={Gao, Jie and Molinari, Cesare and Villa, Silvia and Liang, Jingwei},
+  site_members={jie_gao},
+  journal={Journal of Optimization Theory and Applications},
+  volume={210},
+  number={2},
+  publisher={Springer US},
+  year={2026},
+  abbr={Journal},
+  bibtex_show={true},
+  html={https://doi.org/10.1007/s10957-026-03073-4},
+  abstract={Regularization is a core component of modern inverse problems, as it helps establish the well-posedness of the solution of interest. Popular regularization approaches include variational regularization and iterative regularization. The former involves solving a variational optimization problem, which consists of a data-fidelity term and a regularization term, balanced by an appropriate weighting parameter. The latter mitigates overfitting to noise by selecting a suitable stopping time during the iterative process. A key topic in the study of regularization is the relationship between the regularized solution and the original ground truth. When the ground truth possesses a low-complexity structure referred to as the “model”, it can be shown that, under appropriate regularization promoting the same structure, the solution to the regularized problem is robust to small perturbations. This property is called “model consistency”. For variational regularization, model consistency in linear inverse problems has been studied in [42]. However, for iterative regularization, model consistency remains an open question. In this paper, building on recent developments in partial smoothness [42], we show that when the noise level is sufficiently small and an appropriate stopping criterion is used, iterative regularization is model consistent as well. Moreover, we show that the considered algorithm exhibits local linear behavior of the regularization. We provide numerical simulations to support our theoretical findings.},
+  cate_primary={optimization},
+  selected={false},
+}
+
+% Year 2024 ---------------------------------------------------------------
+
 @article{zhu2023federated,
   title={Federated Primal-Dual Fixed Point Algorithm},
   author={Zhu, Ya-Nan and Liang, Jingwei and Zhang, Xiaoqun},
-  journal={SIAM Journal on Mathematics of Data Science, accepted},
+  journal={SIAM Journal on Mathematics of Data Science},
+  volume={6},
+  number={4},
+  pages={1138--1172},
   year={2024},
+  publisher={Society for Industrial and Applied Mathematics},
   abbr={Journal},
   bibtex_show={true},
   html={https://arxiv.org/abs/2305.13604},
   abstract={Federated learning (FL) is a distributed learning paradigm that allows several clients to learn a global model without sharing their private data. In this paper, we generalize a primal dual fixed point (PDFP) \cite{PDFP} method to federated learning setting and propose an algorithm called Federated PDFP (FPDFP) for solving composite optimization problems. In addition, a quantization scheme is applied to reduce the communication overhead during the learning process. An $O(1/k)$ convergence rate (where is the communication round) of the proposed FPDFP is provided. Numerical experiments, including graph-guided logistic regression, 3D Computed Tomography (CT) reconstruction are considered to evaluate the proposed algorithm.},
   cate_primary={optimization},
   cate_secondary={learning},
-  selected={false},
+  selected={true},
 }
 
 @article{jiang2024scalable,
@@ -70,14 +269,14 @@
 @inproceedings{zhou2023robust,
   title={Robust Graph Representation Learning for Local Corruption Recovery},
   author={Zhou, Bingxin and Jiang, Yuanhong and Wang, Yuguang and Liang, Jingwei and Gao, Junbin and Pan, Shirui and Zhang, Xiaoqun},
-  booktitle={Proceedings of the ACM Web Conference},
+  booktitle={Proceedings of the ACM Web Conference (WWW)},
   pages={438--448},
   year={2023},
   abbr={Conference},
   bibtex_show={true},
   html={https://dl.acm.org/doi/abs/10.1145/3543507.3583399},
   abstract={The performance of graph representation learning is affected by the quality of graph input. While existing research usually pursues a globally smoothed graph embedding, we believe the rarely observed anomalies are as well harmful to an accurate prediction. This work establishes a graph learning scheme that automatically detects (locally) corrupted feature attributes and recovers robust embedding for prediction tasks. The detection operation leverages a graph autoencoder, which does not make any assumptions about the distribution of the local corruptions. It pinpoints the positions of the anomalous node attributes in an unbiased mask matrix, where robust estimations are recovered with sparsity promoting regularizer. The optimizer approaches a new embedding that is sparse in the framelet domain and conditionally close to input observations. Extensive experiments are provided to validate our proposed model can recover a robust graph representation from black-box poisoning and achieve excellent performance.},
-  cate_primary={learning},  
+  cate_primary={learning},
   cate_secondary={none},
   selected={false},
 }
@@ -136,7 +335,7 @@
 }
 
 @article{wei2022tfpnp,
-  title={TFPNP: Tuning-free Plug-and-Play Proximal Algorithms with Applications to Inverse Imaging Problems},
+  title={TFPNP: Tuning-Free Plug-And-Play Proximal Algorithms with Applications to Inverse Imaging Problems},
   author={Wei, Kaixuan and Aviles-Rivero, Angelica and Liang, Jingwei and Fu, Ying and Huang, Hua and Sch{\"o}nlieb, Carola-Bibiane},
   journal={Journal of Machine Learning Research},
   volume={23},
@@ -174,7 +373,7 @@
 % Year 2021 ---------------------------------------------------------------
 
 @article{bian2021stochastic,
-  title={A Stochastic Alternating Direction Method of Multipliers for Non-smooth and Non-convex Optimization},
+  title={A Stochastic Alternating Direction Method of Multipliers for Non-Smooth and Non-Convex Optimization},
   author={Bian, Fengmiao and Liang, Jingwei and Zhang, Xiaoqun},
   journal={Inverse Problems},
   volume={37},
@@ -209,7 +408,7 @@
 }
 
 @article{dutta2021adaptive,
-  title={An Adaptive Rank Continuation Algorithm for General Weighted Low-rank Recovery},
+  title={An Adaptive Rank Continuation Algorithm for General Weighted Low-Rank Recovery},
   author={Dutta, Aritra and Liang, Jingwei and Li, Xin},
   journal={arXiv preprint arXiv:2101.00749},
   year={2021},
@@ -226,16 +425,16 @@
 % Year 2020 ---------------------------------------------------------------
 
 @inproceedings{wei2020tuning,
-  title={Tuning-free Plug-and-Play Proximal Algorithm for Inverse Imaging Problems},
+  title={Tuning-Free Plug-And-Play Proximal Algorithm for Inverse Imaging Problems},
   author={Wei, Kaixuan and Aviles-Rivero, Angelica and Liang, Jingwei and Fu, Ying and Sch{\"o}nlieb, Carola-Bibiane and Huang, Hua},
-  booktitle={International Conference on Machine Learning <b>(ICML)</b>},
+  booktitle={International Conference on Machine Learning (ICML)},
   pages={10158--10169},
   year={2020},
   organization={PMLR},
   abbr={Conference},
   bibtex_show={true},
   html={https://proceedings.mlr.press/v119/wei20b.html},
-  abstract={ Plug-and-play (PnP) is a non-convex framework that combines ADMM or other proximal algorithms with advanced denoiser priors. Recently, PnP has achieved great empirical success, especially with the integration of deep learning-based denoisers. However, a key problem of PnP based approaches is that they require manual parameter tweaking. It is necessary to obtain high-quality results across the high discrepancy in terms of imaging conditions and varying scene content. In this work, we present a tuning-free PnP proximal algorithm, which can automatically determine the internal parameters including the penalty parameter, the denoising strength and the terminal time. A key part of our approach is to develop a policy network for automatic search of parameters, which can be effectively learned via mixed model-free and model-based deep reinforcement learning. We demonstrate, through numerical and visual experiments, that the learned policy can customize different parameters for different states, and often more efficient and effective than existing handcrafted criteria. Moreover, we discuss the practical considerations of the plugged denoisers, which together with our learned policy yield state-of-the-art results. This is prevalent on both linear and nonlinear exemplary inverse imaging problems, and in particular, we show promising results on Compressed Sensing MRI and phase retrieval. },
+  abstract={Plug-and-play (PnP) is a non-convex framework that combines ADMM or other proximal algorithms with advanced denoiser priors. Recently, PnP has achieved great empirical success, especially with the integration of deep learning-based denoisers. However, a key problem of PnP based approaches is that they require manual parameter tweaking. It is necessary to obtain high-quality results across the high discrepancy in terms of imaging conditions and varying scene content. In this work, we present a tuning-free PnP proximal algorithm, which can automatically determine the internal parameters including the penalty parameter, the denoising strength and the terminal time. A key part of our approach is to develop a policy network for automatic search of parameters, which can be effectively learned via mixed model-free and model-based deep reinforcement learning. We demonstrate, through numerical and visual experiments, that the learned policy can customize different parameters for different states, and often more efficient and effective than existing handcrafted criteria. Moreover, we discuss the practical considerations of the plugged denoisers, which together with our learned policy yield state-of-the-art results. This is prevalent on both linear and nonlinear exemplary inverse imaging problems, and in particular, we show promising results on Compressed Sensing MRI and phase retrieval.},
   award={This paper received the **Outstanding Paper Award** from [ICML2020](https://icml.cc/Conferences/2020/Awards).},
   award_name={Outstanding Paper Award},
   cate_primary={imaging},
@@ -258,7 +457,7 @@
 }
 
 @article{tovey2020fun,
-  title={The Fun is Finite: Douglas-Rachford and Sudoku Puzzle--Finite Termination and Local Linear Convergence},
+  title={The Fun Is Finite: Douglas-Rachford and Sudoku Puzzle--Finite Termination and Local Linear Convergence},
   author={Tovey, Robert and Liang, Jingwei},
   journal={Journal of Applied and Numerical Optimization},
   year={2020},
@@ -272,7 +471,7 @@
 }
 
 @article{dutta2020best,
-  title={Best Pair Formulation \& Accelerated Scheme for Non-convex Principal Component Pursuit},
+  title={Best Pair Formulation \& Accelerated Scheme for Non-Convex Principal Component Pursuit},
   author={Dutta, Aritra and Hanzely, Filip and Liang, Jingwei and Richt{\'a}rik, Peter},
   journal={IEEE Transactions on Signal Processing},
   year={2020},
@@ -286,13 +485,12 @@
   selected={false},
 }
 
-
 % Year 2019 ---------------------------------------------------------------
 
 @inproceedings{poon2019trajectory,
   title={Trajectory of Alternating Direction Method of Multipliers and Adaptive Acceleration},
   author={Poon, Clarice and Liang, Jingwei},
-  booktitle={Advances in Neural Information Processing Systems <b>(NeurIPS)</b>},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
   pages={7355--7363},
   year={2019},
   abbr={Conference},
@@ -301,6 +499,7 @@
   abstract={The alternating direction method of multipliers (ADMM) is one of the most widely used first-order optimisation methods in the literature owing to its simplicity, flexibility and efficiency. Over the years, numerous efforts are made to improve the performance of the method, such as the inertial technique. By studying the geometric properties of ADMM, we discuss the limitations of current inertial accelerated ADMM and then present and analyze an adaptive acceleration scheme for the method. Numerical experiments on problems arising from image processing, statistics and machine learning demonstrate the advantages of the proposed acceleration approach.},
   code={https://github.com/jliang993/A3DMM},
   highlights={Oral presentation},
+  highlights_detail={This paper was presented as an **oral presentation** at [NeurIPS2019](https://neurips.cc/Conferences/2019).},
   cate_primary={optimization},
   cate_secondary={imaging},
   selected={true},
@@ -328,7 +527,7 @@
 @inproceedings{poon2018local,
   title={Local Convergence Properties of SAGA/Prox-SVRG and Acceleration},
   author={Poon, Clarice and Liang, Jingwei and Sch{\"o}nlieb, Carola-Bibiane},
-  booktitle={International Conference on Machine Learning <b>(ICML)</b>},
+  booktitle={International Conference on Machine Learning (ICML)},
   pages={4124--4132},
   year={2018},
   abbr={Conference},
@@ -360,9 +559,8 @@
 
 % Year 2017 ---------------------------------------------------------------
 
-
 @article{liang2017activity,
-  title={Activity Identification and Local Linear Convergence of Forward--Backward-type Methods},
+  title={Activity Identification and Local Linear Convergence of Forward--Backward-Type Methods},
   author={Liang, Jingwei and Fadili, Jalal and Peyr{\'e}, Gabriel},
   journal={SIAM Journal on Optimization},
   volume={27},
@@ -413,8 +611,8 @@
   selected={true},
 }
 
-@article{liang2016convergence,
-  title={Convergence Rates with Inexact Non-expansive Operators},
+@article{liang2016inexact,
+  title={Convergence Rates with Inexact Non-Expansive Operators},
   author={Liang, Jingwei and Fadili, Jalal and Peyr{\'e}, Gabriel},
   journal={Mathematical Programming},
   volume={159},
@@ -432,9 +630,9 @@
 }
 
 @inproceedings{liang2016multi,
-  title={A Multi-step Inertial Forward-Backward Splitting Method for Non-convex Optimization},
+  title={A Multi-Step Inertial Forward-Backward Splitting Method for Non-Convex Optimization},
   author={Liang, Jingwei and Fadili, Jalal and Peyr{\'e}, Gabriel},
-  booktitle={Advances in Neural Information Processing Systems <b>(NeurIPS)</b>},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
   pages={4035--4043},
   year={2016},
   abbr={Conference},
@@ -451,7 +649,7 @@
 @inproceedings{liang2015activity,
   title={Activity Identification and Local Linear Convergence of Douglas--Rachford/ADMM under Partial Smoothness},
   author={Liang, Jingwei and Fadili, Jalal and Peyr{\'e}, Gabriel and Luke, Russell},
-  booktitle={International Conference on Scale Space and Variational Methods in Computer Vision  <b>(SSVM)</b>},
+  booktitle={International Conference on Scale Space and Variational Methods in Computer Vision (SSVM)},
   pages={642--653},
   year={2015},
   organization={Springer, Cham},
@@ -484,10 +682,10 @@
 
 % Year 2014 ---------------------------------------------------------------
 
-@article{liang2014local,
+@inproceedings{liang2014local,
   title={Local Linear Convergence of Forward--Backward under Partial Smoothness},
   author={Liang, Jingwei and Fadili, Jalal and Peyr{\'e}, Gabriel},
-  journal={Advances in Neural Information Processing Systems <b>(NeurIPS)</b>},
+  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
   volume={27},
   pages={1970--1978},
   year={2014},
@@ -501,7 +699,7 @@
 }
 
 @article{liang2014seismic,
-  title={Seismic Data Restoration via Data-driven Tight Frame},
+  title={Seismic Data Restoration via Data-Driven Tight Frame},
   author={Liang, Jingwei and Ma, Jianwei and Zhang, Xiaoqun},
   journal={Geophysics},
   volume={79},
@@ -519,7 +717,6 @@
 }
 
 % Year 2013 ---------------------------------------------------------------
-
 
 @article{liang2013wavelet,
   title={Wavelet Frame Based Color Image Demosaicing},

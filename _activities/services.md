@@ -1,7 +1,8 @@
 ---
-layout: page #page-event
+layout: page
 title: Services
+description: Academic and professional service activities by Jingwei Liang.
 yaml: services
 ---
 
-{% include activity_services.liquid %}
+{% include site/activity-services.liquid %}

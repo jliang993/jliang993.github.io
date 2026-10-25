@@ -1,52 +1,34 @@
 ---
 layout: page
-title: Teaching 
+title: Teaching
 permalink: /teaching/
-description: Under construction.
+description: Courses taught by Jingwei Liang.
 nav: true
 nav_order: 4
-horizontal: true
-display_categories: [Undergraduate course, Graduate course]
+display_categories: [Graduate course, Undergraduate course]
 ---
 
-<!-- For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course. -->
+<p class="site-page-lead">
+  Current and recent courses in optimization and mathematical programming. Course pages contain descriptions, references, and available teaching materials.
+</p>
 
-<!-- Organize your courses by years, topics, or universities, however you like! -->
-
-<!-- pages/teaching.md -->
-<div class="teaching">
-
-<!-- Display categorized projects -->
+<div class="site-course-directory">
   {% for category in page.display_categories %}
-
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h4 class="category">{{ category }}</h4>
-  </a>
-
-{% assign categorized_teaching = site.teaching | where: "category", category %}
-{% assign sorted_teaching = categorized_teaching | sort: "importance" %}
-
-<!-- Generate cards for each project -->
-{% if page.horizontal %}
-
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for teaching in sorted_teaching %}
-      {% include teaching_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-
-{% else %}
-
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for teaching in sorted_teaching %}
-      {% include teaching.liquid %}
-    {% endfor %}
-  </div>
-
-{% endif %}
-
-{% endfor %}
-
+    {% assign courses = site.teaching | where: 'category', category | sort: 'importance' %}
+    {% if courses.size > 0 %}
+      {% assign category_id = category | slugify %}
+      <section aria-labelledby="{{ category_id }}">
+        <h2 id="{{ category_id }}" class="site-section-title">{{ category | capitalize }}</h2>
+        <div class="site-course-directory__grid">
+          {% for course in courses %}
+            <article class="site-course-card">
+              <h3><a href="{{ course.url | relative_url }}">{{ course.title }}</a></h3>
+              {% if course.description %}<p>{{ course.description }}</p>{% endif %}
+              <a class="site-course-card__link" href="{{ course.url | relative_url }}">Course details <span aria-hidden="true">→</span></a>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  {% endfor %}
 </div>

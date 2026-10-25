@@ -1,0 +1,218 @@
+:root {
+  --global-text-color-light: #6c757d;
+  --site-surface-muted: color-mix(in srgb, var(--global-card-bg-color) 92%, var(--global-text-color) 8%);
+  --site-theme-soft: color-mix(in srgb, var(--global-theme-color) 12%, var(--global-bg-color));
+  --site-border: var(--global-divider-color);
+  --site-accent-fill: #9d078f;
+  --site-on-accent: #fff;
+  --site-accent-on-soft: #9d078f;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+// Keep the navigation content on the same horizontal grid as the page body.
+// The compatibility navbar adds 1rem of outer inline padding; when the
+// container is fluid at narrower widths, that shifts the brand and controls
+// inward relative to <main class="container">.
+.navbar {
+  padding-inline: 0;
+}
+
+html[data-theme="dark"] {
+  --global-text-color-light: #b8bec5;
+  --site-accent-fill: #006b85;
+  --site-accent-on-soft: #71c7df;
+}
+
+p a:not(.btn),
+.post article > ul a:not(.btn),
+.post article > ol a:not(.btn),
+footer a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.site-skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1100;
+  padding: 0.65rem 0.9rem;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  background: #000;
+  border-radius: 0.25rem;
+  transform: translateY(-160%);
+}
+
+.site-skip-link:focus {
+  color: #fff;
+  transform: translateY(0);
+}
+
+.navbar .navbar-collapse-main {
+  display: none;
+}
+
+.navbar .navbar-collapse-main.show {
+  display: block;
+  visibility: visible;
+}
+
+@media (min-width: 768px) {
+  .navbar-expand-md .navbar-collapse-main {
+    flex-basis: auto;
+    width: auto;
+    display: flex !important;
+    visibility: visible;
+  }
+
+  .navbar-expand-md .navbar-nav {
+    flex-direction: row;
+  }
+
+  .navbar-expand-md .navbar-nav .dropdown-menu {
+    position: absolute;
+  }
+
+  .navbar-expand-md .navbar-nav .nav-link {
+    padding: 0.5rem;
+  }
+
+  .navbar-expand-md .navbar-toggler {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .navbar .navbar-brand {
+    flex: 0 1 auto;
+    max-width: calc(100% - 3.5rem);
+    overflow: hidden;
+    font-size: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navbar .navbar-brand::after {
+    font-size: 1.25rem;
+    content: "J. Liang";
+  }
+
+  .navbar .navbar-toggler-main {
+    display: block !important;
+    flex: 0 0 auto;
+    margin-left: auto;
+    visibility: visible !important;
+  }
+
+  .navbar .navbar-toggler-main .icon-bar {
+    display: block !important;
+  }
+}
+
+.site-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.site-section-title,
+h3.section-title {
+  padding-top: 0.75rem;
+  margin: 0.75rem 0 1rem;
+  color: var(--global-text-color);
+  font-size: 1.35rem;
+  text-align: left;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.site-section-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-section-title a:hover {
+  color: var(--global-theme-color);
+}
+
+.site-page-lead {
+  width: 100%;
+  max-width: none;
+  margin: 0 0 2rem;
+  color: var(--global-text-color-light);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.site-section-heading {
+  display: flex;
+  gap: 1rem;
+  align-items: end;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--site-border);
+}
+
+.site-section-heading .site-section-title {
+  flex: 1 1 auto;
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.site-section-heading > a {
+  flex: 0 0 auto;
+  padding-bottom: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-action-link {
+  display: inline-flex;
+  min-height: 2.65rem;
+  padding: 0.65rem 1rem;
+  color: var(--global-text-color);
+  font-weight: 650;
+  line-height: 1.2;
+  text-decoration: none;
+  border: 1px solid var(--site-border);
+  border-radius: 999px;
+}
+
+.site-action-link:hover,
+.site-action-link:focus-visible {
+  color: var(--global-theme-color);
+  border-color: var(--global-theme-color);
+}
+
+.site-action-link--primary {
+  color: var(--site-on-accent);
+  background: var(--site-accent-fill);
+  border-color: var(--site-accent-fill);
+}
+
+.site-action-link--primary:hover,
+.site-action-link--primary:focus-visible {
+  color: var(--site-on-accent);
+  filter: brightness(1.08);
+}
+
+@media (max-width: 560px) {
+  .site-section-heading {
+    display: block;
+  }
+
+  .site-section-heading > a {
+    display: inline-block;
+    padding: 0 0 0.65rem;
+  }
+}

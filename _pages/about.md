@@ -1,138 +1,51 @@
 ---
-layout: about
-title: About
+layout: site-home
+title: Home
 permalink: /
-subtitle: <a href='#'><b>Affiliation</b></a> Institute of Natural Sciences, Shanghai Jiao Tong University
-
-profile:
-  align: left
+hero:
+  eyebrow: Shanghai Jiao Tong University
+  title: Jingwei Liang (梁经纬)
+  text: Tenure-track Associate Professor working on mathematical optimization, data science, and image processing.
   image: people/jingwei.jpeg
-  image_circular: false # crops the image to make it circular
-  # more_info: >
-  #   <p>firstname dot lastname AT sjtu dot edu dot cn</p>
-  #   <p>Room 355, No. 6 Science Building</p>
-  #   <p>800 Dongchuan Road, Minhang District, Shanghai 200240, China</p>
-
-# experience:
-#  - year: 2021.07 - Now
-#    title: Tenure-track Associate Professor
-#    institute: Institute of Natural Science and School of Mathematical Sciences, Shanghai Jiao Tong University, Shanghai China 
-#  - year: 2020.11 - 2021.06
-#    title: Lecturer in Mathematical Data Science
-#    institute: School of Mathematical Sciences, Queen Mary University of London, London UK
-#  - year: 2017.04 - 2020.08
-#    title: Postdoc Research Associate
-#    institute: Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge UK
-#  - 2013.10 - 2017.01
-#    title: Ph.D. in Mathematics
-#    institute: GREYC, ENSICAEN and Université de Caen Normandie, Caen France
-
-news: true # includes a list of news items
-recent_papers: true # includes a list of papers marked as "selected={true}"
-selected_papers: false # includes a list of papers marked as "selected={true}"
-social: false # includes social icons at the bottom of the page
+  image_alt: Portrait of Jingwei Liang
+  actions:
+    - label: View publications
+      url: /publications/
+      primary: true
+    - label: Meet the group
+      url: /people/
+    - label: Teaching
+      url: /teaching/
+news: true
+recent_papers: true
 ---
 
+Welcome to my homepage. I am a tenure-track associate professor at the [Institute of Natural Sciences](https://ins.sjtu.edu.cn/) and the [School of Mathematical Sciences](https://www.math.sjtu.edu.cn/), [Shanghai Jiao Tong University](https://www.sjtu.edu.cn/). I am a member of the [Lab for Imaging, Machine Learning and Optimization (LIMO)](https://limo-sjtu.github.io/).
 
-Welcome to my homepage! 
+My research interests include nonsmooth optimization, data science, and mathematical image processing.
 
-I'm currently a tenure-track associate professor at [Institute of Natural Sciences](https://ins.sjtu.edu.cn/) and [School of Mathematical Sciences](https://www.math.sjtu.edu.cn), [Shanghai Jiao Tong University](https://www.sjtu.edu.cn). 
-I am a member of the **[Image and Optimization Group](https://insimaging.github.io/)**. 
-My main research interests are non-smooth optimization, data sciences and mathematical image processing. 
+### Contact
 
-<p style="padding: 1rem"></p>
+- E-mail: firstname dot lastname AT sjtu dot edu dot cn
+- Office: Room 355, No. 6 Science Building
 
-##### Contact
- - E-mail: firstname dot lastname AT sjtu dot edu dot cn
- - Office: Room 355, No. 6 Science Building
+### Academic experience
 
-
-##### Short-bio
-
-<!-- - 2021.07 - Now: **Tenure-track Associate Professor**
-   - Institute of Natural Science and School of Mathematical Sciences, Shanghai Jiao Tong University, Shanghai China 
- - 2020.11 - 2021.06: **Lecturer in Mathematical Data Science**
-   - School of Mathematical Sciences, Queen Mary University of London, London UK
- - 2017.04 - 2020.08: **Postdoc Research Associate**
-   - Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge UK
- - 2013.10 - 2017.01: **Ph.D. in Mathematics**
-   - GREYC, ENSICAEN and Université de Caen Normandie, Caen France -->
-
-
-<div class="news">
-  <div class="table-shortbio">
-    <table>
-      <!-- <thead>
-        <tr>
-          <th class="percentage-width">Header 1</th>
-          <th>Header 2</th>
-        </tr>
-      </thead> -->
-      <tbody>
-        <tr>
-          <td class="percentage-width-shortbio">
-            <h6 class="" style="font-size:0.9rem;padding-top:1px;">
-            <b>2021.07 - Now</b>
-            </h6>
-          </td>
-          <td>
-            <h6>
-            <b>Tenure-track Associate Professor</b>
-            </h6>
-            <h6 style="font-size: 0.95rem; padding-bottom:0px; margin-bottom:0px;">
-              Institute of Natural Science and School of Mathematical Sciences, Shanghai Jiao Tong University, Shanghai China 
-            </h6>
-          </td>
-        </tr>
-        <!--  -->
-        <tr>
-          <td class="percentage-width-shortbio">
-            <h6 class="" style="font-size:0.9rem;padding-top:1px;">
-            <b>2020.11 - 2021.06</b>
-            </h6>
-          </td>
-          <td>
-            <h6>
-            <b>Lecturer in Mathematical Data Science</b>
-            </h6>
-            <h6 style="font-size: 0.95rem; padding-bottom:0px; margin-bottom:0px;">
-              School of Mathematical Sciences, Queen Mary University of London, London UK
-            </h6>
-          </td>
-        </tr>
-        <!--  -->
-        <tr>
-          <td class="percentage-width-shortbio">
-            <h6 class="" style="font-size:0.9rem;padding-top:1px;">
-            <b>2017.04 - 2020.08</b>
-            </h6>
-          </td>
-          <td>
-            <h6>
-            <b>Postdoc Research Associate</b>
-            </h6>
-            <h6 style="font-size: 0.95rem; padding-bottom:0px; margin-bottom:2px;">
-              Department of Applied Mathematics and Theoretical Physics, University of Cambridge, Cambridge UK
-            </h6>
-          </td>
-        </tr>
-        <!--  -->
-        <tr>
-          <td class="percentage-width-shortbio">
-            <h6 class="" style="font-size:0.9rem;padding-top:1px;">
-            <b>2013.10 - 2017.01</b>
-            </h6>
-          </td>
-          <td>
-            <h6>
-            <b>Ph.D. in Mathematics</b>
-            </h6>
-            <h6 style="font-size: 0.95rem;">
-              GREYC, ENSICAEN and Université de Caen Normandie, Caen France
-            </h6>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<dl class="site-profile-timeline">
+  <div>
+    <dt>2021.07–present</dt>
+    <dd><strong>Tenure-track Associate Professor</strong><br>Institute of Natural Sciences and School of Mathematical Sciences, Shanghai Jiao Tong University, China</dd>
   </div>
-</div>
+  <div>
+    <dt>2020.11–2021.06</dt>
+    <dd><strong>Lecturer in Mathematical Data Science</strong><br>School of Mathematical Sciences, Queen Mary University of London, UK</dd>
+  </div>
+  <div>
+    <dt>2017.04–2020.08</dt>
+    <dd><strong>Postdoctoral Research Associate</strong><br>Department of Applied Mathematics and Theoretical Physics, University of Cambridge, UK</dd>
+  </div>
+  <div>
+    <dt>2013.10–2017.01</dt>
+    <dd><strong>PhD in Mathematics</strong><br>GREYC, ENSICAEN and Université de Caen Normandie, France</dd>
+  </div>
+</dl>

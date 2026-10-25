@@ -4,7 +4,7 @@
     - name: Email Address
       value: yifanbai at sjtu dot edu dot cn # do not use the full email address to avoid spam
     - name: Address
-      value: Room 402, No.6 Sicence Building
+      value: Room 402, No. 6 Science Building
     - name: Research Interests
       value: Non-smooth optimization, image processing, machine learning, mathematical formalization
 
@@ -22,7 +22,7 @@
   type: time_table
   contents:
     - title: Mathematical Formalization
-      year: 2024.07 - now
+      year: 2024.07 - Present
       description: Formalization of convergence analysis of algorithms in optimization using Lean4
 
     - title: Algorithm Engineer (Internship) at HUAWEI

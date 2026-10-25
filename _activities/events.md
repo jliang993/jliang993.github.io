@@ -1,10 +1,10 @@
 ---
-layout: page #page-event
-title: Events organized 
+layout: page
+title: Events organized
+description: Workshops, conferences, and scientific events organized by Jingwei Liang.
 yaml: events
 ---
 
+Selected workshops, conferences, and scientific events I have helped organize are listed below.
 
-I have been actively involving in organizing events, see below the list. 
-
-{% include activity_events.liquid %}
+{% include site/activity-events.liquid %}

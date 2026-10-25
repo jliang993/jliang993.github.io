@@ -7,22 +7,23 @@ on:
       - main
     paths:
       - "assets/**"
+      - "_plugins/**"
+      - "_sass/**"
       - "**.bib"
       - "**.html"
       - "**.js"
       - "**.liquid"
       - "**/*.md"
       - "**.yml"
+      - "scripts/**"
       - "Gemfile"
       - "Gemfile.lock"
+      - "package.json"
+      - "package-lock.json"
+      - "purgecss.config.js"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
       - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
       - "!CONTRIBUTING.md"
       - "!CUSTOMIZE.md"
       - "!FAQ.md"
@@ -34,22 +35,23 @@ on:
       - main
     paths:
       - "assets/**"
+      - "_plugins/**"
+      - "_sass/**"
       - "**.bib"
       - "**.html"
       - "**.js"
       - "**.liquid"
       - "**/*.md"
       - "**.yml"
+      - "scripts/**"
       - "Gemfile"
       - "Gemfile.lock"
+      - "package.json"
+      - "package-lock.json"
+      - "purgecss.config.js"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/broken-links.yml"
-      - "!.github/workflows/deploy-docker-tag.yml"
-      - "!.github/workflows/deploy-image.yml"
-      - "!.github/workflows/docker-slim.yml"
-      - "!.github/workflows/lighthouse-badger.yml"
       - "!.github/workflows/prettier.yml"
-      - "!lighthouse_results/**"
       - "!CONTRIBUTING.md"
       - "!CUSTOMIZE.md"
       - "!FAQ.md"
@@ -66,28 +68,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2.2"
+          ruby-version: "3.3.5"
           bundler-cache: true
-      - name: Update _config.yml ⚙️
-        uses: fjogeleit/yaml-update-action@main
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v6
         with:
-          commitChange: false
-          valueFile: "_config.yml"
-          propertyPath: "giscus.repo"
-          value: ${{ github.repository }}
-      - name: Install and Build 🔧
+          node-version: "22"
+          cache: npm
+      - name: Install Node dependencies 💾
+        env:
+          CHROMEDRIVER_SKIP_DOWNLOAD: "true"
+        run: npm ci
+      - name: Validate structured content ✅
+        run: ruby scripts/validate_content.rb
+      - name: Audit al-folio compatibility 🔎
         run: |
-          pip3 install --upgrade jupyter
+          bundle exec al-folio upgrade audit
+          bundle exec al-folio upgrade overrides audit --fail-on-stale
+      - name: Update _config.yml ⚙️
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          ruby -ryaml -e '
+            config = YAML.load_file("_config.yml")
+            config["giscus"] ||= {}
+            config["giscus"]["repo"] = ENV.fetch("GITHUB_REPOSITORY")
+            File.write("_config.yml", config.to_yaml)
+          '
+      - name: Build 🔧
+        run: |
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
-        run: |
-          npm install -g purgecss
-          purgecss -c purgecss.config.js
+        run: npx purgecss -c purgecss.config.js
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

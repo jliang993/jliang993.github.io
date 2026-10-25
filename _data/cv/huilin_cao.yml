@@ -2,11 +2,11 @@
   type: map
   contents:
     - name: Email Address
-      value: caohuilin2022@sjtu.edu.cn # emailname at sjtu dot edu dot cn # do not use the full email address to avoid spam
+      value: caohuilin2022 at sjtu dot edu dot cn # do not use the full email address to avoid spam
     # - name: Address
     #   value: # Room xx, No.6 Sicence Building
     - name: Research Interests
-      value: machine learning, dictionary learning, computational electronmagnetism
+      value: machine learning, dictionary learning, computational electromagnetism
 
 # - title: Experience # this is for working experience
 #   type: time_table
@@ -28,13 +28,12 @@
 #         - Description 1.
 #         - Description 2.
 
-
 - title: Education
   type: time_table
   contents:
     - title: PhD in Mathematics
       institution: Institute of Natural Sciences, Shanghai Jiao Tong University
-      year: 2024.09 - Now
+      year: 2024.09 - Present
     - title: Master in Mathematics
       institution: School of Mathematical Sciences, Shanghai Jiao Tong University
       year: 2022.09 - 2024.06
@@ -49,9 +48,8 @@
       institution: School of Mathematics and Statistics, Huazhong University of Science and Technology
       year: 2018.09 - 2022.06
       # description:
-      #   - Description 1. 
-        # - Description 2. 
-
+      #   - Description 1.
+      # - Description 2.
 # - title: Research Experience & Internships
 #   type: time_table
 #   contents:

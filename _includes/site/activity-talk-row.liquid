@@ -1,0 +1,41 @@
+{% assign item = include.item %}
+<article class="site-activity-item">
+  <div class="site-activity-item__meta">
+    <time class="site-activity-item__date" datetime="{{ item.start_date }}">
+      {{- item.date_display -}}
+    </time>
+    {% if item.slides -%}
+      <a class="site-activity-item__slides" href="{{ item.slides | relative_url }}">Slides</a>
+    {%- endif %}
+  </div>
+  <div class="site-activity-item__body">
+    <h3>{{ item.title }}</h3>
+    {% if item.session %}
+      <p
+        {% if item.lang %}
+          lang="{{ item.lang }}"
+        {% endif %}
+      >
+        {% if item.session_url -%}
+          <a href="{{ item.session_url }}">{{ item.session }}</a>
+        {%- else -%}
+          {{- item.session -}}
+        {%- endif %}
+      </p>
+    {% endif %}
+    <p
+      {% if item.lang %}
+        lang="{{ item.lang }}"
+      {% endif %}
+    >
+      {% if item.conf_url -%}
+        <a href="{{ item.conf_url }}">{{ item.conference }}</a>
+      {%- else -%}
+        {{- item.conference -}}
+      {%- endif %}
+      {% if item.location -%}
+        <span aria-hidden="true"> · </span>{{ item.location -}}
+      {%- endif %}
+    </p>
+  </div>
+</article>
