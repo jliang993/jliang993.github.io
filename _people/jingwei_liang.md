@@ -5,7 +5,7 @@ member_id: jingwei_liang
 name_zh: 梁经纬
 sort_name: Liang Jingwei
 description: Tenure-track Associate Professor at Shanghai Jiao Tong University.
-img: jingwei.jpeg
+img: jingwei.jpg
 importance: 1
 category: Faculty
 status: current

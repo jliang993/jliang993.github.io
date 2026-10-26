@@ -6,7 +6,7 @@ hero:
   eyebrow: Shanghai Jiao Tong University
   title: Jingwei Liang (梁经纬)
   text: Tenure-track Associate Professor working on mathematical optimization, data science, and image processing.
-  image: people/jingwei.jpeg
+  image: people/jingwei.jpg
   image_alt: Portrait of Jingwei Liang
   actions:
     - label: View publications
