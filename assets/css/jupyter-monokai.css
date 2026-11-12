@@ -322,6 +322,8 @@ h3,
 h4,
 pre,
 code,
+fieldset,
+legend,
 input,
 button,
 textarea,
@@ -418,4 +420,23 @@ pre {
   border-radius: 2px;
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+
+.MathJax {
+  border: 0 !important;
+  font-size: 100% !important;
+  text-align: center !important;
+  margin: 0em !important;
+  line-height: 2.25 !important;
+}
+
+.MathJax:focus,
+body :focus .MathJax {
+  display: inline-block !important;
+}
+
+.MathJax:focus,
+body :focus .MathJax {
+  display: inline-block !important;
 }
