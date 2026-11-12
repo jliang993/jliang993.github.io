@@ -10,3 +10,7 @@ extra/
 lighthouse_results/**
 _posts/2015-10-20-math.md
 _sass/font-awesome/*.scss
+
+# Generated MATH6015 pages contain pre-typeset MathJax SVG.
+_teaching/math6015.md
+assets/teaching/math6015/optimization-lab.html
