@@ -8,7 +8,7 @@
   const counts = { dualsteps: 12, lassoadmm: 32, consensusadmm: 32, dualscalar: 40, tvpdhg: 40 };
   const range = (key, label, min, max, step, value) => ({ key, label, min, max, step, value, type: "range" });
   const progress = (max, value) => range("k", String.raw`迭代步 \(k\)`, 0, max, 1, value);
-  const alpha = range("alpha", String.raw`步长 \(\alpha\)`, 0.05, 1.75, 0.05, 0.4);
+  const ascentStep = range("alpha", String.raw`对偶上升步长 \(t\)`, 0.05, 1.75, 0.05, 0.4);
   const rho = range("rho", String.raw`罚参数 \(\rho\)`, 0.25, 8, 0.25, 1);
   const definition = (id, title, question, source, controls) => ({
     id,
@@ -23,9 +23,9 @@
     definition(
       "dualsteps",
       "对偶上升的步长与振荡",
-      String.raw`依次输入 \(\alpha=0.4,0.8,1.4,1.6,1.7\)，比较乘子误差的符号和幅度。`,
+      String.raw`依次输入 \(t=0.4,0.8,1.4,1.6,1.7\)，比较乘子误差的符号和幅度。`,
       "补充讲义 · 二次资源分配例 (E)",
-      [alpha, range("y0", String.raw`初始乘子 \(y^{(0)}\)`, -1, 4, 0.1, 0), progress(counts.dualsteps, 8)]
+      [ascentStep, range("y0", String.raw`初始乘子 \(\nu^{(0)}\)`, -1, 4, 0.1, 0), progress(counts.dualsteps, 8)]
     ),
     definition(
       "lassoadmm",
@@ -46,7 +46,7 @@
       "同一二次例的四种算法",
       String.raw`选择「可行性残差」和「KKT 残差」比较同一步的表现。提高 \(\rho\) 时，两条曲线怎样变化？`,
       "补充讲义 · 二次资源分配例 (E)",
-      [alpha, rho, progress(counts.dualscalar, 8)]
+      [ascentStep, rho, progress(counts.dualscalar, 8)]
     ),
     definition(
       "tvpdhg",
@@ -205,18 +205,18 @@
     if (id === "dualsteps") {
       const { path, factor } = dualSteps(s),
         now = path[s.k];
-      const curves = [series(String.raw`乘子误差 \(y^{(k)}-y^\star\)`, colors.blue, path, (p) => p.error)];
-      const svg = history("error", "乘子误差", curves, String.raw`\(y^{(k)}-y^\star\)`, { reference: 0 });
-      const notice = String.raw`误差每步乘以 \(1-\tfrac54\alpha\)。因子为负时误差变号，绝对值大于 \(1\) 时误差放大。`;
+      const curves = [series(String.raw`乘子误差 \(\nu^{(k)}-\nu^\star\)`, colors.blue, path, (p) => p.error)];
+      const svg = history("error", "乘子误差", curves, String.raw`\(\nu^{(k)}-\nu^\star\)`, { reference: 0 });
+      const notice = String.raw`误差每步乘以 \(1-\tfrac54t\)。因子为负时误差变号，绝对值大于 \(1\) 时误差放大。`;
       return {
         state: s,
         svg,
         notice,
         data: { path, factor },
         metrics: [
-          metric(String.raw`当前乘子 \(y^{(k)}\)`, now.y),
-          metric(String.raw`误差乘数 \(1-\tfrac54\alpha\)`, factor),
-          metric(String.raw`对偶目标 \(q(y^{(k)})\)`, now.value),
+          metric(String.raw`当前乘子 \(\nu^{(k)}\)`, now.y),
+          metric(String.raw`误差乘数 \(1-\tfrac54t\)`, factor),
+          metric(String.raw`对偶目标 \(g(\nu^{(k)})\)`, now.value),
         ],
       };
     }
@@ -227,18 +227,20 @@
         series(String.raw`数据步 \(x^{(k)}\)`, colors.blue, path, (p) => p.x),
         series(String.raw`软阈值步 \(z^{(k)}\)`, colors.green, path, (p) => p.z),
       ];
+      const primalLabel = String.raw`原始残差 \(|r_{\rm pri}|\)`,
+        dualLabel = String.raw`对偶残差 \(|r_{\rm dual}|\)`;
       const errors = [
-        series(String.raw`原始残差 \(|r|\)`, colors.blue, path, (p) => logResidual(p.primal), 1),
-        series(String.raw`对偶残差 \(|s|\)`, colors.green, path, (p) => logResidual(p.dual), 1),
+        series(primalLabel, colors.blue, path, (p) => logResidual(p.primal), 1),
+        series(dualLabel, colors.green, path, (p) => logResidual(p.dual), 1),
       ];
       const svg =
         history("variables", "变量轨迹", variables, String.raw`\(x^{(k)},\,z^{(k)}\)`, { reference: solution }) +
         history("residuals", "残差曲线", errors, String.raw`\(\log_{10}|\text{残差}|\)`, { log: true });
       const notice = String.raw`变量图中的虚线是解析解。软阈值步使用 \(\lambda/\rho\)，残差从第 \(1\) 步开始比较。`;
-      const details = String.raw`<p>\(x^{(k+1)}=(6+\rho(z^{(k)}-u^{(k)}))/(4+\rho)\)，\(z^{(k+1)}=\operatorname{soft}_{\lambda/\rho}(x^{(k+1)}+u^{(k)})\)。</p><p>原始残差大小为 \(|x^{(k)}-z^{(k)}|\)，对偶残差大小为 \(\rho|z^{(k)}-z^{(k-1)}|\)。对数图以 \(10^{-12}\) 为显示下限。</p>`;
+      const details = String.raw`<p>\(x^{(k+1)}=(6+\rho(z^{(k)}-u^{(k)}))/(4+\rho)\)，\(z^{(k+1)}=S_{\lambda/\rho}(x^{(k+1)}+u^{(k)})\)。</p><p>原始残差大小为 \(|r_{\rm pri}^{(k)}|=|x^{(k)}-z^{(k)}|\)，对偶残差大小为 \(|r_{\rm dual}^{(k)}|=\rho|z^{(k)}-z^{(k-1)}|\)。对数图以 \(10^{-12}\) 为显示下限。</p>`;
       const keys = [
-        [String.raw`数据步 \(x^{(k)}\) · 原始残差 \(|r|\)`, colors.blue],
-        [String.raw`软阈值步 \(z^{(k)}\) · 对偶残差 \(|s|\)`, colors.green],
+        [variables[0].name + " · " + primalLabel, colors.blue],
+        [variables[1].name + " · " + dualLabel, colors.green],
       ];
       return {
         state: s,
@@ -250,7 +252,7 @@
         metrics: [
           metric(String.raw`数据步 \(x^{(k)}\)`, now.x),
           metric(String.raw`软阈值步 \(z^{(k)}\)`, now.z),
-          metric(String.raw`原始残差 \(|r|\)`, now.primal),
+          metric(primalLabel, now.primal),
           metric(String.raw`解析解 \(x^\star\)`, solution),
         ],
       };
@@ -287,18 +289,18 @@
           "feasible",
           "可行性残差",
           lines((p) => logResidual(p.feasibility)),
-          String.raw`\(\log_{10}|x+z-2|\)`,
+          String.raw`\(\log_{10}|r_{\rm pri}|\)`,
           { log: true }
         ) +
         history(
           "multiplier",
           "乘子误差",
           lines((p) => p.y - optimum.y),
-          String.raw`\(y^{(k)}-y^\star\)`,
+          String.raw`\(\nu^{(k)}-\nu^\star\)`,
           { reference: 0 }
         );
       const notice = String.raw`乘子法和 ADMM 共用 \(\rho\)。PDHG 固定 \((\tau,\sigma,\theta)=(0.25,0.5,1)\)。`;
-      const details = String.raw`<p>各方法从零点开始。前三种更新口径与原讲义残差图一致。\(R_{\mathrm{KKT}}\) 同时测量可行性和两条驻点条件。对数图以 \(10^{-12}\) 为显示下限。</p><p>改变 \(\alpha\) 只改变对偶上升，改变 \(\rho\) 只改变两种增广方法。</p>`;
+      const details = String.raw`<p>各方法从零点开始。前三种更新口径与原讲义残差图一致。\(R_{\mathrm{KKT}}\) 同时测量可行性和两条驻点条件。\(r_{\rm pri}=x+z-2\)。对数图以 \(10^{-12}\) 为显示下限。</p><p>改变 \(t\) 只改变对偶上升，改变 \(\rho\) 只改变两种增广方法。</p>`;
       const metrics = methods.map(({ name, path }) => metric(name + String.raw` \(R_{\mathrm{KKT}}\)`, path[s.k].kkt));
       return { state: s, svg, notice, details, legend: legend(kkt), data: methods, metrics };
     }
@@ -312,11 +314,13 @@
     profile.path(signal, colors.blue, 2.8);
     signal.forEach((p) => profile.dot(p, "", colors.blue));
     const gap = [series("对偶间隙", colors.orange, path, (p) => logResidual(p.gap))];
-    const svg = figure(profile, "信号与观测") + history("gap", "最优性证书", gap, String.raw`\(\log_{10}(F(x)-q(y))\)`, { log: true });
-    const notice = String.raw`灰色虚线为观测 \((0,2,0)\)。对偶更新逐分量投影到 \([-\lambda,\lambda]\)。`;
+    const svg =
+      figure(profile, "信号与观测") +
+      history("gap", "最优性证书", gap, String.raw`\(\log_{10}(f_0(\boldsymbol{x})-g(\boldsymbol{y}))\)`, { log: true });
+    const notice = String.raw`灰色虚线为观测 \(\boldsymbol{b}=(0,2,0)^\top\)。对偶更新使用投影 \(P_{C_\lambda}\)，其中 \(C_\lambda=[-\lambda,\lambda]^2\)。`;
     const details = String.raw`<p>三点差分矩阵的 \(\|D\|_2^2=3\)。当前步长满足 \(\tau\sigma\|D\|_2^2=${fmt(
       condition
-    )}<1\)。</p><p>对偶可行点给出下界 \(q(y)=b^\top D^\top y-\tfrac12\|D^\top y\|^2\)。对数图显示 \(F(x)-q(y)\)，下限为 \(10^{-12}\)。</p>`;
+    )}<1\)。</p><p>对偶可行点给出下界 \(g(\boldsymbol{y})=\boldsymbol{b}^\top D^\top\boldsymbol{y}-\tfrac12\|D^\top\boldsymbol{y}\|_2^2\)。对数图显示 \(f_0(\boldsymbol{x})-g(\boldsymbol{y})\)，下限为 \(10^{-12}\)。</p>`;
     return {
       state: s,
       svg,
@@ -325,8 +329,8 @@
       data: { path, condition },
       metrics: [
         metric(String.raw`中间样本 \(x_2^{(k)}\)`, now.x[1]),
-        { label: String.raw`对偶投影 \(y^{(k)}\)`, value: String.raw`\((${now.y.map((v) => fmt(v)).join(",\\,")})\)` },
-        metric(String.raw`间隙 \(F(x^{(k)})-q(y^{(k)})\)`, now.gap),
+        { label: String.raw`对偶投影 \(\boldsymbol{y}^{(k)}\)`, value: String.raw`\((${now.y.map((v) => fmt(v)).join(",\\,")})^\top\)` },
+        metric(String.raw`间隙 \(f_0(\boldsymbol{x}^{(k)})-g(\boldsymbol{y}^{(k)})\)`, now.gap),
       ],
     };
   }
