@@ -11,5 +11,6 @@ node_modules
 __pycache__/
 *.pyc
 vendor
+!assets/teaching/math6015/vendor/
 .idea
 extra/

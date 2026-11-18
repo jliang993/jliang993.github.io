@@ -3,7 +3,7 @@
   const D = root.ChapterExamples,
     math = root.LectureMath,
     instances = new Map();
-  const doc = document.querySelector('meta[name="review-document"]').content,
+  const doc = document.body.dataset.lecture,
     key = "math6015." + doc + ".labs.v1";
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   let restored = {},
