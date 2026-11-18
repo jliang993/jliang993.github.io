@@ -6,6 +6,7 @@
   const More = root.ChapterMoreExamples || (typeof require === "function" ? require("./chapter-more-experiments.js") : null);
   const Nonquadratic = root.ChapterNonquadratic || (typeof require === "function" ? require("./chapter-nonquadratic.js") : null);
   const Spine = root.ChapterSpineExamples || (typeof require === "function" ? require("./chapter-spine-experiments.js") : null);
+  const Dual = root.ChapterDualExperiments || (typeof require === "function" ? require("./chapter-dual-experiments.js") : null);
   const esc = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   const fmt = (v, d = 3) =>
     !Number.isFinite(v)
@@ -305,7 +306,7 @@
     Nonquadratic.def
   );
   for (const d of Spine.defs) defs.splice(defs.findIndex((v) => v.chapter === d.chapter) + (d.chapter === "03" ? 1 : 0), 0, d);
-  const definitions = new Map([...defs, ...(More.lectureDefs || [])].map((d) => [d.id, d]));
+  const definitions = new Map([...defs, ...(More.lectureDefs || []), ...(Dual?.defs || [])].map((d) => [d.id, d]));
   const getDefinition = (id) => definitions.get(id);
   definitions.forEach((d) => {
     d.pointBounds = d.pointBounds || (d.id === "norms" ? [-1.6, 1.6, -1.3, 1.3] : [-3.5, 3.5, -2.3, 2.3]);
@@ -564,6 +565,7 @@
       legend = [],
       notice = "",
       data;
+    if (Dual?.ids.has(id)) return Dual.render(id, s, { Plot, colors, fmt });
     if (Spine.ids.has(id)) return Spine.render(id, s, { Plot, colors, fmt });
     if (id === "nonquadratic") return Nonquadratic.render(s, { Plot, colors, fmt });
     if (More.ids.has(id)) return More.render(id, s, { Plot, colors, fmt });
