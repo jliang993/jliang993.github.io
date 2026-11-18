@@ -338,6 +338,19 @@
   margin-top: 8px;
   padding-top: 8px;
 }
+.course-deck [data-lab="supporting-duality"] .lab-metrics {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.course-deck [data-lab="supporting-duality"] .lab-hint {
+  font-size: 15px;
+  color: var(--ink);
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .reading .course-deck [data-lab="supporting-duality"] .lab-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 .course-deck .lab-metric span {
   font-size: 12px;
 }
@@ -353,6 +366,26 @@
   font-size: 22px;
   flex-wrap: wrap;
   gap: 0.1em 1.4em;
+}
+.course-deck .lab-source-text {
+  display: grid;
+  gap: 7px;
+  font-size: 20px;
+  line-height: 1.45;
+  margin-bottom: 14px;
+}
+.course-deck .slide-body .lab-source-text > p {
+  margin: 0;
+}
+.course-deck .embedded-experiment .lab-chart svg[data-bounds] {
+  height: 355px;
+  max-height: 355px;
+}
+.course-deck .embedded-experiment .lab-chart figcaption {
+  display: none;
+}
+.course-deck .embedded-experiment .lab-legend:empty {
+  display: none;
 }
 .course-deck .experiment-question {
   font-size: 15px;
@@ -439,6 +472,15 @@
   }
   .course-deck .cover-outline {
     display: none;
+  }
+}
+@media (max-width: 620px) {
+  .reading .course-deck .lab-source-text {
+    font-size: 17px;
+  }
+  .reading .course-deck .embedded-experiment .lab-chart svg[data-bounds] {
+    height: auto;
+    max-height: none;
   }
 }
 /* Allocate figure heights without tightening teaching-unit spacing. */
