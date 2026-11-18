@@ -258,7 +258,7 @@
   margin-top: 22px;
 }
 .course-deck .cover-credit {
-  left: 52px;
+  left: var(--slide-inline-padding);
   bottom: 65px;
 }
 .course-deck .lab-grid {
@@ -305,9 +305,9 @@
   margin: 0;
 }
 .course-deck .lab-hint {
-  font-size: 12px;
-  color: var(--muted);
-  line-height: 1.5;
+  font-size: 16px;
+  color: var(--annotation-color);
+  line-height: 1.45;
 }
 .course-deck .plot-views {
   display: flex;
@@ -335,7 +335,7 @@
   margin: 0;
 }
 .course-deck .lab-chart figcaption {
-  font-size: 13px;
+  font-size: 16px;
 }
 .course-deck .lab-metrics {
   gap: 9px;
@@ -356,14 +356,14 @@
   }
 }
 .course-deck .lab-metric span {
-  font-size: 12px;
+  font-size: 15px;
 }
 .course-deck .lab-metric strong {
   font-size: 20px;
 }
 .course-deck .lab-notice {
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.45;
   margin-top: 9px;
 }
 .course-deck .lab-equation {

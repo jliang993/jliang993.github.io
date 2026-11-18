@@ -218,8 +218,15 @@ html:not(.reading) .reveal #s072 .source-figure {
   margin: 12px auto;
 }
 .lab-controls .lab-notice {
+  grid-column: 1/-1;
   border-top: 1px solid var(--line);
   padding-top: 12px;
+}
+.lab-controls .lab-metrics {
+  grid-column: 1/-1;
+  margin-top: 0;
+  padding-top: 10px;
+  gap: 7px;
 }
 
 /* Mathematical labels are independently typeset, not magnified raster type. */
