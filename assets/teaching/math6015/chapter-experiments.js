@@ -341,9 +341,53 @@
   }
   const colors = { blue: "#357bc4", purple: "#9461cb", red: "#d4546c", green: "#1a9b87", orange: "#dc9038", gray: "#7c8794" };
   class Plot {
-    constructor(id, bounds = [-3.8, 3.8, -2.5, 2.5], equal = true, xlabel = "x₁", ylabel = "x₂") {
+    static frameLocks = new Map();
+    static freezeFrames(svgs) {
+      const previous = Plot.frameLocks,
+        locked = new Map(previous);
+      for (const svg of svgs) {
+        const id = svg.dataset.plotId,
+          b = svg.dataset.bounds?.split(",").map(Number);
+        if (id && b?.length === 4 && b.every(Number.isFinite)) locked.set(id, b);
+      }
+      Plot.frameLocks = locked;
+      return () => {
+        Plot.frameLocks = previous;
+      };
+    }
+    // Fit mathematical content with a modest margin. Equal coordinate units are
+    // still enforced by the constructor, so a circle cannot become an ellipse.
+    static fitBounds(points, { padding = 0.1, minSpan = 0.5, center, aspect } = {}) {
+      const finite = points.filter((p) => Array.isArray(p) && Number.isFinite(p[0]) && Number.isFinite(p[1]));
+      const pad = Array.isArray(padding) ? padding : [padding, padding],
+        minimum = Array.isArray(minSpan) ? minSpan : [minSpan, minSpan];
+      const lows = [0, 1].map((i) => (finite.length ? Math.min(...finite.map((p) => p[i])) : -0.5));
+      const highs = [0, 1].map((i) => (finite.length ? Math.max(...finite.map((p) => p[i])) : 0.5));
+      const c = [0, 1].map((i) => (Number.isFinite(center?.[i]) ? center[i] : (lows[i] + highs[i]) / 2));
+      const spans = [0, 1].map(
+        (i) =>
+          Math.max(Number.isFinite(minimum[i]) && minimum[i] > 0 ? minimum[i] : 0.5, 2 * Math.max(highs[i] - c[i], c[i] - lows[i])) *
+          (1 + 2 * Math.max(0, pad[i] || 0))
+      );
+      if (Number.isFinite(aspect) && aspect > 0) {
+        if (spans[0] / spans[1] < aspect) spans[0] = spans[1] * aspect;
+        else spans[1] = spans[0] / aspect;
+      }
+      return [c[0] - spans[0] / 2, c[0] + spans[0] / 2, c[1] - spans[1] / 2, c[1] + spans[1] / 2];
+    }
+    // Two opposite corners of the exact bounding box, also valid after rotation.
+    static ellipseBox(center, axes, angle = 0) {
+      const t = (angle * Math.PI) / 180,
+        hx = Math.hypot(axes[0] * Math.cos(t), axes[1] * Math.sin(t)),
+        hy = Math.hypot(axes[0] * Math.sin(t), axes[1] * Math.cos(t));
+      return [
+        [center[0] - hx, center[1] - hy],
+        [center[0] + hx, center[1] + hy],
+      ];
+    }
+    constructor(id, bounds = [-3.8, 3.8, -2.5, 2.5], equal = true, xlabel = "x₁", ylabel = "x₂", layout = {}) {
       this.id = id;
-      this.box = { l: 48, t: 24, w: 570, h: 290 };
+      this.box = { l: 48, t: 24, w: 570, h: Number.isFinite(layout.height) && layout.height > 0 ? layout.height : 290 };
       let [xmin, xmax, ymin, ymax] = bounds;
       if (equal) {
         const scale = Math.min(this.box.w / (xmax - xmin), this.box.h / (ymax - ymin)),
@@ -354,7 +398,8 @@
         ymin = cy - this.box.h / scale / 2;
         ymax = cy + this.box.h / scale / 2;
       }
-      this.bounds = [xmin, xmax, ymin, ymax];
+      this.bounds = Plot.frameLocks.get(id)?.slice() || [xmin, xmax, ymin, ymax];
+      this.equal = equal;
       this.content = [];
       this.labels = [];
       this.xlabel = xlabel;
@@ -408,7 +453,11 @@
     }
     label(p, label, color = "var(--demo-muted,#687680)", dx = 0, dy = 0) {
       const [x, y] = this.pos(p);
-      this.labels.push(`<text x="${C.clamp(x + dx, 50, 602)}" y="${C.clamp(y + dy, 20, 307)}" fill="${color}" font-size="12">${esc(label)}</text>`);
+      this.labels.push(
+        `<text x="${C.clamp(x + dx, 50, 602)}" y="${C.clamp(y + dy, 20, this.box.t + this.box.h - 7)}" fill="${color}" font-size="12">${esc(
+          label
+        )}</text>`
+      );
     }
     ellipse(center, axes, angle, color = colors.blue, fill = false) {
       const pts = Array.from({ length: 161 }, (_, i) =>
@@ -444,6 +493,7 @@
     }
     finish(title) {
       const b = this.box,
+        height = b.t + b.h + 36,
         [xmin, xmax, ymin, ymax] = this.bounds;
       let axes = "";
       for (let i = 0; i <= 4; i++) {
@@ -455,15 +505,17 @@
           b.t + b.h + 19
         }" text-anchor="middle">${fmt(x, 2)}</text><text x="${b.l - 8}" y="${py + 4}" text-anchor="end">${fmt(y, 2)}</text>`;
       }
-      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 350" role="${
+      return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 ${height}" role="${
         this.content.some((s) => s.includes("data-drag")) ? "group" : "img"
-      }" aria-labelledby="${this.id}-plot-title" data-bounds="${this.bounds.join(",")}" data-box="${[b.l, b.t, b.w, b.h].join(",")}"><title id="${
+      }" aria-labelledby="${this.id}-plot-title" data-plot-id="${esc(this.id)}" data-equal-units="${this.equal}" data-bounds="${this.bounds.join(
+        ","
+      )}" data-box="${[b.l, b.t, b.w, b.h].join(",")}"><title id="${this.id}-plot-title">${esc(title)}</title><defs><clipPath id="${
         this.id
-      }-plot-title">${esc(title)}</title><defs><clipPath id="${this.id}-clip"><rect x="${b.l}" y="${b.t}" width="${b.w}" height="${
-        b.h
-      }"/></clipPath></defs><g class="demo-axes">${axes}<text x="${b.l + b.w}" y="347" text-anchor="end">${esc(this.xlabel)}</text><text x="${
-        b.l
-      }" y="13">${esc(this.ylabel)}</text></g><g clip-path="url(#${this.id}-clip)">${this.content.join("")}</g><g>${this.labels.join("")}</g></svg>`;
+      }-clip"><rect x="${b.l}" y="${b.t}" width="${b.w}" height="${b.h}"/></clipPath></defs><g class="demo-axes">${axes}<text x="${b.l + b.w}" y="${
+        height - 3
+      }" text-anchor="end">${esc(this.xlabel)}</text><text x="${b.l}" y="13">${esc(this.ylabel)}</text></g><g clip-path="url(#${
+        this.id
+      }-clip)">${this.content.join("")}</g><g>${this.labels.join("")}</g></svg>`;
     }
   }
   const metric = (label, value) => ({ label, value: typeof value === "number" ? fmt(value) : value });
@@ -515,19 +567,26 @@
     if (More.ids.has(id)) return More.render(id, s, { Plot, colors, fmt });
     if (id === "quadratic") {
       data = C.quadratic(s);
+      const end = C.add(data.x, C.scale(data.g, 1 / Math.max(1, C.norm(data.g)))),
+        axisPoints = [C.scale(data.u, -2.3), C.scale(data.u, 2.3), C.scale(data.v, -2.3), C.scale(data.v, 2.3)];
+      g = new Plot(
+        id,
+        Plot.fitBounds([...Plot.ellipseBox([0, 0], [3, 3 / Math.sqrt(s.kappa)], s.angle), ...axisPoints, data.x, end], {
+          padding: [0.09, 0.11],
+          minSpan: [2.5, 2],
+        })
+      );
       for (const r of [0.5, 1, 1.5, 2, 3]) g.ellipse([0, 0], [r, r / Math.sqrt(s.kappa)], s.angle, "var(--demo-line,#9ca9b4)");
       g.path([C.scale(data.u, -2.3), C.scale(data.u, 2.3)], colors.blue, 1.4, "5 4");
       g.path([C.scale(data.v, -2.3), C.scale(data.v, 2.3)], colors.green, 1.4, "5 4");
       g.ellipse([0, 0], [1, 1 / Math.sqrt(s.kappa)], s.angle, colors.purple, true);
       g.dot(data.x, "x", colors.red, "px,py");
-      const end = C.add(data.x, C.scale(data.g, 1 / Math.max(1, C.norm(data.g))));
       g.path([data.x, end], colors.orange, 2);
       g.dot(end, "∇f 方向", colors.orange);
       metrics = [metric("f(x)", data.value), metric("‖∇f(x)‖₂", C.norm(data.g)), metric("半轴长度", `1，${fmt(1 / Math.sqrt(s.kappa))}`)];
       notice = "梯度箭头只表示方向，长度已缩放。主椭圆为 f(x)=1/2。";
     } else if (id === "norms") {
       data = C.normBall(s);
-      g = new Plot(id, [-1.8, 1.8, -1.4, 1.4]);
       let pts =
         data.p === "inf"
           ? [
@@ -540,6 +599,10 @@
               const t = (i / 160) * Math.PI * 2;
               return [Math.sign(Math.cos(t)) * Math.abs(Math.cos(t)) ** (2 / data.p), Math.sign(Math.sin(t)) * Math.abs(Math.sin(t)) ** (2 / data.p)];
             });
+      g = new Plot(
+        id,
+        Plot.fitBounds([...pts, ...Plot.ellipseBox([0, 0], [1, 1]), data.x, [0, 0]], { padding: 0.1, minSpan: [2.2, 2.2], center: [0, 0] })
+      );
       g.polygon(pts, colors.purple, 0.17);
       g.ellipse([0, 0], [1, 1], 0, colors.gray);
       g.path([[0, 0], data.x], colors.orange);
@@ -548,10 +611,10 @@
       notice = "灰色圆是欧氏单位圆，作为固定参照；p=∞ 时为正方形。";
     } else if (id === "segments") {
       data = C.convexSet(s);
-      if (s.shape === "disk") g.ellipse([0, 0], [2, 2], 0, colors.blue, true);
-      else
-        g.polygon(
-          s.shape === "box"
+      const setPoints =
+        s.shape === "disk"
+          ? Plot.ellipseBox([0, 0], [2, 2])
+          : s.shape === "box"
             ? [
                 [-2, -1.4],
                 [2, -1.4],
@@ -567,10 +630,10 @@
                 [2, 0.7],
                 [2, 1.5],
                 [-2, 1.5],
-              ],
-          colors.blue,
-          0.18
-        );
+              ];
+      g = new Plot(id, Plot.fitBounds([...setPoints, data.a, data.b, data.mix], { padding: 0.1, minSpan: [4.4, 3.3] }));
+      if (s.shape === "disk") g.ellipse([0, 0], [2, 2], 0, colors.blue, true);
+      else g.polygon(setPoints, colors.blue, 0.18);
       for (let i = 0; i < 100; i++) {
         const a = C.add(C.scale(data.a, 1 - i / 100), data.b, i / 100),
           b = C.add(C.scale(data.a, 1 - (i + 1) / 100), data.b, (i + 1) / 100);
@@ -649,7 +712,7 @@
       notice = "所有直线都重新求解；Huber 使用 IRLS，当前梯度残差 " + fmt(data.residual) + "。";
     } else if (id === "ridge") {
       data = C.ridge({ ...s, lambda: 10 ** s.loglambda });
-      g = new Plot(id, [-2, 3, -3.5, 3.5]);
+      g = new Plot(id, Plot.fitBounds([...data.path, data.at(0), data.truth, data.x], { padding: 0.12, minSpan: [1.4, 1.4] }));
       g.path(data.path, colors.purple, 2);
       g.dot(data.at(0), "λ=0", colors.orange);
       g.dot(data.truth, "真值", colors.green);
@@ -675,8 +738,14 @@
         );
         notice = "橙色为当前步；大步出现在编号含较多因子 2 的位置。";
       } else if (s.view === "error") {
-        const ys = data.runs.flatMap((run) => run.path.slice(0, s.k + 1).map((r) => errorValue(r.f / run.path[0].f)));
-        g = new Plot(id, [0, data.config.steps, -16, Math.max(1, ...ys) + 0.5], false, "迭代次数 k", "log₁₀ 相对目标差");
+        const errorPoints = data.runs.flatMap((run) =>
+            run.path.map((r) => [r.k, errorValue(r.f / run.path[0].f)]).filter((p) => p.every(Number.isFinite))
+          ),
+          ys = errorPoints.map((p) => p[1]),
+          xmax = Math.max(4, ...errorPoints.map((p) => p[0])) * 1.04,
+          ymin = Math.max(-16, Math.min(-2, Math.floor(Math.min(...ys) - 0.25))),
+          ymax = Math.max(0.5, Math.ceil(Math.max(...ys) + 0.25));
+        g = new Plot(id, [0, xmax, ymin, ymax], false, "迭代次数 k", "log₁₀ 相对目标差");
         data.runs.forEach((run) =>
           g.path(
             run.path.slice(0, s.k + 1).map((r) => [r.k, errorValue(r.f / run.path[0].f)]),
@@ -684,9 +753,10 @@
             2
           )
         );
-        notice = "仅显示到当前迭代；≤10⁻¹⁶ 的相对目标差画在底线，数值诊断仍使用原值。";
+        notice = "视窗由各方法的完整有限误差序列共同确定；仅绘制到当前迭代。≤10⁻¹⁶ 的相对目标差画在底线。";
       } else {
-        g = new Plot(id, [-4.1, 3.2, -3.1, 3.1]);
+        const pathPoints = data.runs.flatMap((run) => run.path.map((r) => r.x).filter((p) => p.every(Number.isFinite)));
+        g = new Plot(id, Plot.fitBounds([...pathPoints, data.config.x0, [0, 0]], { padding: 0.12, minSpan: [2, 2] }));
         for (const r of [1, 2, 3, 4.5, 7, 10, 16]) g.ellipse([0, 0], [r, r / Math.sqrt(s.kappa)], 32, "var(--demo-line,#a3adb5)");
         data.runs.forEach((run) => {
           g.path(
@@ -698,7 +768,7 @@
         });
         g.dot(data.config.x0, "x₀", colors.gray);
         g.dot([0, 0], "x*", colors.green);
-        notice = "图框外的迭代没有裁剪回可行域；可切换收敛曲线查看误差增长。";
+        notice = "视窗由各方法的完整有限轨迹共同确定，不随当前迭代步跳动；发散/溢出的后续点不会投影回图框。";
       }
       data.runs.forEach((run) => {
         legend.push([run.short || run.name, run.color]);
@@ -709,8 +779,14 @@
       });
     } else if (id === "newton") {
       data = { full: C.scalarNewton(s.x0, false), damped: C.scalarNewton(s.x0, true) };
-      const max = Math.max(1, ...data.full.map((v) => errorValue(v.f / (data.full[0].f || 1))));
-      g = new Plot(id, [0, 24, -16, max + 1], false, "迭代次数 k", "log₁₀ 相对目标差");
+      const newtonErrors = Object.values(data).flatMap((path) =>
+          path.map((v, k) => [k, errorValue(v.f / (path[0].f || 1))]).filter((p) => p.every(Number.isFinite))
+        ),
+        newtonY = newtonErrors.map((p) => p[1]),
+        newtonXmax = Math.max(4, ...newtonErrors.map((p) => p[0])) * 1.04,
+        newtonYmin = Math.max(-16, Math.min(-2, Math.floor(Math.min(...newtonY) - 0.25))),
+        newtonYmax = Math.max(0.5, Math.ceil(Math.max(...newtonY) + 0.25));
+      g = new Plot(id, [0, newtonXmax, newtonYmin, newtonYmax], false, "迭代次数 k", "log₁₀ 相对目标差");
       [
         ["full", "全步", colors.red],
         ["damped", "Armijo", colors.green],
@@ -729,6 +805,7 @@
       notice = "目标值最小为 0；≤10⁻¹⁶ 的相对目标差画在底线。起点为 0 时已经最优。";
     } else if (id === "affine") {
       data = C.affineProjection(s);
+      g = new Plot(id, Plot.fitBounds([...Plot.ellipseBox(data.c, [3, 3]), data.c, data.x], { padding: 0.08, minSpan: [2, 2] }));
       for (const r of [0.5, 1, 1.5, 2, 3]) g.ellipse(data.c, [r, r], 0, "var(--demo-line,#a3adb5)");
       g.line(data.a, s.offset, colors.blue, "");
       g.path([data.c, data.x], colors.orange, 2, "4 3");
@@ -740,7 +817,15 @@
       data = C.equalityNewton(s);
       const cur = data.path[Math.min(s.k, data.path.length - 1)];
       if (s.view === "error") {
-        g = new Plot(id, [0, 24, -13, 3], false, "迭代次数 k", "log₁₀ 残差范数");
+        const residualPoints = data.path.flatMap((r, k) => [
+            [k, Math.log10(Math.max(1e-13, r.residual))],
+            [k, Math.log10(Math.max(1e-13, r.primal))],
+          ]),
+          residualY = residualPoints.map((p) => p[1]),
+          residualXmax = Math.max(4, data.path.length - 1) * 1.04,
+          residualYmin = Math.max(-13, Math.min(-2, Math.floor(Math.min(...residualY) - 0.25))),
+          residualYmax = Math.max(0.5, Math.ceil(Math.max(...residualY) + 0.25));
+        g = new Plot(id, [0, residualXmax, residualYmin, residualYmax], false, "迭代次数 k", "log₁₀ 残差范数");
         g.path(
           data.path.slice(0, s.k + 1).map((r, k) => [k, Math.log10(Math.max(1e-13, r.residual))]),
           colors.purple,
@@ -757,9 +842,9 @@
           ["等式残差", colors.orange],
         ];
       } else {
-        g = new Plot(id, [-3, 3, -3, 3]);
+        g = new Plot(id, Plot.fitBounds([...data.path.map((r) => r.x), data.optimum], { padding: 0.14, minSpan: [2.5, 2.5] }));
         for (const level of [1, 2, 4, 8, 16])
-          g.curve((x) => (Math.exp(x) < level ? Math.log(level - Math.exp(x)) : NaN), -3, 3, "var(--demo-line,#a3adb5)");
+          g.curve((x) => (Math.exp(x) < level ? Math.log(level - Math.exp(x)) : NaN), g.bounds[0], g.bounds[1], "var(--demo-line,#a3adb5)");
         g.line([1, 1], s.b, colors.blue, "");
         g.path(
           data.path.slice(0, s.k + 1).map((r) => r.x),
@@ -778,16 +863,13 @@
       notice = "曲线使用残差回溯；全步可一次消除仿射等式残差，阻尼步则未必。";
     } else if (id === "barrier") {
       data = C.centralPath(s);
-      g = new Plot(id, [-0.15, 1.15, -0.15, 1.15]);
-      g.polygon(
-        [
-          [0, 0],
-          [1, 0],
-          [0, 1],
-        ],
-        colors.blue,
-        0.13
-      );
+      const simplex = [
+        [0, 0],
+        [1, 0],
+        [0, 1],
+      ];
+      g = new Plot(id, Plot.fitBounds([...simplex, ...data.path, data.x, data.optimum], { padding: 0.08, minSpan: [1.1, 1.1] }));
+      g.polygon(simplex, colors.blue, 0.13);
       g.path(data.path, colors.purple, 2.5);
       g.line(data.c, data.value, colors.orange);
       g.dot([1 / 3, 1 / 3], "解析中心", colors.gray);
@@ -797,7 +879,12 @@
       notice = "紫线为 t∈[0.1,1000] 的中心路径；当前点始终严格位于三角形内部。";
     } else if (id === "phase") {
       data = C.phaseOne(s);
-      g = new Plot(id, [-2, 3, -2, 3]);
+      const originalVertices = [
+        [0, 0],
+        [s.b, 0],
+        [0, s.b],
+      ];
+      g = new Plot(id, Plot.fitBounds([...originalVertices, ...data.vertices, data.optimum], { padding: 0.12, minSpan: [1.5, 1.5] }));
       g.line([-1, 0], 0, colors.gray);
       g.line([0, -1], 0, colors.gray);
       g.line([1, 1], s.b, colors.gray);
@@ -836,16 +923,12 @@
       notice = "不相容的边界概率给出 +∞，不画成有限值。a=1 为均匀先验；全成功/全失败时允许 ML 位于边界。";
     } else if (id === "design") {
       data = C.design(s);
-      const bound = data.det > 1e-12 ? Math.max(1, 1.3 / Math.sqrt(data.eigen[1])) : 2;
-      g = new Plot(id, [-bound, bound, -bound, bound], true, "截距方向 z₁", "斜率方向 z₂");
-      if (data.det > 1e-12)
-        g.ellipse(
-          [0, 0],
-          data.eigen.map((v) => 1 / Math.sqrt(v)),
-          data.angle,
-          colors.purple,
-          true
-        );
+      const informationAxes = data.det > 1e-12 ? data.eigen.map((v) => 1 / Math.sqrt(v)) : null,
+        informationBounds = informationAxes
+          ? Plot.fitBounds(Plot.ellipseBox([0, 0], informationAxes, data.angle), { padding: 0.12, minSpan: [0.6, 0.6], center: [0, 0] })
+          : [-1.3, 1.3, -1.3, 1.3];
+      g = new Plot(id, informationBounds, true, "截距方向 z₁", "斜率方向 z₂");
+      if (informationAxes) g.ellipse([0, 0], informationAxes, data.angle, colors.purple, true);
       else {
         g.line(data.M[0], 0, colors.red);
         g.label([0, 0.6], "信息矩阵奇异：红线为不可识别方向", colors.red);
@@ -858,17 +941,17 @@
       notice = "在线性高斯噪声方差为 1 的模型下解释信息矩阵。当前三个位置中，等分两个端点最大化行列式。";
     } else if (id === "projection") {
       data = C.projection(s);
-      if (s.shape === "box")
-        g.polygon(
-          [
-            [-data.axes[0], -data.axes[1]],
-            [data.axes[0], -data.axes[1]],
-            [data.axes[0], data.axes[1]],
-            [-data.axes[0], data.axes[1]],
-          ].map((p) => C.rotate(p, s.angle)),
-          colors.blue,
-          0.18
-        );
+      const projectionSet =
+        s.shape === "box"
+          ? [
+              [-data.axes[0], -data.axes[1]],
+              [data.axes[0], -data.axes[1]],
+              [data.axes[0], data.axes[1]],
+              [-data.axes[0], data.axes[1]],
+            ].map((p) => C.rotate(p, s.angle))
+          : Plot.ellipseBox([0, 0], data.axes, s.angle);
+      g = new Plot(id, Plot.fitBounds([...projectionSet, data.y, data.x], { padding: 0.12, minSpan: [2, 2] }));
+      if (s.shape === "box") g.polygon(projectionSet, colors.blue, 0.18);
       else g.ellipse([0, 0], data.axes, s.angle, colors.blue, true);
       if (data.distance > 1e-9) {
         g.line(data.normal, C.dot(data.normal, data.x), colors.green, "");
@@ -884,6 +967,15 @@
       notice = data.distance > 1e-9 ? "绿色直线支撑集合，将外部点与集合分开。" : "点在集合内，投影就是自身；此时法向为零，不构造分离直线。";
     } else if (id === "chebyshev") {
       data = C.chebyshev(s);
+      const chebyshevFrame = [
+          [-2, -1.5],
+          [2, -1.5],
+          [2, 1.5],
+          [-2, 1.5],
+        ],
+        chebyshevPoints = [...chebyshevFrame, ...data.polygon];
+      if (data.center) chebyshevPoints.push(...Plot.ellipseBox(data.center, [data.radius, data.radius]));
+      g = new Plot(id, Plot.fitBounds(chebyshevPoints, { padding: 0.08, minSpan: [4.4, 3.3], center: [0, 0] }));
       g.polygon(data.polygon, colors.blue, 0.16);
       data.constraints.forEach(([a, b], i) => g.line(a, b, i === 4 ? colors.orange : colors.gray, i === 4 ? "" : "4 3"));
       if (data.center) {

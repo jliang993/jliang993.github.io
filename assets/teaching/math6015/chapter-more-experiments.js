@@ -668,6 +668,8 @@
       notice = "";
     const metric = (label, value) => ({ label, value: typeof value === "number" ? fmt(value) : value });
     const plot = (bounds, equal = true, x = "x₁", y = "x₂") => (g = new Plot(id, bounds, equal, x, y));
+    const fitPlot = (points, options = {}, equal = true, x = "x₁", y = "x₂") => plot(Plot.fitBounds(points, options), equal, x, y);
+    const ellipseFrame = (center, axes, angle = 0) => Plot.ellipseBox(center, axes, angle);
     const pair = (x) => x.map((v) => fmt(v)).join(", ");
     const trace = (path, color, label, k = s.k) => {
       g.path(path.slice(0, k + 1), color, 2.5);
@@ -714,6 +716,7 @@
       }
     };
     if (id === "innerproduct") {
+      fitPlot([[0, 0], data.a, data.b, data.p, scale(data.a, -s.guide), scale(data.a, s.guide)], { padding: 0.14, minSpan: [2.8, 1.6] });
       g.path([[0, 0], data.a], c.blue, 3);
       g.path([[0, 0], data.b], c.purple, 3);
       g.path([[0, 0], data.p], c.green, 3);
@@ -730,8 +733,13 @@
       notice = "绿色分量与橙色余量正交。a=0 时投影到零子空间，但夹角不定义。";
     } else if (id === "taylor") {
       const lo = Math.min(s.a - 1, data.point - 0.2),
-        hi = Math.max(s.a + 1, data.point + 0.2);
-      plot([lo, hi, -1, Math.exp(hi) * 1.1], false, "x", "函数值");
+        hi = Math.max(s.a + 1, data.point + 0.2),
+        samples = M.seq(lo, hi).flatMap((x) => [
+          [x, data.f(x)],
+          [x, data.linear(x)],
+          [x, data.quadratic(x)],
+        ]);
+      fitPlot(samples, { padding: [0.035, 0.1], minSpan: [1.2, 1] }, false, "x", "函数值");
       g.curve(data.f, lo, hi, c.blue);
       g.curve(data.linear, lo, hi, c.orange, "5 4");
       g.curve(data.quadratic, lo, hi, c.purple);
@@ -749,6 +757,7 @@
       ];
       notice = "误差比较针对当前位移；Taylor 的局部精度不保证远处模型同样准确。";
     } else if (id === "psd") {
+      plot([-2.7, 2.7, -1.4, 1.4]);
       contour(data.f, [-4, -2, -0.5, 0, 0.5, 1, 2, 4]);
       g.dot([0, 0], "驻点", c.red);
       g.line(rotate([0, 1], data.angle), 0, c.purple);
@@ -760,10 +769,13 @@
             ? "最小特征值为零：存在平坦方向，极小点不唯一。"
             : "两个特征值都为正：原点是唯一全局极小点。";
     } else if (id === "svd") {
-      plot([-3.7, 3.7, -2.7, 2.7]);
+      const x = rotate([1, 0], s.theta);
+      fitPlot([[0, 0], x, data.point, ...ellipseFrame([0, 0], [1, 1]), ...ellipseFrame([0, 0], data.axes, data.angle)], {
+        padding: 0.13,
+        minSpan: [3, 2],
+      });
       g.ellipse([0, 0], [1, 1], 0, c.gray);
       g.ellipse([0, 0], data.axes, data.angle, c.purple, true);
-      const x = rotate([1, 0], s.theta);
       g.path([[0, 0], x], c.blue);
       g.path([[0, 0], data.point], c.red);
       g.dot(x, "输入", c.blue);
@@ -798,9 +810,14 @@
       metrics = [metric("x²/t", data.value), metric("满足 x²/t≤c", data.inside ? "是" : "否"), metric("定义域余量 t", s.py)];
       notice = "紫色区域是次水平集在图框中的部分；t 保持严格为正。";
     } else if (id === "conjugate") {
-      plot([-2, 2.5, -3, 8], false, "x", "f(x)");
-      g.curve(data.f, -2, 2.5, c.blue);
-      g.curve(data.tangent, -2, 2.5, c.orange, "5 3");
+      const domain = [-2, 2.5],
+        curvePoints = M.seq(...domain).flatMap((x) => [
+          [x, data.f(x)],
+          [x, data.tangent(x)],
+        ]);
+      fitPlot(curvePoints, { padding: [0.035, 0.1], minSpan: [4.5, 2] }, false, "x", "f(x)");
+      g.curve(data.f, ...domain, c.blue);
+      g.curve(data.tangent, ...domain, c.orange, "5 3");
       g.dot([data.xstar, data.f(data.xstar)], "接触点", c.green);
       g.path(
         [
@@ -813,6 +830,7 @@
       metrics = [metric("f*(y)", data.conjugate), metric("接触点 x*", data.xstar), metric("Fenchel–Young 间隙", data.gap)];
       notice = "橙线为斜率 y 的最紧仿射下界。指数函数此处只选 y>0；y<0 时共轭为 +∞。";
     } else if (id === "lp") {
+      fitPlot(data.polygon.length ? data.polygon : M.vertices, { padding: 0.12, minSpan: [2.2, 1.3] });
       if (data.polygon.length) g.polygon(data.polygon, c.blue, 0.17);
       if (s.domain === "polygon") g.line([1, 1], s.cut, c.gray);
       if (Number.isFinite(data.value)) g.line(data.c, data.value, c.orange, "");
@@ -827,6 +845,7 @@
           ? "阴影只显示非负正交象限的一部分，图框不是约束。任一负目标系数使目标无界；零系数对应最优射线。"
           : "最优顶点并列时，连接它们的边也最优；把切割右端降到 −3 以下可构造不可行问题。";
     } else if (id === "qp") {
+      fitPlot([...data.polygon, data.c, data.x], { padding: 0.14, minSpan: [2.5, 2.1] });
       contour(data.f, [0.2, 0.5, 1, 2, 4, 8]);
       g.polygon(data.polygon, c.blue, 0.18);
       g.dot(data.c, "c", c.red, "px,py");
@@ -835,13 +854,17 @@
       notice = "检查内部驻点及每条边上的一维极小点，得到精确的二维 QP 解。";
     } else if (id === "gp") {
       if (s.view === "log") {
-        plot([-2.5, 2.5, -2.5, 2.5], true, "u=log x", "v=log y");
+        const hy = Math.max(1.2, Math.abs(data.u[1]) + 0.3, (Math.abs(data.u[0]) + 0.3) / (570 / 290)),
+          hx = hy * (570 / 290);
+        plot([-hx, hx, -hy, hy], true, "u=log x", "v=log y");
         contour(data.f, [-1, 0, 1, 2, 3]);
         g.line([1, 1], data.c, c.blue, "");
         g.dot(data.u, "最优对数变量", c.green);
       } else {
-        plot([0, 4, 0, 4]);
-        g.curve((x) => (x > 0 ? s.product / x : NaN), 0.05, 4, c.blue);
+        const ymax = Math.max(2.2, 1.18 * data.x[1], (1.18 * data.x[0]) / (570 / 290)),
+          xmax = ymax * (570 / 290);
+        plot([0, xmax, 0, ymax]);
+        g.curve((x) => (x > 0 ? s.product / x : NaN), 0.03, xmax, c.blue);
         g.line([s.a, s.b], data.value, c.orange, "");
         g.dot(data.x, "最优点", c.green);
       }
@@ -870,6 +893,7 @@
       ];
       notice = "两资产抽象模型：均值 (1,1.8)，标准差 (1,0.6)，权重非负且和为 1；紫线包括全部允许的组合。";
     } else if (id === "lasso") {
+      fitPlot([[0, 0], data.c, data.x, ...data.path], { padding: 0.14, minSpan: [2.5, 1.7] });
       contour(data.f, [0.5, 1, 2, 3, 5, 8]);
       g.path(data.path, c.purple, 2.5);
       g.dot(data.c, "未正则化解", c.orange, "px,py");
@@ -905,8 +929,11 @@
       ];
       notice = "将 L∞ 拟合写成 3 变量 LP，枚举基本可行解；误差带包含全部观测。";
     } else if (id === "basis") {
+      const v = data.value,
+        r2 = norm(data.l2),
+        radius = Math.max(v, r2);
+      fitPlot([[-radius, -radius], [radius, radius], data.l1, data.l2], { padding: 0.14, minSpan: [2, 1.4], center: [0, 0] });
       g.line(data.a, data.b, c.blue, "");
-      const v = data.value;
       g.polygon(
         [
           [v, 0],
@@ -917,13 +944,17 @@
         c.purple,
         0.12
       );
-      g.ellipse([0, 0], [norm(data.l2), norm(data.l2)], 0, c.orange);
+      g.ellipse([0, 0], [r2, r2], 0, c.orange);
       g.dot(data.l1, "一个 ℓ₁ 最优解", c.purple);
       g.dot(data.l2, "ℓ₂ 最优解", c.orange);
-      metrics = [metric("ℓ₁ 最小值", data.value), metric("ℓ₂ 最小值", norm(data.l2)), metric("ℓ₁ 解是否唯一", data.multiple ? "否" : "是")];
+      metrics = [metric("ℓ₁ 最小值", data.value), metric("ℓ₂ 最小值", r2), metric("ℓ₁ 解是否唯一", data.multiple ? "否" : "是")];
       notice = "蓝线是欠定测量方程。并列时仅标出一个 ℓ₁ 最优端点，不能推断所有最优解都同样稀疏。";
     } else if (id === "tv" || id === "smoothing") {
-      plot([-0.3, data.y.length - 0.7, -1.2, 2.5], false, "信号位置 i", "信号值");
+      const signalBounds = Plot.fitBounds(
+        [...data.truth, ...data.y, ...data.x].map((v) => [0, v]),
+        { padding: [0, 0.12], minSpan: [1, 0.5] }
+      );
+      plot([-0.3, data.y.length - 0.7, signalBounds[2], signalBounds[3]], false, "信号位置 i", "信号值");
       g.path(
         data.truth.map((v, i) => [i, v]),
         c.gray,
@@ -986,6 +1017,7 @@
           );
         });
       } else {
+        fitPlot([[0, 0], ...Object.values(paths).flat()], { padding: 0.14, minSpan: [2.8, 1.8] });
         contour(data.f, [0.5, 1, 2, 4, 8, 16, 32, 64]);
         Object.entries(paths).forEach(([key, path], i) => trace(path, palette[i], names[key]));
         g.dot([0, 0], "最优点", c.gray);
@@ -1016,6 +1048,7 @@
         g.dot([data.z, data.phi(data.z)], "z*", c.green);
         g.dot([s.z, data.phi(s.z)], "当前 z", c.red);
       } else {
+        fitPlot([[0, 0], data.c, data.base, data.x, data.trial], { padding: 0.15, minSpan: [3, 2] });
         contour(data.f, [0.5, 1, 2, 4, 8]);
         g.line(data.a, s.b, c.blue, "");
         g.dot(data.x, "最优解", c.green);
@@ -1024,7 +1057,18 @@
       metrics = [metric("最优 z", data.z), metric("降维曲率 NᵀHN", data.curvature), metric("当前等式残差", Math.abs(dot(data.a, data.trial) - s.b))];
       notice = "x=b a+zN，a 与 N 是单位正交向量；任意 z 都满足等式约束。";
     } else if (id === "duality") {
-      plot([0, 5, -7, 5], false, "非负乘子 λ", "对偶函数 q(λ)");
+      fitPlot(
+        M.seq(0, 5)
+          .map((x) => [x, data.q(x)])
+          .concat([
+            [data.lambda, data.value],
+            [s.lambda, data.current],
+          ]),
+        { padding: [0.025, 0.1], minSpan: [5, 2] },
+        false,
+        "非负乘子 λ",
+        "对偶函数 q(λ)"
+      );
       g.curve(data.q, 0, 5, c.purple);
       g.line([0, 1], data.value, c.green);
       g.dot([data.lambda, data.value], "对偶最优", c.green);
@@ -1074,14 +1118,19 @@
       metrics = [metric("中心点 x(t)", data.x), metric("中心点 Hessian", data.hessian), metric("试探点目标值", data.f(s.x))];
       notice = "端点的目标为 +∞，不画成有限数值；增加 t 相当于减弱原目标中的障碍系数 1/t。";
     } else if (id === "complementarity") {
-      const upper = Math.max(3, data.x * 1.2, data.lambda * 1.2);
-      plot([0, upper, 0, upper], true, "原变量 x", "对偶变量 λ");
-      g.curve((x) => (x > 0 ? data.mu / x : NaN), 0.001, upper, c.purple);
+      const upper = Math.max(3, data.x * 1.2, data.lambda * 1.2),
+        right = upper * (570 / 290);
+      plot([0, right, 0, upper], true, "原变量 x", "对偶变量 λ");
+      g.curve((x) => (x > 0 ? data.mu / x : NaN), 0.001, right, c.purple);
       g.line([1, -1], s.a, c.blue, "");
       g.dot([data.x, data.lambda], "中心点", c.red);
       metrics = [metric("x / λ", pair([data.x, data.lambda])), metric("xλ", data.x * data.lambda), metric("原始–对偶间隙", data.gap)];
       notice = "紫线为 xλ=μ，蓝线为驻点条件 x−a−λ=0；这里的原始–对偶间隙精确等于 μ。";
     } else if (id === "analytic") {
+      fitPlot([...data.polygon, data.x, data.cheb.center, ...ellipseFrame(data.cheb.center, [data.cheb.radius, data.cheb.radius])], {
+        padding: 0.13,
+        minSpan: [3, 2],
+      });
       g.polygon(data.polygon, c.blue, 0.12);
       contour(data.f, [-1, 0, 1, 2, 3, 4]);
       g.dot(data.x, "解析中心", c.purple);
@@ -1121,7 +1170,11 @@
       metrics = [metric("最大熵 H(p)", data.entropy), metric("期望 / 规定值", pair([data.mean, s.mean])), metric("指数族参数 β", data.beta)];
       notice = "pᵢ∝exp(βtᵢ)，β 通过均值方程求解。均值 0 时为均匀分布；使用自然对数。";
     } else if (id === "gaussian") {
-      plot([-3.5, 3.5, -3, 3]);
+      fitPlot([...ellipseFrame([0, 0], data.axes, data.angle), ...ellipseFrame([0, 0], data.candidateAxes, data.candidateAngle)], {
+        padding: 0.12,
+        minSpan: [2.4, 1.5],
+        center: [0, 0],
+      });
       g.ellipse([0, 0], data.axes, data.angle, c.green);
       g.ellipse([0, 0], data.candidateAxes, data.candidateAngle, c.purple, true);
       metrics = [metric("当前目标", data.value), metric("最优目标", data.minimum), metric("似然目标差", data.value - data.minimum)];
@@ -1181,6 +1234,10 @@
       ];
       notice = "已知 E[X]=0、E[X²]=指定方差，并限制支撑 {−2,−1,0,1,2}。枚举至多三个非零概率的基本可行解；不是所有实值分布的精确界。";
     } else if (id === "distance") {
+      fitPlot([...ellipseFrame(data.a, [data.r1, data.r1]), ...ellipseFrame(data.b, [data.r2, data.r2]), data.p, data.q], {
+        padding: 0.14,
+        minSpan: [3, 2],
+      });
       g.ellipse(data.a, [data.r1, data.r1], 0, c.blue, true);
       g.ellipse(data.b, [data.r2, data.r2], 0, c.purple, true);
       g.dot(data.b, "圆心 B", c.purple, "px,py");
@@ -1197,6 +1254,8 @@
       ];
       notice = "距离为 max(0,圆心距离−两半径之和)；相切或相交时不绘制严格分离线。";
     } else if (id === "svm") {
+      const svmPoints = data.z.flatMap((p) => [p, scale(p, -1)]);
+      fitPlot([[0, 0], ...svmPoints], { padding: 0.17, minSpan: [2.8, 1.8] });
       data.z.forEach((p) => {
         g.dot(p, "+", c.purple);
         g.dot(scale(p, -1), "−", c.blue);
@@ -1209,7 +1268,7 @@
       metrics = [metric("间隔宽度 2/‖w‖", data.margin), metric("总松弛量", 2 * data.slacks.reduce((a, b) => a + b)), metric("目标值", data.value)];
       notice = "样本成 ± 对称对，因此可取最优截距 0；枚举分段二次目标的驻点、折线驻点和交点。虚线为功能间隔 ±1。";
     } else if (id === "ellipsoids") {
-      plot([-3, 3, -2.4, 3]);
+      fitPlot([...data.points, ...ellipseFrame(data.center, data.axes, data.angle)], { padding: 0.14, minSpan: [2.6, 1.8] });
       g.polygon(data.points, c.gray, 0.12);
       g.ellipse(data.center, data.axes, data.angle, c.purple);
       g.ellipse(
@@ -1228,6 +1287,7 @@
       ];
       notice = "采用非退化三角形的 Steiner 椭圆精确公式；面积比 4 是该特例的性质，不能推广到任意点集或多面体。";
     } else if (id === "facility") {
+      fitPlot([...data.points, data.x, data.centroid], { padding: 0.15, minSpan: [3, 2] });
       contour(data.f, [data.value + 0.1, data.value + 0.5, data.value + 1, data.value + 2, data.value + 4]);
       data.points.forEach((p, i) => {
         g.path([p, data.x], c.gray, 1, "4 3");
@@ -1239,6 +1299,7 @@
       notice = "使用处理重合点的修正 Weiszfeld 迭代。加权重心最小化平方距离之和，几何中位数最小化距离之和。";
     } else if (id === "placement") {
       const [x, y] = data.nodes;
+      fitPlot([...data.anchors, x, y], { padding: 0.15, minSpan: [3, 2] });
       g.path([data.anchors[0], x, data.anchors[1]], c.blue, 2);
       g.path([x, y], c.purple, Math.min(9, 1 + s.weight));
       g.path([y, data.anchors[2]], c.blue, 2);
@@ -1313,7 +1374,7 @@
     } else if (id === "dualnorm") {
       const r = s.radius,
         p = s.p;
-      plot([-2.7, 2.7, -2.4, 2.4]);
+      fitPlot([[-r, -r], [r, r], [0, 0], data.z, data.x], { padding: 0.14, minSpan: [2.4, 1.6], center: [0, 0] });
       if (p === "1")
         g.polygon(
           [
@@ -1346,7 +1407,7 @@
       metrics = [metric("对偶范数 ‖z‖*", data.value), metric("最大支撑值", data.support), metric("接触点", pair(data.x))];
       notice = "优化变量是范数球内的 x，拖动的是目标向量 z。z=0 时全部球内点都最优；平直边上也可能出现多解。";
     } else if (id === "uncertainfit") {
-      plot([-1.2, 2, -2.5, 4]);
+      fitPlot([data.nominal, data.stochastic, data.worst], { padding: 0.18, minSpan: [2, 2] });
       contour((x) => data.residual(x) ** 2, [0.02, 0.1, 0.3, 0.7, 1.5]);
       for (const [key, name, color] of [
         ["nominal", "名义", c.blue],
@@ -1410,7 +1471,7 @@
           legend.push([name, color]);
         }
       } else {
-        plot([-0.9, 1.9, -0.3, 1.9]);
+        fitPlot([[0, 0], [1, 0], [0, 1], ...data.path.map((p) => p.x)], { padding: 0.15, minSpan: [2.3, 1.7] });
         g.polygon(
           [
             [0, 0],

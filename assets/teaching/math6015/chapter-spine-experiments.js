@@ -174,14 +174,28 @@
       entropy = id === "entropyfamily",
       lp = id === "interiorfamily";
     const position = (x) => (entropy ? [x[0], x[2]] : x.slice(0, 2));
-    const allPoints = Object.values(data.paths).flatMap((path) => path.map((r) => position(r.x)));
-    let bound = isPoly
-      ? [-2.5, 2.5, -1.85, 1.85]
-      : entropy
-        ? [-0.05, 1.08, -0.05, 1.08]
-        : [0, Math.max(3.5, data.E.b[0], ...allPoints.map((p) => p[0])), 0, Math.max(3.5, data.E.b[0] / s.weight, ...allPoints.map((p) => p[1]))];
-    // Limit presentation to the main feasible geometry; off-frame recovered components are listed in the table.
-    if (entropy) bound = [-0.05, 1.08, -0.05, 1.08];
+    const request = [s.px, s.py],
+      simplex = entropy
+        ? [
+            [0, 0],
+            [1, 0],
+            [0, 1],
+          ]
+        : [
+            [0, 0],
+            [s.budget, 0],
+            [0, s.budget / s.weight],
+          ];
+    // Fit every visible complete trajectory, including infeasible/dual recovered
+    // points. Keep this camera fixed as k changes; method toggles can refocus it.
+    const trajectoryPoints = visible.flatMap((r) => r.path.map((v) => position(v.x)));
+    const geometryPoints = isPoly
+      ? [...data.P.vertices, data.start, data.optimum, request, ...(data.centers || []).map((r) => r.x), ...trajectoryPoints]
+      : [...simplex, position(data.optimum), request, ...trajectoryPoints];
+    const bound = Plot.fitBounds(
+      geometryPoints,
+      isPoly ? { padding: [0.035, 0.025], minSpan: [4, 3] } : entropy ? { padding: 0.035, minSpan: 1 } : { padding: 0.045, minSpan: [0.8, 0.8] }
+    );
     const g = new Plot(id + "-geometry", bound, true, entropy ? "p₁" : "x₁", entropy ? "p₃" : "x₂");
     if (isPoly) {
       g.polygon(data.P.vertices, palette.blue, 0.08);
@@ -198,26 +212,10 @@
         if (data.P.optimalVertices.length > 1) g.path(data.P.optimalVertices, palette.green, 4);
       }
     } else if (entropy) {
-      g.polygon(
-        [
-          [0, 0],
-          [1, 0],
-          [0, 1],
-        ],
-        palette.blue,
-        0.09
-      );
+      g.polygon(simplex, palette.blue, 0.09);
       g.line([-1, 1], s.mean, palette.green, "");
     } else {
-      g.polygon(
-        [
-          [0, 0],
-          [s.budget, 0],
-          [0, s.budget / s.weight],
-        ],
-        palette.blue,
-        0.09
-      );
+      g.polygon(simplex, palette.blue, 0.09);
       g.label([s.budget * 0.4, 0.12], "投影内仍需检查真实 x₃ 和 Ax=b", palette.gray);
     }
     for (const r of visible) {
@@ -268,8 +266,14 @@
     const panel = (title, svg) => "<figure><figcaption>" + title + "</figcaption>" + svg + "</figure>";
     let figures = [];
     if (s.view === "components" && !isPoly) {
-      const top = Math.max(...visible.flatMap((r) => current(r).x), ...data.optimum) * 1.15,
-        bars = new Plot(id + "-components", [-0.5, 3.5, 0, top], false, "分量 i = 1, 2, 3", entropy ? "正分量值（未归一化时不是概率）" : "xᵢ");
+      const top = Math.max(...visible.flatMap((r) => r.path.flatMap((v) => v.x)), ...data.optimum),
+        bars = new Plot(
+          id + "-components",
+          [0.45, 3.55, 0, Math.max(0.5, top * 1.08)],
+          false,
+          "分量 i = 1, 2, 3",
+          entropy ? "正分量值（未归一化时不是概率）" : "xᵢ"
+        );
       visible.forEach((r, j) =>
         current(r).x.forEach((v, i) => {
           const x = i + 1 - 0.3 + j * 0.22;
@@ -423,8 +427,8 @@
         : lp
           ? "二维 LP 教学实例，不冒充原书 50 维基准。灰虚线为数值中心路径。两法都从同一严格内部点开始；sᵀλ 只有在对偶可行时才等于原始–对偶间隙。障碍法的外层参数不计作额外 Newton 步。目标平行于边时，最优解可能不唯一，绿色边段表示最优面。"
           : entropy
-            ? "三点分布是习题 10.15 的小规模教学实例。彩色轨迹使用 (p₁,p₃) 投影；投影落在三角形内不代表完整点已经满足概率约束。超出图框的分量仍在表格中显示。"
-            : "三变量教学实例。投影位于三角形内，不代表完整点满足 Ax=b；请结合原始残差与 x₃ 判断。三法使用各自合法的起点，不声称同一初始点。";
+            ? "三点分布是习题 10.15 的小规模教学实例。彩色轨迹使用 (p₁,p₃) 投影；投影落在三角形内不代表完整点已经满足概率约束。视窗包含所选方法的完整轨迹；切换方法开关可聚焦比较。"
+            : "三变量教学实例。投影位于三角形内，不代表完整点满足 Ax=b；请结合原始残差与 x₃ 判断。三法使用各自合法的起点，不声称同一初始点。视窗包含所选方法的完整轨迹；切换方法开关可聚焦比较。";
     return {
       state: s,
       progressMax: max,

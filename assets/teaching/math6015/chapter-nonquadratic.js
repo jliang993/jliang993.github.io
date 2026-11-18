@@ -224,6 +224,41 @@
       pts[0],
     ];
   }
+  function localGeometry(method, record) {
+    if (method.direction === "l1")
+      return {
+        points: [
+          [1, 0],
+          [0, 1],
+          [-1, 0],
+          [0, -1],
+          [1, 0],
+        ].map((p) => add(record.x, p)),
+      };
+    const M =
+      method.direction === "newton"
+        ? record.H
+        : method.direction === "p1"
+          ? [
+              [2, 0],
+              [0, 8],
+            ]
+          : method.direction === "p2"
+            ? [
+                [8, 0],
+                [0, 2],
+              ]
+            : [
+                [1, 0],
+                [0, 1],
+              ];
+    const a = M[0][0],
+      b = M[0][1],
+      c = M[1][1],
+      r = Math.hypot(a - c, 2 * b),
+      values = [(a + c + r) / 2, (a + c - r) / 2];
+    return { axes: values.map((v) => 1 / Math.sqrt(v)), angle: (0.5 * Math.atan2(2 * b, a - c) * 180) / Math.PI };
+  }
   const escape = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;");
   function render(s, { Plot, colors, fmt }) {
     const data = calculate(s),
@@ -233,54 +268,23 @@
     s.k = Math.min(s.k, progressMax);
     const current = (r) => r.path[Math.min(s.k, r.path.length - 1)],
       at = current(focus);
-    const frame = new Plot("nonquadratic-path", [optimum[0] - 2.75 / s.zoom, optimum[0] + 2.75 / s.zoom, -1.4 / s.zoom, 1.4 / s.zoom], true);
+    const framePoints = [optimum, [s.px, s.py], ...visible.flatMap((r) => r.path.map((p) => p.x))];
+    if (s.geometry)
+      for (const p of focus.path) {
+        const shape = localGeometry(focus.method, p);
+        framePoints.push(...(shape.points || Plot.ellipseBox(p.x, shape.axes, shape.angle)));
+      }
+    const fitted = Plot.fitBounds(framePoints, { padding: [0.07, 0.08], minSpan: [2.2, 1.2] }),
+      zoom = Math.max(0.1, s.zoom),
+      frameBounds = [optimum[0] + (fitted[0] - optimum[0]) / zoom, optimum[0] + (fitted[1] - optimum[0]) / zoom, fitted[2] / zoom, fitted[3] / zoom];
+    const frame = new Plot("nonquadratic-path", frameBounds, true);
     const levels = [minimum + 0.015, minimum + 0.08, minimum + 0.3, 3.5, 5, 8, 12, 20, 40, 80, 160, 400, 1000, 5000, 30000];
     for (const level of levels) frame.path(contour(level), "var(--demo-line,#9ca9b4)", 0.9);
     if (s.geometry) {
       const m = focus.method,
-        M =
-          m.direction === "newton"
-            ? at.H
-            : m.direction === "p1"
-              ? [
-                  [2, 0],
-                  [0, 8],
-                ]
-              : m.direction === "p2"
-                ? [
-                    [8, 0],
-                    [0, 2],
-                  ]
-                : [
-                    [1, 0],
-                    [0, 1],
-                  ];
-      if (m.direction === "l1")
-        frame.path(
-          [
-            [1, 0],
-            [0, 1],
-            [-1, 0],
-            [0, -1],
-            [1, 0],
-          ].map((p) => add(at.x, p)),
-          m.color,
-          1.4,
-          "4 4"
-        );
-      else {
-        const a = M[0][0],
-          b = M[0][1],
-          c = M[1][1],
-          r = Math.hypot(a - c, 2 * b),
-          values = [(a + c + r) / 2, (a + c - r) / 2];
-        frame.ellipse(
-          at.x,
-          values.map((v) => 1 / Math.sqrt(v)),
-          (0.5 * Math.atan2(2 * b, a - c) * 180) / Math.PI,
-          m.color
-        );
-      }
+        shape = localGeometry(m, at);
+      if (shape.points) frame.path(shape.points, m.color, 1.4, "4 4");
+      else frame.ellipse(at.x, shape.axes, shape.angle, m.color);
       const d = descent(m, at);
       if (norm(d) > 0) {
         const arrow = scale(d, 0.42 / s.zoom / norm(d));
@@ -339,12 +343,31 @@
       if (step) {
         const xmax = step.kind === "exact" ? Math.max(step.t * 1.5, 0.01) : s.t0 * 1.05,
           unit = Math.max(q.gap, 1e-30);
-        const line = new Plot("nonquadratic-line", [0, xmax, -1.2, 2], false, "试探步长 t", "( φ(t) − φ(0) ) / ( f(xᵏ) − p* )");
-        line.curve((t) => (evaluate(add(q.x, step.d, t)).gap - q.gap) / unit, 0, xmax, focus.method.color);
-        if (step.kind === "backtracking") line.curve((t) => (s.alpha * t * step.slope) / unit, 0, xmax, colors.gray, "5 4");
+        const curve = Array.from({ length: 241 }, (_, i) => {
+          const t = (xmax * i) / 240;
+          return [t, (evaluate(add(q.x, step.d, t)).gap - q.gap) / unit];
+        });
+        let lineBounds = [0, xmax, -1.2, 2];
+        if (step.kind === "exact") {
+          const inFocus = curve.filter((p) => Number.isFinite(p[1]) && p[1] >= -1.2 && p[1] <= 2),
+            fit = Plot.fitBounds([...inFocus, [0, 0]], { padding: [0, 0.08], minSpan: [xmax, 0.6] });
+          lineBounds = [0, xmax, Math.max(-1.2, fit[2]), Math.min(2, fit[3])];
+        }
+        const line = new Plot("nonquadratic-line", lineBounds, false, "试探步长 t", "( φ(t) − φ(0) ) / ( f(xᵏ) − p* )");
+        line.path(curve, focus.method.color, 2);
+        if (step.kind === "backtracking")
+          line.path(
+            [
+              [0, 0],
+              [xmax, (s.alpha * xmax * step.slope) / unit],
+            ],
+            colors.gray,
+            2,
+            "5 4"
+          );
         for (const trial of step.trials) {
           const v = (trial.gap - q.gap) / unit;
-          if (Number.isFinite(v) && v >= -1.2 && v <= 2)
+          if (Number.isFinite(v) && v >= lineBounds[2] && v <= lineBounds[3])
             line.dot([trial.t, v], trial.accepted ? "接受" : "", trial.accepted ? colors.green : colors.red);
         }
         line.path(

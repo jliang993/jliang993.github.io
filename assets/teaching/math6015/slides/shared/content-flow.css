@@ -1,0 +1,231 @@
+/* Prose has a normal top-to-bottom flow. Space belongs between teaching units,
+   never to an artificial full-height wrapper that hides an underfilled page. */
+.reveal .slide-body {
+  --flow-gap: 22px;
+}
+.reveal .slide-body table {
+  margin-block: 22px 24px;
+}
+.reveal .slide-body .center:has(> table) {
+  margin-block: 22px 24px;
+}
+.reveal .slide-body .center > table {
+  margin-block: 0;
+}
+.reveal
+  .slide-body
+  :is(p, ul, ol, .block, .columns, .center, .source-figure, .sourceCode)
+  + :is(p, ul, ol, .block, .columns, .center, .source-figure, .sourceCode) {
+  margin-top: var(--flow-gap);
+}
+.reveal .slide-body table + p,
+.reveal .slide-body table + .block {
+  margin-top: 24px;
+}
+.reveal .figure-layout {
+  align-items: start;
+  min-height: 0;
+}
+.reveal .figure-compare .figure-comparison {
+  align-items: start;
+}
+.reveal .figure-side .figure-layout {
+  min-height: 0;
+  align-items: start;
+}
+.course-deck .figure-side .figure-layout,
+.course-deck .figure-wide .figure-layout {
+  min-height: 0;
+}
+.course-deck .figure-wide .figure-art {
+  flex: initial;
+  justify-content: flex-start;
+}
+.course-deck .figure-art {
+  justify-content: flex-start;
+}
+.formula-led > .slide-body > :is(p, .block) + .figure-layout {
+  margin-top: 24px;
+}
+.formula-led .figure-copy.is-empty {
+  display: none;
+}
+.course-deck .formula-led .figure-layout:has(> .figure-copy.is-empty) {
+  gap: 0;
+}
+.course-deck .figure-original .slide-body {
+  min-height: 0;
+  display: block;
+}
+.course-deck .figure-original .columns {
+  align-items: start;
+}
+.worked-example {
+  margin-top: 26px;
+  border-top: 2px solid #b9d1c7;
+  padding: 17px 20px;
+  background: #f2f7f4;
+  font-size: 22px;
+  line-height: 1.4;
+  break-inside: avoid;
+}
+.slide-body .worked-example h3 {
+  font-size: 21px;
+  line-height: 1.35;
+  color: var(--green);
+  margin: 0 0 12px;
+}
+.worked-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+.worked-columns > div {
+  min-width: 0;
+}
+.teaching-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  align-items: start;
+}
+.teaching-column {
+  min-width: 0;
+}
+.teaching-columns + .teaching-columns {
+  margin-top: 24px;
+}
+.slide-body p + .teaching-columns {
+  margin-top: 22px;
+}
+.teaching-columns .block {
+  margin-top: 0;
+}
+.teaching-columns table {
+  margin-top: 0 !important;
+}
+.reveal .slide-body .teaching-column > .center:has(> table) {
+  margin: 0;
+}
+.reveal .slide-body .teaching-column > .source-figure {
+  margin-top: 0;
+}
+.course-deck .prose-led-figure .figure-layout {
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+.course-deck .enrichment-prose-led .figure-layout {
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+.ellipsoid-definitions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+.reveal .slide-body .ellipsoid-definitions > :is(.block, p) {
+  margin: 0;
+}
+.enrichment-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr);
+  gap: 30px;
+  align-items: start;
+  margin-top: 24px;
+}
+.enrichment-pair > .worked-example {
+  margin-top: 0;
+}
+.course-deck .enrichment-pair .figure-art img {
+  max-height: 330px;
+}
+.course-deck .static-set-sum .columns {
+  align-items: start;
+}
+.course-deck .static-set-sum .source-figure {
+  margin-top: 0;
+}
+.course-deck .static-set-sum .source-figure img {
+  max-height: 285px;
+}
+.concept-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: baseline;
+}
+.reveal .slide-body .references-table td:first-child {
+  width: 31%;
+}
+.reveal .slide-body .references-table {
+  margin-top: 0;
+}
+.slide-body .worked-example p {
+  margin: 0 0 10px;
+}
+.slide-body .worked-example p:last-child {
+  margin-bottom: 0;
+}
+.reveal .slide-body .worked-example p + p {
+  margin-top: 12px;
+}
+.slide-body .worked-example .typeset-math.is-display {
+  margin: 10px 0;
+}
+.worked-example svg[role="img"][viewBox] {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 170px;
+}
+.duality-comparison {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+  margin: 24px 0;
+}
+.reveal .slide-body .duality-comparison > .center:has(> table) {
+  margin: 0;
+}
+.duality-comparison > .worked-example {
+  margin: 0;
+}
+.duality-comparison .worked-columns {
+  display: block;
+}
+.duality-comparison .worked-columns > div + div {
+  margin-top: 18px;
+}
+.reading .worked-example {
+  font-size: 20px;
+}
+@media (max-width: 820px) {
+  .reading .worked-columns,
+  .reading .teaching-columns,
+  .reading .duality-comparison,
+  .reading .ellipsoid-definitions,
+  .reading .enrichment-pair {
+    grid-template-columns: 1fr;
+  }
+  .reading .worked-example {
+    padding: 16px;
+  }
+  .reading .duality-comparison .worked-columns {
+    display: grid;
+  }
+  .reading .duality-comparison .worked-columns > div + div {
+    margin-top: 0;
+  }
+}
+@media print {
+  .worked-example {
+    font-size: 15px;
+    padding: 10px;
+  }
+  .slide-body .worked-example h3 {
+    font-size: 15px;
+  }
+  .worked-example svg[role="img"][viewBox] {
+    max-height: 100px;
+  }
+}

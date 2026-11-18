@@ -14,3 +14,7 @@ _sass/font-awesome/*.scss
 # Generated MATH6015 pages contain pre-typeset MathJax SVG.
 _teaching/math6015.md
 assets/teaching/math6015/optimization-lab.html
+
+_pages/math6015-lecture*.html
+_pages/math6015-examples.html
+assets/teaching/math6015/vendor/

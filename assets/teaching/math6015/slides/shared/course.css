@@ -1,0 +1,499 @@
+/* Common rules for new lectures. Lecture 03 retains its reviewed stylesheet. */
+.live-math {
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+  line-height: 1.2;
+  margin: 0 0.1em;
+}
+.live-math > svg {
+  display: inline-block;
+  overflow: visible;
+  max-height: none !important;
+  margin: 0 !important;
+}
+.graph-math-label {
+  pointer-events: none;
+}
+#figure-dialog {
+  width: calc(100vw - 36px);
+  max-width: 1800px;
+  height: calc(100dvh - 36px);
+  max-height: none;
+  padding: 18px 24px;
+}
+#figure-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+#figure-dialog .dialog-header {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+#figure-title {
+  font-size: 20px;
+}
+.figure-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.figure-tools output {
+  min-width: 85px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.figure-tools span {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+.figure-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: white;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+  border: 1px solid var(--line);
+}
+.figure-viewport.is-dragging {
+  cursor: grabbing;
+}
+.figure-view-stage {
+  min-width: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+#figure-image {
+  display: block;
+  max-width: none;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.course-deck .slide-body .columns {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 2), minmax(0, 1fr));
+  gap: 28px;
+}
+.course-deck .slide-body .column {
+  width: auto;
+  min-width: 0;
+  flex: initial;
+}
+.course-deck .slide-body .columns:has(> .column:nth-child(3)) {
+  --columns: 3;
+}
+.course-deck .slide-body h3 {
+  font-size: 1em;
+  margin: 0 0 0.45em;
+  line-height: 1.35;
+}
+.course-deck .source-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+.course-deck .figure-open {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 4px;
+  cursor: zoom-in;
+}
+.course-deck .figure-open:hover {
+  background: transparent;
+  outline: 1px solid var(--line);
+}
+.course-deck .source-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: min(100%, var(--figure-width, 100%));
+  max-height: 500px;
+  object-fit: contain;
+}
+.course-deck .figure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 30px;
+  align-items: start;
+}
+.course-deck .figure-copy {
+  min-width: 0;
+}
+.course-deck .figure-copy .columns {
+  display: grid;
+}
+.course-deck .figure-copy .column {
+  margin-bottom: 0.7em;
+}
+.course-deck .figure-art {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.course-deck .figure-art:has(> .source-figure:nth-child(2)) img {
+  max-height: 245px;
+}
+.course-deck .figure-art:has(> .source-figure:nth-child(3)) img {
+  max-height: 160px;
+}
+.course-deck .figure-only .source-figure img {
+  max-height: 520px;
+}
+.course-deck .figure-wide .source-figure img {
+  max-height: 360px;
+}
+.course-deck .figure-side .figure-layout {
+  min-height: 0;
+}
+.course-deck .figure-side .figure-art img {
+  max-height: var(--figure-height, 520px);
+}
+.course-deck .figure-wide .figure-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-height: 0;
+}
+.course-deck .figure-wide .figure-copy {
+  width: 100%;
+}
+.course-deck .figure-wide .figure-art {
+  width: 100%;
+  flex: initial;
+  justify-content: flex-start;
+}
+.course-deck .figure-wide .source-figure {
+  margin: 0;
+}
+.course-deck .figure-wide .source-figure img {
+  max-height: var(--figure-height, 400px);
+}
+.course-deck .bibliography-slide .slide-body {
+  font-size: 21px;
+  line-height: 1.35;
+}
+.course-deck .bibliography-slide .figure-copy .columns {
+  gap: 40px;
+  align-items: start;
+}
+.course-deck .bibliography-slide li {
+  margin-bottom: 0.65em;
+}
+.course-deck .bibliography-slide .figure-copy .column {
+  margin-bottom: 0;
+}
+.reading .course-deck .figure-layout {
+  min-height: 0;
+}
+.course-deck .figure-states {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  font-size: 14px;
+}
+.course-deck .figure-states button {
+  padding: 5px 12px;
+}
+.course-deck .slide-body table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.88em;
+  line-height: 1.4;
+}
+.course-deck .slide-body th,
+.course-deck .slide-body td {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.course-deck .slide-body thead {
+  background: var(--pale);
+}
+.course-deck .cover-copy {
+  max-width: 1100px;
+  padding-top: 60px;
+}
+.course-deck .cover h1 {
+  font-size: 76px;
+  max-width: 1000px;
+}
+.course-deck .cover-kicker {
+  color: var(--green);
+  font-size: 18px;
+  letter-spacing: 0.16em;
+}
+.course-deck .cover-outline {
+  max-width: 950px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.course-deck .cover-outline button {
+  font-size: 16px;
+  padding: 9px 14px;
+}
+.course-deck .cover-actions {
+  margin-top: 22px;
+}
+.course-deck .cover-credit {
+  left: 52px;
+  bottom: 65px;
+}
+.course-deck .lab-grid {
+  grid-template-columns: 245px minmax(0, 1fr);
+  gap: 24px;
+}
+.course-deck .lab-controls {
+  gap: 12px;
+  padding-top: 6px;
+}
+.course-deck .lab-choice-field {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.course-deck .lab-choice-field legend {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.course-deck .lab-choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.course-deck .lab-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 5px 7px;
+  background: #fff;
+  cursor: pointer;
+}
+.course-deck .lab-choice:has(input:checked) {
+  border-color: var(--green);
+  background: #edf5f0;
+}
+.course-deck .lab-choice input {
+  accent-color: var(--green);
+  margin: 0;
+}
+.course-deck .lab-hint {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.course-deck .plot-views {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 0 6px;
+  font-size: 12px;
+}
+.course-deck .plot-views button {
+  padding: 5px 9px;
+}
+.course-deck .lab-chart .demo-plots,
+.course-deck .lab-chart .demo-dual,
+.course-deck .lab-chart .demo-split,
+.course-deck .lab-chart .nonquad-charts {
+  display: block;
+}
+.course-deck .lab-chart svg[data-bounds] {
+  display: block;
+  width: 100%;
+  height: 335px;
+  max-height: 335px;
+}
+.course-deck .lab-chart figure {
+  margin: 0;
+}
+.course-deck .lab-chart figcaption {
+  font-size: 13px;
+}
+.course-deck .lab-metrics {
+  gap: 9px;
+  margin-top: 8px;
+  padding-top: 8px;
+}
+.course-deck .lab-metric span {
+  font-size: 12px;
+}
+.course-deck .lab-metric strong {
+  font-size: 20px;
+}
+.course-deck .lab-notice {
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 9px;
+}
+.course-deck .lab-equation {
+  font-size: 22px;
+  flex-wrap: wrap;
+  gap: 0.1em 1.4em;
+}
+.course-deck .experiment-question {
+  font-size: 15px;
+  color: var(--green);
+  margin-top: 12px;
+}
+.course-deck .lab-controls .experiment-question {
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+}
+.course-deck .lab-legend {
+  font-size: 12px;
+}
+.course-deck .modal-controls {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.reading .course-deck .figure-layout {
+  align-items: start;
+}
+.reading .course-deck .slide-body {
+  font-size: 20px;
+}
+.reading .course-deck .figure-art:has(> .source-figure:nth-child(2)) img {
+  max-height: 340px;
+}
+.reading .course-deck .cover h1 {
+  font-size: 65px;
+}
+.reading .course-deck .cover-credit {
+  margin-top: 40px;
+}
+@media (max-width: 820px) {
+  .reading .course-deck .figure-layout {
+    display: block;
+  }
+  .reading .course-deck .source-figure img {
+    max-height: 430px;
+  }
+  .reading .course-deck .cover h1 {
+    font-size: 50px;
+  }
+  .reading .course-deck .cover-outline {
+    margin: 25px 0;
+  }
+  .reading .course-deck .cover-outline button {
+    font-size: 14px;
+  }
+}
+@media (max-width: 620px) {
+  .reading .course-deck .slide-body .columns {
+    display: block;
+  }
+  .reading .course-deck .cover h1 {
+    font-size: 42px;
+  }
+  .reading .course-deck .lab-chart svg[data-bounds] {
+    height: auto;
+    max-height: none;
+  }
+  .reading .course-deck .slide-body {
+    font-size: 18px;
+  }
+  .reading .course-deck .lab-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+  .course-deck .modal-controls {
+    grid-template-columns: 1fr;
+  }
+  .reading .course-deck .figure-art:has(> .source-figure:nth-child(2)) img {
+    max-height: none;
+  }
+}
+@media print {
+  .course-deck .figure-states {
+    display: none;
+  }
+  .course-deck .source-figure .figure-open[hidden] {
+    display: block !important;
+  }
+  .course-deck .cover-outline {
+    display: none;
+  }
+}
+/* Allocate figure heights without tightening teaching-unit spacing. */
+.course-deck .figure-multiple .source-figure img {
+  max-height: var(--multi-figure-height, 350px);
+}
+.course-deck .figure-multiple .source-figure {
+  margin: 8px 0;
+}
+.course-deck .figure-original .source-figure img {
+  max-height: var(--multi-figure-height, 500px);
+}
+.course-deck .figure-original .slide-body {
+  min-height: 0;
+  display: block;
+}
+.course-deck .figure-original .columns {
+  align-items: start;
+}
+.course-deck .slide-body pre {
+  font-size: 19px;
+  line-height: 1.4;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.course-deck .interactive-slide .experiment-question {
+  margin-top: 6px;
+  line-height: 1.35;
+}
+.course-deck .lab-notice {
+  margin-top: 6px !important;
+}
+.reading .course-deck .figure-original .slide-body {
+  min-height: 0;
+  display: block;
+}
+.reading .course-deck .figure-multiple .source-figure img {
+  max-height: 480px;
+}
+
+/* Static review: wrap wide implication and route diagrams without enlarging labels. */
+html:not(.reading) .reveal.course-deck #s059 .source-figure img {
+  display: block;
+  width: auto;
+  height: 196px;
+  max-width: 100%;
+  max-height: 196px;
+  margin-inline: auto;
+}
+html:not(.reading) .reveal.course-deck #s004 img[src$="f004-006.svg"] {
+  display: block;
+  width: auto;
+  height: 283px;
+  max-width: 100%;
+  max-height: 283px;
+  margin-inline: auto;
+}

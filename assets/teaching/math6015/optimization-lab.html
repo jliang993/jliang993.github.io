@@ -120,9 +120,9 @@ math[display=block]{margin:0;text-align:left}
 @media(max-width:500px){.header-title{font-size:14px;margin-left:10px}.header-actions #resetAll{display:none}.header-actions .key{display:none}.math-display{font-size:18px}.controls .method-content{padding-bottom:12px}.formula-dialog .formula{font-size:18px}.algorithm-tabs{grid-template-columns:repeat(3,1fr)}.editor-heading{padding-right:100px}.chart-title h2{font-size:13px}}
 @media print{.header-title{margin-left:20px}.controls,.method-legend,.mobile-controls-toggle,.mobile-control-close,.formula-detail-button{display:none!important}.lab-layout{display:block}.chart-card .canvas-wrap{height:300px}}
 </style>
-
-
-
+  
+  
+  
 </head>
 <body>
   <header class="masthead">
@@ -216,7 +216,7 @@ math[display=block]{margin:0;text-align:left}
     </div>
     <div class="experiment-grid">
       <section class="chart-card silver-card"><div class="chart-title"><div><span class="section-number">D</span><h2>Silver 的步长节奏</h2></div><select id="silverWindow" aria-label="Silver 步长显示范围"><option value="31">前 31 步</option><option value="63" selected>前 63 步</option><option value="127">前 127 步</option><option value="255">前 255 步</option></select></div><div class="silver-canvas-wrap"><canvas id="silverChart" aria-label="Silver 步长柱状图；点击柱子定位对应迭代。"></canvas><div id="silverTooltip" class="plot-tooltip" hidden></div></div><div class="chart-foot"><span>纵轴 αₖ L · 点击柱子定位该步</span><span>空心圆：2ᵐ − 1 步检查点</span></div><p class="reading-note">标准序列的前 7 个倍率为 √2, 2, √2, 2 + √2, √2, 2, √2。应观察完整块的净进展，而非要求每一步下降。</p></section>
-
+      
     </div>
     <section class="sweep-section">
       <div class="sweep-copy"><div class="eyebrow">PARAMETER SWEEP</div><h2>把一个实验，变成一组实验。</h2><p>扫描 κ，比较各方法首次达到当前精度所需的迭代数。保留当前起点、角度和算法参数。</p><div class="sweep-controls"><label for="sweepMax">κ 上限<select id="sweepMax"><option value="100">100</option><option value="300" selected>300</option><option value="1000">1000</option></select></label><button id="runSweep" class="primary">运行 18 组实验 ↗</button><button id="cancelSweep" class="quiet" hidden>取消</button></div><p id="sweepStatus" class="hint" role="status">点击曲线上的采样点，可载入对应条件数。</p><button id="sweepCSV" class="text-button" hidden>↓ 扫描结果 CSV</button></div><div class="sweep-plot"><canvas id="sweepChart" tabindex="0" aria-label="条件数与首次达标迭代数比较。运行扫描后可点击采样点。"></canvas><div class="plot-tooltip" id="sweepTooltip" hidden></div></div>

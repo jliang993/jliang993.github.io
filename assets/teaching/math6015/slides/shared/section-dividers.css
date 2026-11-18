@@ -1,0 +1,121 @@
+/* Match the source PDF's numbered section pages. */
+.reveal .section-divider {
+  background: #fff;
+  overflow: hidden;
+}
+.reveal .section-divider .slide-body {
+  height: 100%;
+  position: relative;
+  font-size: 25px;
+  line-height: 1.4;
+}
+.section-divider-copy {
+  position: relative;
+  z-index: 1;
+  padding: 18px 8px 0;
+}
+.section-divider-kicker {
+  font-size: 16px !important;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  color: #65717b;
+  margin: 0 0 24px !important;
+}
+.section-divider-rule {
+  height: 2px;
+  background: #a6192e;
+  width: 100%;
+  margin-bottom: 24px;
+}
+.section-divider-number {
+  color: #a6192e;
+  font-size: 100px !important;
+  font-weight: 750;
+  line-height: 1.05;
+  margin: 0 0 24px !important;
+  letter-spacing: -0.035em;
+}
+.section-divider-title {
+  color: #202b35;
+  font-size: 56px;
+  line-height: 1.22;
+  font-weight: 720;
+  letter-spacing: -0.025em;
+  max-width: 1100px;
+  margin: 0;
+}
+.section-divider-gate {
+  position: absolute;
+  left: 2%;
+  bottom: 16px;
+  width: 96%;
+  height: 330px;
+  object-fit: contain;
+  object-position: center bottom;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.section-start-link {
+  color: #a6192e;
+  font-weight: 650;
+}
+.section-start-link b {
+  color: #a6192e !important;
+}
+.reading .reveal .section-divider {
+  min-height: 650px;
+}
+.reading .reveal .section-divider .slide-body {
+  height: 540px;
+  min-height: 0;
+}
+.reading .section-divider-number {
+  font-size: 80px !important;
+}
+.reading .section-divider-title {
+  font-size: 44px;
+}
+.reading .section-divider-gate {
+  height: 260px;
+  bottom: 0;
+}
+@media (max-width: 620px) {
+  .reading .reveal .section-divider {
+    min-height: 540px;
+  }
+  .reading .reveal .section-divider .slide-body {
+    height: 440px;
+  }
+  .reading .section-divider-copy {
+    padding: 10px 0 0;
+  }
+  .reading .section-divider-kicker {
+    font-size: 12px !important;
+    letter-spacing: 0.035em;
+  }
+  .reading .section-divider-number {
+    font-size: 66px !important;
+    margin-bottom: 18px !important;
+  }
+  .reading .section-divider-title {
+    font-size: 34px;
+    overflow-wrap: anywhere;
+  }
+  .reading .section-divider-gate {
+    height: 180px;
+  }
+}
+@media print {
+  .reveal .section-divider .slide-body {
+    height: 150mm;
+  }
+  .section-divider-gate {
+    height: 65mm;
+  }
+  .section-divider-title {
+    font-size: 38px;
+  }
+  .section-divider-number {
+    font-size: 72px !important;
+  }
+}

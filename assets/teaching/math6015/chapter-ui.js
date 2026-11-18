@@ -437,7 +437,13 @@
         pause();
         event.preventDefault();
         handle.focus({ preventScroll: true });
-        drag = { id, keys: handle.dataset.drag.split(","), plot, pointer: event.pointerId };
+        drag = {
+          id,
+          keys: handle.dataset.drag.split(","),
+          plot,
+          pointer: event.pointerId,
+          release: D.Plot.freezeFrames(plot.querySelectorAll("svg[data-bounds]")),
+        };
         plot.setPointerCapture(event.pointerId);
       } else if (id === "silver" && states.get(id).view === "steps") {
         pause();
@@ -460,7 +466,10 @@
     });
     const stop = () => {
       if (drag?.plot === plot) {
+        const { id, release } = drag;
         drag = null;
+        release();
+        draw(id);
         save();
       }
     };
