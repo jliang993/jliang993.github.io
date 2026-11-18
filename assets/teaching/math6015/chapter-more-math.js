@@ -572,6 +572,24 @@
         argmin: s.lambda / 2,
       };
     },
+    supportingDuality({ lambda, mode }) {
+      const nonconvex = mode === "nonconvex",
+        lambdaStar = 2;
+      const objective = nonconvex ? (x) => 1.5 - 2 * x - x * x : (x) => 0.5 + (x - 1) ** 2;
+      const p = (u) => (nonconvex && u < -1 ? Infinity : objective(Math.min(u, 1)));
+      const pstar = p(0),
+        dstar = nonconvex ? 0.5 : pstar;
+      const dualLoss = nonconvex ? (l) => Math.abs(l - lambdaStar) : (l) => (1 - l / 2) ** 2;
+      const g = (l) => dstar - dualLoss(l),
+        current = g(lambda);
+      let contacts = [1 - lambda / 2];
+      if (nonconvex) {
+        const delta = lambdaStar - lambda;
+        contacts = Math.abs(delta) < 1e-12 ? [-1, 1] : [Math.sign(delta)];
+      }
+      const dualityGap = pstar - dstar;
+      return { objective, p, pstar, dstar, lambdaStar, g, contacts, uContact: contacts[0], current, dualityGap, gap: dualityGap + dualLoss(lambda) };
+    },
     sensitivity(s) {
       const c = s.c,
         b = s.b,

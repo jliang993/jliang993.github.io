@@ -305,7 +305,9 @@
     Nonquadratic.def
   );
   for (const d of Spine.defs) defs.splice(defs.findIndex((v) => v.chapter === d.chapter) + (d.chapter === "03" ? 1 : 0), 0, d);
-  defs.forEach((d) => {
+  const definitions = new Map([...defs, ...(More.lectureDefs || [])].map((d) => [d.id, d]));
+  const getDefinition = (id) => definitions.get(id);
+  definitions.forEach((d) => {
     d.pointBounds = d.pointBounds || (d.id === "norms" ? [-1.6, 1.6, -1.3, 1.3] : [-3.5, 3.5, -2.3, 2.3]);
     d.defaults = Object.fromEntries(d.controls.map((p) => [p.key, p.value]));
     for (const p of d.points || []) {
@@ -314,7 +316,7 @@
     }
   });
   function normalize(id, input = {}) {
-    const d = defs.find((d) => d.id === id),
+    const d = getDefinition(id),
       s = { ...d.defaults };
     for (const p of d.controls) {
       if (p.type === "checkbox") {
@@ -555,7 +557,7 @@
     return { config, problem, runs };
   }
   function render(id, input) {
-    const d = defs.find((d) => d.id === id),
+    const d = getDefinition(id),
       s = normalize(id, input);
     let g = new Plot(id),
       metrics = [],
@@ -991,7 +993,7 @@
     }
     return { state: s, svg: g.finish(d.title), metrics, legend, notice, data };
   }
-  const api = { defs, normalize, render, fmt, colors, algo, Plot };
+  const api = { defs, getDefinition, normalize, render, fmt, colors, algo, Plot };
   root.ChapterExamples = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

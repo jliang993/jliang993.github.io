@@ -654,8 +654,148 @@
       },
     }
   );
-  const ids = new Set(defs.map((d) => d.id));
+  const lectureDefs = [
+    {
+      id: "supporting-duality",
+      title: "支撑线与 strong duality",
+      question: String.raw`在两种情形中都取 \(\lambda=2\)，比较支撑线在 \(u=0\) 的截距。`,
+      controls: [
+        select("mode", "对照例", ["convex|凸上图", "nonconvex|非凸上图"], "convex"),
+        r("lambda", String.raw`试探乘子 \(\lambda\)`, 0, 4, 0.05, 2),
+      ],
+      animate: "lambda",
+    },
+  ];
+  const ids = new Set([...defs, ...lectureDefs].map((d) => d.id));
+
+  function renderSupportingDuality(s, { Plot, colors: c, fmt }) {
+    const nonconvex = s.mode === "nonconvex";
+    const { objective, p, pstar, dstar, lambdaStar, g, contacts, uContact, current, dualityGap, gap } = M.models.supportingDuality(s);
+    const geometryBounds = nonconvex ? [-1.2, 1.6, -2, 3] : [-1.2, 1.6, 0.18, 5.6];
+    const geometry = new Plot("supporting-duality-geometry", geometryBounds, false, String.raw`\(u\)`, String.raw`\(t\)`, { height: 236 });
+    const [, right, bottom, top] = geometry.bounds;
+    const left = nonconvex ? -1 : geometry.bounds[0];
+    geometry.polygon([...M.seq(left, right).map((u) => [u, p(u)]), [right, top], [left, top]], c.blue, 0.13);
+    geometry.curve(p, left, right, c.blue);
+    if (nonconvex)
+      geometry.path(
+        [
+          [left, p(left)],
+          [left, top],
+        ],
+        c.blue,
+        2
+      );
+    else geometry.curve(objective, 1, right, c.gray, "4 4");
+    geometry.label([1.22, top - 0.21 * (top - bottom)], String.raw`\(\mathcal A\)`, c.blue);
+    geometry.line([1, 0], 0, c.gray, "4 4");
+    geometry.label([0, top], String.raw`\(u=0\)`, c.gray, 8, 15);
+    geometry.line([s.lambda, 1], current, c.red, "");
+
+    const comparison = nonconvex ? dstar : current;
+    if (pstar - comparison > 0.02)
+      geometry.path(
+        [
+          [0, pstar],
+          [-0.085, pstar],
+          [-0.085, comparison],
+          [0, comparison],
+        ],
+        c.orange,
+        2.6
+      );
+    if (nonconvex) {
+      const chord = [
+        [-1, p(-1)],
+        [1, p(1)],
+      ];
+      geometry.path(chord, c.orange, 2.4, "5 4");
+      for (const endpoint of chord) geometry.dot(endpoint, "", c.orange);
+      geometry.dot([0, dstar], "", c.orange);
+      geometry.label([0, dstar], String.raw`\((0,d^\star)\)`, c.orange, 10, -3);
+    }
+    for (const u of contacts) geometry.dot([u, p(u)], !nonconvex && Math.abs(u) > 0.14 ? "切点" : "", c.red);
+    const showTrial = nonconvex ? dstar - current > 0.06 : gap > 0.02;
+    if (showTrial) {
+      geometry.dot([0, current], "", c.red);
+      geometry.label([0, current], String.raw`\(g(\lambda)\)`, c.red, 10, 20);
+    }
+    geometry.dot([0, pstar], gap === 0 ? String.raw`\(g(\lambda)=p^\star\)` : String.raw`\((0,p^\star)\)`, c.green);
+
+    const dualBounds = nonconvex ? [-0.18, 4.18, -1.78, 1.75] : [-0.18, 4.18, 0.35, 1.67];
+    const dual = new Plot("supporting-duality-value", dualBounds, false, String.raw`\(\lambda\)`, String.raw`\(g(\lambda)\)`, { height: 236 });
+    dual.curve(g, 0, 4, c.purple);
+    dual.line([0, 1], pstar, c.green, "4 4");
+    if (nonconvex) {
+      dual.label([3.75, pstar], String.raw`\(p^\star\)`, c.green, 0, -8);
+      dual.path(
+        [
+          [lambdaStar, dstar],
+          [lambdaStar, pstar],
+        ],
+        c.orange,
+        3
+      );
+    }
+    dual.dot(
+      [lambdaStar, dstar],
+      nonconvex ? String.raw`\((\lambda^\star,d^\star)\)` : String.raw`\(\lambda^\star=2\)`,
+      nonconvex ? c.orange : c.green
+    );
+    if (!nonconvex)
+      dual.path(
+        [
+          [s.lambda, current],
+          [s.lambda, pstar],
+        ],
+        c.orange,
+        3
+      );
+    dual.dot([s.lambda, current], Math.abs(s.lambda - lambdaStar) > 0.45 ? "当前下界" : "", c.red, "lambda");
+
+    const hint = nonconvex
+      ? String.raw`\(f_0(x)=\tfrac32-2x-x^2\)，\(\mathcal D=[-1,1]\)。`
+      : String.raw`\(f_0(x)=(x-1)^2+\tfrac12\)，\(\mathcal D=\mathbb R\)。`;
+    const notice = nonconvex
+      ? String.raw`两边界点的中点 \((0,d^\star)\) 位于 \(\mathcal A\) 外。\(p^\star-d^\star=1\)，强对偶不成立。`
+      : gap === 0
+        ? String.raw`支撑线通过 \((0,p^\star)\)，此时 \(g(2)=d^\star=p^\star\)。`
+        : String.raw`当前支撑线在 \(u=0\) 的截距为 \(g(\lambda)\)，离 \(p^\star\) 还有 \(${fmt(gap)}\)。`;
+    const details = nonconvex
+      ? String.raw`<p>目标在 \([-1,1]\) 上递减，原问题在 \(x=0\) 取到 \(p^\star=\tfrac32\)。对 \(u\ge-1\)，\(p(u)=f_0(\min(u,1))\)，而 \(u<-1\) 时 \(p(u)=+\infty\)。</p><p>\((-1,\tfrac52)\) 与 \((1,-\tfrac32)\) 都在 \(\mathcal A\) 的边界上。两点的中点 \((0,\tfrac12)\) 在边界下方，因此 \(\mathcal A\) 非凸。</p><p>拉格朗日函数对 \(x\) 严格凹，最小值在区间端点取到。于是 \(g(\lambda)=\min\{\tfrac52-\lambda,\,-\tfrac32+\lambda\}=\tfrac12-|\lambda-2|\)。最大值 \(d^\star=\tfrac12\) 在 \(\lambda=2\) 取到，最优对偶间隙为 \(1\)。</p>`
+      : String.raw`<p>将约束写成 \(x\le u\)，则 \(p(u)=\tfrac12+\max(1-u,0)^2\)。蓝色为 \(\mathcal A\) 的边界，灰色虚线为原抛物线的上升支。</p><p>极小化 \((x-1)^2+\tfrac12+\lambda x\) 给出 \(u_\lambda=1-\lambda/2\)，因此 \(g(\lambda)=\tfrac32-(1-\lambda/2)^2\)。当 \(\lambda=0\) 时，水平支撑线接触整个 \(u\ge1\) 的平段，图上标出其中一点。</p>`;
+    return {
+      state: s,
+      svg: `<figure>${geometry.finish("支撑线与上图")}<figcaption>支撑线与上图</figcaption></figure><figure>${dual.finish(
+        "对偶函数"
+      )}<figcaption>对偶函数</figcaption></figure>`,
+      metrics: [
+        { label: String.raw`原始最优值 \(p^\star\)`, value: fmt(pstar) },
+        { label: String.raw`当前下界 \(g(\lambda)\)`, value: fmt(current) },
+        { label: String.raw`对偶最优值 \(d^\star\)`, value: fmt(dstar) },
+        { label: String.raw`对偶间隙 \(p^\star-d^\star\)`, value: fmt(dualityGap) },
+      ],
+      hint,
+      notice,
+      details,
+      data: {
+        mode: s.mode,
+        lambda: s.lambda,
+        uContact,
+        tContact: p(uContact),
+        contacts: contacts.map((u) => [u, p(u)]),
+        pstar,
+        dstar,
+        lambdaStar,
+        current,
+        gap,
+        dualityGap,
+      },
+    };
+  }
+
   function render(id, s, A) {
+    if (id === "supporting-duality") return renderSupportingDuality(s, A);
     const { Plot, colors: c, fmt } = A,
       { dot, norm, add, scale, rotate } = C,
       d = defs.find((d) => d.id === id);
@@ -1493,7 +1633,7 @@
     }
     return { state: s, svg: g.finish(d.title), metrics, legend, notice, data };
   }
-  const api = { defs, ids, render };
+  const api = { defs, lectureDefs, ids, render };
   root.ChapterMoreExamples = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

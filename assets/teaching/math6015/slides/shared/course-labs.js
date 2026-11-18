@@ -78,6 +78,7 @@
   }
   function render(v) {
     const result = D.render(v.kind, v.state);
+    if (result.hint && result.hint !== v.result?.hint) v.el.querySelector(".lab-hint").textContent = result.hint;
     v.state = result.state;
     v.result = result;
     v.el.querySelector(".lab-chart").innerHTML = namespace(result.svg, v.id);
@@ -190,7 +191,7 @@
     const id = el.closest("section.lecture-slide").id;
     if (instances.has(id)) return instances.get(id);
     const kind = el.dataset.lab,
-      def = D.defs.find((d) => d.id === kind);
+      def = D.getDefinition?.(kind) ?? D.defs.find((d) => d.id === kind);
     if (!def) throw Error("Unknown course experiment: " + kind);
     const primary = def.controls.filter((c) => c.group !== "advanced" && c.group !== "methods" && c.group !== "line"),
       controls = primary.slice(0, 4);
@@ -201,13 +202,14 @@
     }
     const v = { id, el, kind, def, controls, state: D.normalize(kind, restored[id] || def.defaults), plot: restored[id]?.__plot || 0 };
     instances.set(id, v);
+    const hint = def.hint ?? (def.points ? "拖动图中的控制点；也可选中点后用方向键移动。" : "调整参数，图形和数值同步计算。");
     el.innerHTML = `<div class="lab-grid"><div class="lab-controls">${controls.map((c) => control(c, v.state)).join("")}${
       animated
         ? '<div class="play-controls"><button data-action="play" aria-pressed="false">播放</button><button data-action="step">单步 →</button><button data-action="rewind">起点</button></div>'
         : ""
-    }<div class="lab-tools"><button data-action="details">更多参数 / 数据</button><button data-action="reset">恢复默认</button></div><p class="lab-hint">${
-      def.points ? "拖动图中的控制点；也可选中点后用方向键移动。" : "调整参数，图形和数值同步计算。"
-    }</p></div><div class="lab-main"><div class="plot-views" role="group" aria-label="选择图形"></div><div class="lab-chart"></div><div class="lab-legend"></div><div class="lab-metrics"></div><p class="lab-notice"></p></div></div>`;
+    }<div class="lab-tools"><button data-action="details">更多参数 / 数据</button><button data-action="reset">恢复默认</button></div><p class="lab-hint">${esc(
+      hint
+    )}</p></div><div class="lab-main"><div class="plot-views" role="group" aria-label="选择图形"></div><div class="lab-chart"></div><div class="lab-legend"></div><div class="lab-metrics"></div><p class="lab-notice"></p></div></div>`;
     // Keep the observation prompt beside the controls. Placing it beneath the
     // full graph and model notes can collide with the fixed slide footer.
     const question = el.parentElement.querySelector(":scope > .experiment-question");
