@@ -608,6 +608,10 @@
           currentState(v).zoom
         }" aria-label="图形缩放比例"><output data-zoom-value>100%</output><button data-action="zoom-in" aria-label="放大交互图">＋</button><button data-action="zoom-fit">复位视图</button></div>`
       : "";
+    const noticeBesideControls = ["nonquadratic", "ridge", "affineNewton"].includes(kind);
+    const metricsBesideControls = kind === "ridge";
+    const notice = '<p class="lab-notice"></p>';
+    const metrics = '<div class="lab-metrics" aria-live="off"></div>';
     el.innerHTML = `<div class="lab-grid"><div class="lab-controls">${pointControls}${controls
       .filter((c) => c.type !== "checkbox" && c.key !== "zoom")
       .map((c) => control(c, currentState(v)))
@@ -616,10 +620,12 @@
         ? '<div class="play-controls"><button data-action="play" aria-pressed="false">播放</button><button data-action="step">单步 →</button><button data-action="rewind">从头</button></div>'
         : ""
     }<div class="lab-tools"><button data-action="details">详情 / 参数</button><button data-action="reset">重置</button></div>${
-      kind === "nonquadratic" ? '<p class="lab-notice"></p>' : ""
-    }</div><div class="lab-main">${plotViews}${zoomTools}<div class="lab-chart"></div><div class="lab-methods">${methods}</div><div class="lab-legend"></div><div class="lab-metrics" aria-live="off"></div>${
-      kind === "nonquadratic" ? "" : '<p class="lab-notice"></p>'
-    }</div></div>`;
+      metricsBesideControls ? metrics : ""
+    }${
+      noticeBesideControls ? notice : ""
+    }</div><div class="lab-main">${plotViews}${zoomTools}<div class="lab-chart"></div><div class="lab-methods">${methods}</div><div class="lab-legend"></div>${
+      metricsBesideControls ? "" : metrics
+    }${noticeBesideControls ? "" : notice}</div></div>`;
     if (kind === "strongConvex" && el.nextElementSibling?.classList.contains("source-note"))
       el.querySelector(".lab-controls").append(el.nextElementSibling);
     el.addEventListener("input", (e) => {

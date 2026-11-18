@@ -181,13 +181,17 @@
       const rendered = await conversion(tex);
       if (!text.isConnected) return;
       const svg = text.closest("svg"),
-        [vx, vy, vw] = dimensions(svg),
-        [mx, my, mw] = dimensions(rendered);
-      const size = text.closest(".demo-axes") ? 17 : 19,
-        scale = size / 1000,
-        anchor = text.getAttribute("text-anchor");
+        [vx, vy, vw, vh] = dimensions(svg),
+        [mx, my, mw, mh] = dimensions(rendered);
+      const axis = text.closest(".demo-axes"),
+        style = getComputedStyle(text);
+      const labelSize = Number.parseFloat(style.getPropertyValue("--plot-label-size"));
+      const anchor = text.getAttribute("text-anchor");
       const x = +(text.getAttribute("x") || 0),
         y = +(text.getAttribute("y") || 0);
+      const size = labelSize || (axis ? 17 : 19);
+      const scale = axis && anchor === "end" && x - vx < vw / 4 ? Math.min(size / 1000, (x - vx - 3) / mw) : size / 1000;
+      const baseline = labelSize ? Math.max(vy + 2 - my * scale, Math.min(y, vy + vh - 2 - (my + mh) * scale)) : y;
       let left = x - (anchor === "end" ? mw : anchor === "middle" ? mw / 2 : 0) * scale;
       left = Math.max(vx + 3, Math.min(left, vx + vw - 3 - mw * scale));
       const group = document.createElementNS(NS, "g"),
@@ -195,10 +199,10 @@
       group.classList.add("graph-math-label");
       group.dataset.latex = tex;
       group.setAttribute("aria-label", label);
-      group.style.color = text.getAttribute("fill") || getComputedStyle(text).fill || "currentColor";
+      group.style.color = style.getPropertyValue("--plot-label-color").trim() || text.getAttribute("fill") || style.fill || "currentColor";
       group.setAttribute("fill", "currentColor");
       if (text.hasAttribute("transform")) group.setAttribute("transform", text.getAttribute("transform"));
-      body.setAttribute("transform", `translate(${left - mx * scale} ${y}) scale(${scale})`);
+      body.setAttribute("transform", `translate(${left - mx * scale} ${baseline}) scale(${scale})`);
       for (const child of rendered.childNodes) body.append(child.cloneNode(true));
       // MathJax's fallback CJK text is in 1000-unit em coordinates. Do not let the
       // plot's ordinary SVG text rule override its explicit font size.

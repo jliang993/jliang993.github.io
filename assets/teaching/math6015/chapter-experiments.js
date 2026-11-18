@@ -390,7 +390,7 @@
     }
     constructor(id, bounds = [-3.8, 3.8, -2.5, 2.5], equal = true, xlabel = "x₁", ylabel = "x₂", layout = {}) {
       this.id = id;
-      this.box = { l: 48, t: 24, w: 570, h: Number.isFinite(layout.height) && layout.height > 0 ? layout.height : 290 };
+      this.box = { l: 62, t: 24, w: 556, h: Number.isFinite(layout.height) && layout.height > 0 ? layout.height : 290 };
       let [xmin, xmax, ymin, ymax] = bounds;
       if (equal) {
         const scale = Math.min(this.box.w / (xmax - xmin), this.box.h / (ymax - ymin)),
@@ -505,8 +505,8 @@
           [px] = this.pos([x, 0]),
           [, py] = this.pos([0, y]);
         axes += `<path d="M${px} ${b.t}V${b.t + b.h}M${b.l} ${py}H${b.l + b.w}" class="demo-grid"/><text x="${px}" y="${
-          b.t + b.h + 19
-        }" text-anchor="middle">${fmt(x, 2)}</text><text x="${b.l - 8}" y="${py + 4}" text-anchor="end">${fmt(y, 2)}</text>`;
+          b.t + b.h + 16
+        }" text-anchor="middle">${fmt(x, 2)}</text><text x="${b.l - 8}" y="${py + (i === 0 ? 0 : 4)}" text-anchor="end">${fmt(y, 2)}</text>`;
       }
       return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 ${height}" role="${
         this.content.some((s) => s.includes("data-drag")) ? "group" : "img"
@@ -515,7 +515,7 @@
       )}" data-box="${[b.l, b.t, b.w, b.h].join(",")}"><title id="${this.id}-plot-title">${esc(title)}</title><defs><clipPath id="${
         this.id
       }-clip"><rect x="${b.l}" y="${b.t}" width="${b.w}" height="${b.h}"/></clipPath></defs><g class="demo-axes">${axes}<text x="${b.l + b.w}" y="${
-        height - 3
+        height - 1
       }" text-anchor="end">${esc(this.xlabel)}</text><text x="${b.l}" y="13">${esc(this.ylabel)}</text></g><g clip-path="url(#${
         this.id
       }-clip)">${this.content.join("")}</g><g>${this.labels.join("")}</g></svg>`;

@@ -142,7 +142,8 @@
     const body = slide.querySelector(".slide-body");
     let scale = 1;
     body.style.setProperty("--content-scale", "1");
-    const available = 800 - body.offsetTop - 51;
+    const footerTop = slide.querySelector(".slide-footer").offsetTop || (slide.clientHeight || 800) - 35;
+    const available = footerTop - body.offsetTop - 16;
     if (slide.classList.contains("has-enrichment")) {
       slide.dataset.fits = String(body.scrollHeight <= available + 2);
       return;
@@ -154,6 +155,12 @@
     }
     // Preserve equations and text if a very dense slide needs extra space.
     slide.dataset.fits = String(body.scrollHeight <= available + 2);
+  }
+  function presentationSize() {
+    const { clientWidth, clientHeight } = $("slide-content");
+    // Keep the authored scale and allocate the unused axis to the slide.
+    const scale = Math.min(clientWidth / 1280, clientHeight / 800);
+    return scale ? { width: Math.round(clientWidth / scale), height: Math.round(clientHeight / scale) } : { width: 1280, height: 800 };
   }
   function cover() {
     const N = globalThis.ChapterNonquadratic,
@@ -365,9 +372,8 @@
     if (fromHash().id !== decodeURIComponent(location.hash.replace(/^#\/?/, "").split("/")[0]) && location.hash)
       history.replaceState(null, "", "#/" + fromHash().id);
     await Reveal.initialize({
-      width: 1280,
-      height: 800,
-      margin: 0.025,
+      ...presentationSize(),
+      margin: 0.02,
       minScale: 0.15,
       maxScale: 2,
       center: false,
@@ -419,7 +425,14 @@
       url.searchParams.set("steps", enabled ? "on" : "all");
       history.replaceState(null, "", url);
     };
-    window.addEventListener("resize", () => requestAnimationFrame(() => fit(Reveal.getCurrentSlide())));
+    window.addEventListener("resize", () =>
+      requestAnimationFrame(() => {
+        const size = presentationSize(),
+          config = Reveal.getConfig();
+        if (size.width !== config.width || size.height !== config.height) Reveal.configure(size);
+        fit(Reveal.getCurrentSlide());
+      })
+    );
     for (const img of document.images)
       img.addEventListener("load", () => {
         if (img.closest(".lecture-slide") === Reveal.getCurrentSlide()) fit(Reveal.getCurrentSlide());
