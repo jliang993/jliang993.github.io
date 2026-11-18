@@ -1,0 +1,219 @@
+/* Targeted static-figure reflows. Geometry grows through generated SVG units;
+   these rules allocate space without reducing slide, prose or formula fonts. */
+.course-deck .static-layout-more .source-figure {
+  min-width: 0;
+}
+.course-deck .static-layout-more .figure-open {
+  min-width: 0;
+}
+
+/* 01C s017: keep the formula/context unit first, then give the geometry a
+   dedicated full-width row. The first unit itself uses two useful columns. */
+.course-deck .slm-01c-s017 .slm-representation-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.course-deck .slm-01c-s017 .slm-representation-context {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: 24px;
+  align-items: center;
+}
+.course-deck .slm-01c-s017 .slm-representation-context > .source-figure,
+.course-deck .slm-01c-s017 .slm-representation-context > p {
+  margin: 0;
+}
+.course-deck .slm-01c-s017 .slm-representation-geometry {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+.course-deck .slm-01c-s017 .slm-representation-geometry .source-figure {
+  width: min(100%, 620px);
+  margin: 0;
+}
+.course-deck .slm-01c-s017 .slm-representation-geometry img {
+  max-height: 260px;
+}
+
+/* Multi-card grids retain every source figure while avoiding tiny thumbnails. */
+.course-deck .static-layout-more .slm-card-grid,
+.course-deck .static-layout-more .slm-grid-2plus1 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+  align-items: start;
+}
+.course-deck .static-layout-more .slm-card-grid > .column,
+.course-deck .static-layout-more .slm-grid-2plus1 > .column {
+  min-width: 0;
+  width: auto;
+}
+.course-deck .slm-01c-s027 .slm-lp-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.course-deck .slm-01c-s027 .slm-lp-top {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+}
+.course-deck .slm-01c-s027 .slm-lp-bottom {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.65fr) minmax(620px, 1.35fr);
+  gap: 28px;
+  align-items: start;
+}
+.course-deck .slm-01c-s027 .slm-lp-bottom.without-supplement {
+  grid-template-columns: minmax(0, 520px);
+  justify-content: center;
+}
+.course-deck .slm-01c-s027 .slm-lp-layout .column {
+  width: auto;
+  min-width: 0;
+}
+.course-deck .slm-01c-s027 .source-figure {
+  margin: 2px 0 6px;
+}
+.course-deck .slm-01c-s027 .source-figure img {
+  max-height: 185px;
+}
+.course-deck .slm-01c-s027 [data-teaching-supplement] {
+  width: 100%;
+  margin: 0;
+}
+.course-deck .slm-01c-s027 [data-teaching-supplement] .worked-columns {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 8px !important;
+}
+.course-deck .slm-01c-s027 [data-teaching-supplement] .worked-columns > div {
+  min-width: 0;
+}
+.course-deck .slm-01c-s027 .slm-lp-layout + p {
+  margin-top: 8px;
+}
+
+/* Wide constructions use the complete slide width below their explanations. */
+.course-deck .static-layout-more .slm-wide-layout {
+  gap: 12px;
+}
+.course-deck .slm-01c-s031 .figure-art img {
+  max-height: min(var(--figure-height, 310px), 310px);
+}
+.course-deck .slm-02-s040 .slm-copy-two-up {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  align-items: start;
+}
+.course-deck .slm-02-s040 .slm-copy-two-up > p {
+  margin: 0;
+}
+.course-deck .slm-02-s040 .figure-art img {
+  max-height: min(var(--figure-height, 315px), 315px);
+}
+.course-deck .slm-02-s051 .figure-art img {
+  max-height: min(var(--figure-height, 300px), 300px);
+}
+.course-deck .slm-04-s014 .figure-art img {
+  max-height: min(var(--figure-height, 380px), 380px);
+}
+.course-deck .slm-04-s014 .figure-states {
+  margin-top: 2px;
+}
+
+/* The summary stays side-by-side: its prose is already a complete teaching
+   unit, so only balance the two slots and let the polished map use its room. */
+.course-deck .slm-01c-s053 .slm-summary-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 38px;
+  align-items: center;
+}
+.course-deck .slm-01c-s053 .figure-art img {
+  max-height: min(var(--figure-height, 390px), 390px);
+}
+
+/* Performance metrics stay in three equal columns; geometry, not text, grows. */
+.course-deck .slm-02-s042 .slm-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.course-deck .slm-02-s042 .slm-metric-grid > .column {
+  width: auto;
+  min-width: 0;
+}
+.course-deck .slm-02-s042 .source-figure {
+  margin: 3px 0 7px;
+}
+.course-deck .slm-02-s042 .source-figure img {
+  max-height: 180px;
+}
+
+/* The third trade-off becomes a horizontal full-width row; this uses height
+   without splitting the logical page or compressing its labels. */
+.course-deck .slm-02-s053 .slm-tradeoff-grid {
+  gap: 10px 26px;
+}
+.course-deck .slm-02-s053 .slm-tradeoff-grid > .column:nth-child(3) {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(320px, 1.1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+.course-deck .slm-02-s053 .slm-tradeoff-grid > .column:nth-child(3) > p {
+  margin: 0;
+}
+.course-deck .slm-02-s053 .source-figure {
+  margin: 2px 0 6px;
+}
+.course-deck .slm-02-s053 .source-figure img {
+  max-height: 190px;
+}
+
+/* Paired signal comparisons receive equal-width slots and aligned baselines. */
+.course-deck .static-layout-more .slm-equal-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 34px;
+  align-items: start;
+}
+.course-deck .static-layout-more .slm-equal-pair > .column {
+  width: auto;
+  min-width: 0;
+}
+.course-deck .static-layout-more .slm-equal-pair > .column > p:first-child {
+  min-height: 1.5em;
+  margin-bottom: 4px;
+}
+.course-deck .slm-02-s055 .slm-equal-pair > .column:first-child img {
+  max-height: 260px;
+}
+.course-deck .slm-02-s055 .slm-equal-pair > .column:nth-child(2) img {
+  max-height: 345px;
+}
+.course-deck .slm-02-s056 .slm-equal-pair img {
+  max-height: 270px;
+}
+
+@media (max-width: 820px) {
+  .reading .course-deck .slm-01c-s017 .slm-representation-context,
+  .reading .course-deck .slm-01c-s027 .slm-lp-top,
+  .reading .course-deck .slm-01c-s027 .slm-lp-bottom,
+  .reading .course-deck .static-layout-more .slm-card-grid,
+  .reading .course-deck .static-layout-more .slm-grid-2plus1,
+  .reading .course-deck .slm-02-s042 .slm-metric-grid,
+  .reading .course-deck .static-layout-more .slm-equal-pair,
+  .reading .course-deck .slm-02-s040 .slm-copy-two-up {
+    display: block;
+  }
+  .reading .course-deck .slm-02-s053 .slm-tradeoff-grid > .column:nth-child(3) {
+    display: block;
+  }
+}

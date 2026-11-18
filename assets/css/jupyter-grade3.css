@@ -29,7 +29,7 @@ body > #header {
   z-index: 100;
 }
 
-
+input[type="radio"],
 input[type="checkbox"] {
   margin-top: 1px;
   line-height: normal;
@@ -322,6 +322,7 @@ h3,
 h4,
 pre,
 code,
+form,
 fieldset,
 legend,
 input,
@@ -368,7 +369,8 @@ div.cell.selected:before {
 }
 
 pre,
-code {
+code,
+kbd {
   white-space: pre-wrap;
 }
 
@@ -381,6 +383,16 @@ code {
   background: #efefef;
   background-color: #efefef;
   border-color: #efefef;
+}
+
+kbd {
+  padding: 1px;
+  font-size: 11pt;
+  font-weight: 800;
+  color: #303030;
+  background-color: transparent !important;
+  border: 0;
+  box-shadow: none;
 }
 
 pre {

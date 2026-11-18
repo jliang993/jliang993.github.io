@@ -1,0 +1,1 @@
+document.addEventListener("click",e=>{const t=e.target.closest("[data-figure-state]");if(!t)return;const r=t.closest(".source-figure"),a=+t.dataset.figureState;r.querySelectorAll(".figure-open").forEach((e,t)=>e.hidden=t!==a),r.querySelectorAll("[data-figure-state]").forEach((e,t)=>e.setAttribute("aria-pressed",String(t===a))),globalThis.Reveal?.layout()});

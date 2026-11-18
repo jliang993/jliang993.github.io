@@ -1,0 +1,631 @@
+/* Figures are sized by their teaching space, never by a TeX point size. */
+.reveal .slide-body .source-figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 12px 0 18px;
+  width: 100%;
+}
+.reveal .source-figure .figure-open {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: zoom-in;
+}
+.reveal .source-figure .figure-open:hover {
+  background: transparent;
+  outline: 2px solid #c7d8cf;
+  outline-offset: 8px;
+}
+.reveal .slide-body .source-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+}
+.figure-side .figure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+  align-items: center;
+  gap: 36px;
+  min-height: 530px;
+}
+.figure-side .figure-layout.copy-wide {
+  grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+}
+.figure-copy,
+.figure-art {
+  min-width: 0;
+}
+.figure-side .figure-copy {
+  font-size: calc(24px * var(--content-scale, 1));
+}
+.figure-side .figure-copy > :last-child {
+  margin-bottom: 0;
+}
+.figure-side .figure-copy .columns {
+  display: block;
+}
+.reveal .figure-side .figure-art .source-figure {
+  margin: 0;
+}
+.reveal .figure-side .figure-art .source-figure img {
+  height: 520px;
+}
+.reveal .figure-flow .source-figure {
+  margin: 22px auto;
+}
+.reveal .figure-flow .source-figure img {
+  max-height: 510px;
+}
+.reveal .figure-full .source-figure {
+  margin: 0;
+}
+.reveal .figure-full .source-figure img {
+  height: 570px;
+}
+.reveal .figure-compare .figure-comparison {
+  gap: 34px;
+  align-items: center;
+}
+.reveal .figure-compare .source-figure img {
+  height: 340px;
+}
+.reveal .figure-compare .slide-body > .figure-comparison:only-child .source-figure img {
+  height: 500px;
+}
+.reveal .figure-result .source-figure img {
+  height: 370px;
+}
+.figure-result .slide-body {
+  font-size: 23px;
+}
+.figure-result .block {
+  margin-top: 20px;
+}
+.figure-theory .slide-body {
+  max-width: 1100px;
+}
+
+/* The LMI argument and diagram share a single page; click the figure to enlarge. */
+.reveal .lmi-line-search .source-figure img {
+  height: 280px;
+}
+.lmi-line-search .columns {
+  align-items: center;
+}
+.lmi-line-search .keep-together {
+  white-space: nowrap;
+}
+.reading .lmi-line-search .source-figure img {
+  height: auto;
+}
+
+/* The input-design model spans the top; its Hessian and diagram share the row below. */
+.input-design .columns {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  align-items: center;
+  gap: 32px;
+}
+.reveal .input-design .source-figure {
+  margin: 0;
+}
+.reveal .input-design .source-figure img {
+  height: 360px;
+}
+
+/* Highlight the current argument without changing its size or position. */
+.derivation-step {
+  display: block;
+}
+.lecture-toolbar #expand-toggle[aria-pressed="true"] {
+  background: var(--pale);
+  color: var(--green);
+  border-color: #c5d8cf;
+}
+html:not(.reading):not(.all-visible) .reveal .lecture-step.current-fragment {
+  background-color: #edf5f1;
+  box-shadow: 0 0 0 6px #edf5f1;
+  border-radius: 3px;
+}
+html:not(.reading):not(.all-visible) .reveal .lecture-step.current-fragment .typeset-math {
+  color: var(--green);
+}
+@media print {
+  .reveal .lecture-step {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .reveal .lecture-step .typeset-math {
+    color: inherit !important;
+  }
+}
+
+/* Large plot views keep all parameter controls in place. */
+.plot-views {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 8px;
+}
+.plot-views button {
+  font-size: 13px;
+  padding: 5px 11px;
+}
+.lab-chart svg text {
+  font-size: 17px;
+}
+.lab-chart .demo-axes text {
+  font-size: 17px;
+}
+.lab-chart > svg,
+.lab-chart .nonquad-charts:has(> figure:only-child) svg {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  max-height: none;
+  display: block;
+  margin: 0 auto;
+}
+.reading .lab-chart > svg,
+.reading .lab-chart .nonquad-charts:has(> figure:only-child) svg {
+  max-width: 840px;
+  max-height: none;
+}
+.reading #s019 .lab-chart figure svg {
+  max-height: none;
+}
+.lab-legend:empty {
+  display: none;
+}
+
+/* Keep the recurring (9.20) experiment inside the teaching area without
+   reducing its plot or mathematical text.  These four pages share the same
+   controls and metrics, so reclaim their otherwise repeated spacer height. */
+html:not(.reading) :is(#s038, #s053, #s069, #s097) .lab-equation {
+  min-height: 45px;
+  margin-bottom: 2px;
+}
+html:not(.reading) :is(#s038, #s053, #s069, #s097) .lab-main {
+  padding-top: 0;
+}
+html:not(.reading) :is(#s038, #s053, #s069, #s097) .lab-metrics {
+  margin-top: 8px;
+  padding-top: 7px;
+}
+html:not(.reading) :is(#s038, #s053, #s069, #s097) .lab-notice {
+  margin-top: 2px !important;
+}
+
+/* On the affine-scaling summary the two short parameter expressions belong
+   to the sentence.  Keeping them inline leaves the full-width plot large and
+   prevents it from colliding with the footer. */
+html:not(.reading) #s072 .typeset-math.is-display {
+  display: inline-block;
+  margin: 0 0.22em;
+  text-align: left;
+}
+html:not(.reading) .reveal #s072 .source-figure {
+  margin: 12px auto;
+}
+.lab-controls .lab-notice {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+/* Mathematical labels are independently typeset, not magnified raster type. */
+.live-math {
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+  line-height: 1.2;
+  margin: 0 0.1em;
+}
+.live-math > svg {
+  display: inline-block;
+  overflow: visible;
+  max-height: none !important;
+  margin: 0 !important;
+}
+.graph-math-label {
+  pointer-events: none;
+}
+.lab-choice-field {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.lab-choice-field legend {
+  padding: 0;
+  margin-bottom: 5px;
+  font-weight: 550;
+}
+.lab-choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.lab-choice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  padding: 4px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 12px;
+  line-height: 1.25;
+  cursor: pointer;
+}
+.lab-choice input {
+  margin: 0;
+  width: 12px;
+  height: 12px;
+  flex: none;
+  accent-color: var(--green);
+}
+.lab-choice:has(:checked) {
+  border-color: var(--green);
+  background: #edf6f2;
+}
+.lab-choice:focus-within {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+[data-choice-control="kind"] .lab-choice {
+  width: 100%;
+}
+.plot-zoom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 6px 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.plot-zoom button {
+  padding: 3px 9px;
+  font-size: 13px;
+}
+.plot-zoom input {
+  width: 110px;
+  accent-color: var(--green);
+}
+.plot-zoom output {
+  min-width: 38px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.model-rows {
+  display: grid;
+  gap: 18px;
+}
+.model-rows article {
+  border-left: 4px solid #7ba9a0;
+  background: #eff5f0;
+  padding: 17px 22px;
+  border-radius: 0 8px 8px 0;
+}
+.model-rows article:nth-child(2) {
+  background: #eef3fb;
+  border-color: #8fa9d5;
+}
+.model-rows article:nth-child(3) {
+  background: #f8f2e9;
+  border-color: #c7a573;
+}
+.model-rows h3 {
+  margin: 0 0 6px;
+  font-size: 23px;
+}
+.model-rows p {
+  margin: 0 0 5px;
+  font-size: 21px;
+  line-height: 1.4;
+}
+.model-rows p:last-child {
+  margin-bottom: 0;
+}
+.sensor-layout .figure-layout.copy-wide {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 30px;
+}
+.merged-figure .figure-copy {
+  font-size: calc(22px * var(--content-scale, 1));
+}
+.merged-figure .figure-copy .block {
+  margin-bottom: 22px;
+}
+.norm-comparison .slide-body {
+  font-size: calc(22px * var(--content-scale, 1));
+}
+.norm-comparison .columns {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 32px;
+}
+.norm-comparison .block {
+  margin-bottom: 0;
+}
+.reveal .norm-comparison .source-figure {
+  margin: 12px auto 18px;
+}
+.reveal .norm-comparison .source-figure img {
+  height: 290px;
+  max-height: 290px;
+}
+.loss-comparison > .column {
+  border-radius: 8px;
+  padding: 18px 20px;
+  border: 1px solid #c8d8f0;
+  background: #eef4fd;
+}
+.loss-comparison > .column:nth-child(2) {
+  background: #edf6ef;
+  border-color: #bad8c6;
+}
+#s010-2 .figure-copy {
+  font-size: calc(21px * var(--content-scale, 1));
+}
+#s028 .slide-body {
+  font-size: 21px;
+  line-height: 1.4;
+}
+#s028 .slide-body p {
+  margin: 10px 0;
+}
+#s028 .loss-comparison > .column {
+  padding: 12px 18px;
+}
+#s028 .source-figure img {
+  max-height: 185px;
+}
+#s048 .figure-art .source-figure img {
+  width: 66.666667%;
+  height: 346.666667px;
+  margin-inline: auto;
+}
+#s073 .slide-body > p:last-child {
+  margin-top: 32px;
+}
+.lab-controls .source-note {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.lab-controls .source-note button {
+  margin-top: 9px;
+}
+.lab-prompt .typeset-math.is-display {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.95em;
+}
+.source-note > button {
+  padding: 4px 9px;
+  font-size: 13px;
+}
+
+/* The document view has no slide-height constraint. */
+.reading .figure-side .figure-layout {
+  min-height: 0;
+}
+.reading .figure-side .figure-copy {
+  font-size: inherit;
+}
+.reading .reveal .slide-body .source-figure img {
+  height: auto;
+  max-height: 650px;
+}
+.reading .reveal .figure-side .figure-art .source-figure img {
+  height: 510px;
+}
+.reading .reveal .figure-compare .source-figure img {
+  height: 390px;
+}
+.reading .reveal .figure-full .source-figure img {
+  height: 650px;
+}
+.reading .reveal .figure-result .source-figure img {
+  height: 480px;
+}
+.reading .archive-figures {
+  display: grid;
+  gap: 28px;
+  margin-top: 30px;
+}
+.reading .archive-figures .source-figure {
+  flex-direction: column;
+}
+.reading .archive-figures .figure-open {
+  width: 100%;
+}
+.reading .reveal .archive-figures .source-figure img {
+  height: 520px;
+}
+
+/* A separate viewer keeps slide position and formula/diagram context intact. */
+#figure-dialog {
+  width: calc(100vw - 36px);
+  max-width: 1800px;
+  height: calc(100dvh - 36px);
+  max-height: none;
+  padding: 18px 24px;
+}
+#figure-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+#figure-dialog .dialog-header {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+#figure-title {
+  font-size: 20px;
+}
+.figure-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+.figure-tools output {
+  min-width: 85px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.figure-tools span {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+.figure-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: white;
+  cursor: grab;
+  touch-action: pan-x pan-y;
+  border: 1px solid var(--line);
+}
+.figure-viewport.is-dragging {
+  cursor: grabbing;
+}
+.figure-view-stage {
+  min-width: 100%;
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+#figure-image {
+  display: block;
+  max-width: none;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@media (max-width: 900px) {
+  .reading .figure-side .figure-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .reading .figure-side .figure-copy,
+  .reading .figure-side .figure-art {
+    width: 100%;
+  }
+  .reading .reveal .figure-side .figure-art .source-figure img {
+    height: auto;
+    max-height: 580px;
+  }
+}
+@media (max-width: 620px) {
+  .reading .reveal .slide-body .source-figure img,
+  .reading .reveal .figure-compare .source-figure img,
+  .reading .reveal .figure-full .source-figure img,
+  .reading .reveal .figure-result .source-figure img,
+  .reading .reveal .archive-figures .source-figure img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+  .reading .reveal .slide-body .source-figure {
+    margin: 20px 0;
+  }
+  .reading .reveal .figure-comparison {
+    display: block;
+  }
+  .reading .lab-chart .nonquad-charts:has(> figure:only-child) svg {
+    max-height: none;
+  }
+  #figure-dialog {
+    padding: 12px;
+    width: calc(100vw - 12px);
+    height: calc(100dvh - 12px);
+  }
+  #figure-title {
+    font-size: 16px;
+  }
+  .figure-tools span {
+    display: none;
+  }
+}
+@media print {
+  .reveal .figure-side .figure-art .source-figure img {
+    height: 90mm;
+  }
+  .reveal .figure-full .source-figure img {
+    height: 120mm;
+  }
+  .reveal .slide-body .source-figure img {
+    max-height: 120mm;
+  }
+  .figure-side .figure-layout {
+    min-height: 0;
+  }
+  .figure-side .figure-copy {
+    font-size: 16px;
+  }
+  .figure-open {
+    outline: none !important;
+  }
+}
+
+/* Static figure review: use two rows while retaining the reviewed text scale. */
+html:not(.reading) .reveal #s021 .source-figure img {
+  display: block;
+  width: auto;
+  height: 246px;
+  max-width: 100%;
+  max-height: 246px;
+  margin-inline: auto;
+}
+html:not(.reading) .reveal #s033 .source-figure img {
+  display: block;
+  width: auto;
+  height: 220px;
+  max-width: 100%;
+  max-height: 220px;
+  margin-inline: auto;
+}
+html:not(.reading) .reveal #s041 .source-figure img {
+  display: block;
+  width: auto;
+  height: 220px;
+  max-width: 100%;
+  max-height: 220px;
+  margin-inline: auto;
+}
+html:not(.reading) .reveal #s061 .source-figure img {
+  display: block;
+  width: auto;
+  height: 228px;
+  max-width: 100%;
+  max-height: 228px;
+  margin-inline: auto;
+}
+html:not(.reading) .reveal #s088 .source-figure img {
+  display: block;
+  width: auto;
+  height: 250px;
+  max-width: 100%;
+  max-height: 250px;
+  margin-inline: auto;
+}
