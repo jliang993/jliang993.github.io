@@ -303,11 +303,12 @@
     },
     conjugate(s) {
       const exp = s.mode === "exp",
-        y = exp ? Math.max(0.05, s.y) : s.y,
-        xstar = exp ? Math.log(y) : y,
-        f = exp ? Math.exp : (x) => (x * x) / 2,
-        conjugate = exp ? y * Math.log(y) - y : (y * y) / 2;
-      return { y, xstar, f, conjugate, gap: f(s.x) + conjugate - s.x * y, tangent: (x) => y * x - conjugate };
+        y = s.y,
+        f = exp ? Math.exp : (x) => (x * x) / 2;
+      const xstar = exp ? (y > 0 ? Math.log(y) : null) : y;
+      const conjugate = exp ? (y > 0 ? y * Math.log(y) - y : y === 0 ? 0 : Infinity) : (y * y) / 2;
+      const tangent = Number.isFinite(conjugate) ? (x) => y * x - conjugate : null;
+      return { y, xstar, f, conjugate, gap: f(s.x) + conjugate - s.x * y, tangent };
     },
     lp(s) {
       const c = rotate([1, 0], s.angle);

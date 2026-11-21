@@ -2,9 +2,10 @@ document.addEventListener("click", (event) => {
   const rowChoice = event.target.closest("[data-row-state]");
   if (rowChoice) {
     const group = rowChoice.parentElement,
-      table = group.previousElementSibling,
+      previous = group.previousElementSibling,
       index = +rowChoice.dataset.rowState;
-    if (!table?.matches("table[data-row-states]")) return;
+    const table = previous?.matches("table[data-row-states]") ? previous : previous?.querySelector(":scope > table[data-row-states]");
+    if (!table) return;
     [...table.tBodies[0].rows].forEach((row, i) => {
       if (i === index) row.setAttribute("aria-current", "step");
       else row.removeAttribute("aria-current");

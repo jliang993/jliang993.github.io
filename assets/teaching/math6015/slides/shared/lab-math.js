@@ -131,9 +131,33 @@
   const cache = new Map(),
     pending = new Set(),
     NS = "http://www.w3.org/2000/svg";
+  // Plot type is independently adjustable from the surrounding lab UI.  Plain
+  // SVG text can be resized directly, while MathJax labels need their path-group
+  // transform recomputed so their anchor and in-view clamping remain correct.
+  const plainPlotLabels = new WeakMap(),
+    mathPlotLabels = new WeakMap();
+  const mathJaxURL = root.document?.currentScript?.dataset.mathjax;
+  let loadingMathJax;
+  function ready() {
+    if (root.MathJax?.startup?.promise) return root.MathJax.startup.promise;
+    if (!loadingMathJax && mathJaxURL) {
+      const script = document.createElement("script");
+      script.src = mathJaxURL;
+      loadingMathJax = new Promise((resolve, reject) => {
+        script.onload = () => resolve(root.MathJax.startup.promise);
+        script.onerror = () => reject(Error("Local MathJax could not be loaded"));
+      }).catch((error) => {
+        script.remove();
+        loadingMathJax = null;
+        throw error;
+      });
+      document.head.append(script);
+    }
+    return loadingMathJax;
+  }
   function conversion(tex) {
     if (cache.has(tex)) return cache.get(tex);
-    const work = Promise.resolve(root.MathJax?.startup?.promise)
+    const work = Promise.resolve(ready())
       .then(() => {
         if (!root.MathJax?.tex2svgPromise) throw Error("Local MathJax is unavailable");
         return root.MathJax.tex2svgPromise(tex, { display: false, end: 150 });
@@ -144,6 +168,10 @@
         if (all.length !== 1) throw Error("Expected one unbroken MathJax SVG: " + tex);
         const svg = all[0];
         return svg;
+      })
+      .catch((error) => {
+        cache.delete(tex);
+        throw error;
       });
     cache.set(tex, work);
     if (cache.size > 1600) cache.delete(cache.keys().next().value);
@@ -151,6 +179,49 @@
   }
   function dimensions(svg) {
     return svg.getAttribute("viewBox").split(/\s+/).map(Number);
+  }
+  function plotFontScale() {
+    if (!root.document) return 1;
+    const value = Number.parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--font-plot-scale"));
+    return Number.isFinite(value) && value > 0 ? value : 1;
+  }
+  function isPlainPlotLabel(text) {
+    // MathJax may contain fallback <text> whose coordinates are expressed in its
+    // own 1000-unit glyph space.  Scaling those nodes as ordinary plot labels
+    // would corrupt the formula; their enclosing group is scaled instead.
+    return !text.closest(".graph-math-label,.live-math,.typeset-math,[data-mml-node]");
+  }
+  function resizePlainPlotLabel(text, scale) {
+    if (!isPlainPlotLabel(text)) return;
+    let record = plainPlotLabels.get(text);
+    if (!record) {
+      const style = getComputedStyle(text),
+        base = Number.parseFloat(style.fontSize);
+      if (!Number.isFinite(base) || base <= 0) return;
+      record = { base, value: text.style.getPropertyValue("font-size"), priority: text.style.getPropertyPriority("font-size") };
+      plainPlotLabels.set(text, record);
+    }
+    if (Math.abs(scale - 1) < 1e-6) {
+      if (record.value) text.style.setProperty("font-size", record.value, record.priority);
+      else text.style.removeProperty("font-size");
+    } else text.style.setProperty("font-size", record.base * scale + "px", record.priority);
+  }
+  function positionMathPlotLabel(group, scale = plotFontScale()) {
+    const layout = mathPlotLabels.get(group);
+    if (!layout) return;
+    const { body, vx, vy, vw, vh, mx, my, mw, mh, axis, labelSize, anchor, x, y } = layout;
+    const size = (labelSize || (axis ? 17 : 19)) * scale;
+    const glyphScale = axis && anchor === "end" && x - vx < vw / 4 ? Math.min(size / 1000, (x - vx - 3) / mw) : size / 1000;
+    const baseline = labelSize ? Math.max(vy + 2 - my * glyphScale, Math.min(y, vy + vh - 2 - (my + mh) * glyphScale)) : y;
+    let left = x - (anchor === "end" ? mw : anchor === "middle" ? mw / 2 : 0) * glyphScale;
+    left = Math.max(vx + 3, Math.min(left, vx + vw - 3 - mw * glyphScale));
+    body.setAttribute("transform", `translate(${left - mx * glyphScale} ${baseline}) scale(${glyphScale})`);
+  }
+  function resizePlotLabels(element = root.document) {
+    if (!element?.querySelectorAll) return;
+    const scale = plotFontScale();
+    for (const text of element.querySelectorAll("svg[data-bounds] text")) resizePlainPlotLabel(text, scale);
+    for (const group of element.querySelectorAll(".graph-math-label")) positionMathPlotLabel(group, scale);
   }
   async function inline(tex, label) {
     const svg = (await conversion(tex)).cloneNode(true),
@@ -189,11 +260,6 @@
       const anchor = text.getAttribute("text-anchor");
       const x = +(text.getAttribute("x") || 0),
         y = +(text.getAttribute("y") || 0);
-      const size = labelSize || (axis ? 17 : 19);
-      const scale = axis && anchor === "end" && x - vx < vw / 4 ? Math.min(size / 1000, (x - vx - 3) / mw) : size / 1000;
-      const baseline = labelSize ? Math.max(vy + 2 - my * scale, Math.min(y, vy + vh - 2 - (my + mh) * scale)) : y;
-      let left = x - (anchor === "end" ? mw : anchor === "middle" ? mw / 2 : 0) * scale;
-      left = Math.max(vx + 3, Math.min(left, vx + vw - 3 - mw * scale));
       const group = document.createElementNS(NS, "g"),
         body = document.createElementNS(NS, "g");
       group.classList.add("graph-math-label");
@@ -202,12 +268,13 @@
       group.style.color = style.getPropertyValue("--plot-label-color").trim() || text.getAttribute("fill") || style.fill || "currentColor";
       group.setAttribute("fill", "currentColor");
       if (text.hasAttribute("transform")) group.setAttribute("transform", text.getAttribute("transform"));
-      body.setAttribute("transform", `translate(${left - mx * scale} ${baseline}) scale(${scale})`);
       for (const child of rendered.childNodes) body.append(child.cloneNode(true));
       // MathJax's fallback CJK text is in 1000-unit em coordinates. Do not let the
       // plot's ordinary SVG text rule override its explicit font size.
       for (const t of body.querySelectorAll("text")) if (t.hasAttribute("font-size")) t.style.fontSize = t.getAttribute("font-size");
       group.append(body);
+      mathPlotLabels.set(group, { body, vx, vy, vw, vh, mx, my, mw, mh, axis: !!axis, labelSize, anchor, x, y });
+      positionMathPlotLabel(group);
       text.replaceWith(group);
     } catch (error) {
       delete text.dataset.mathPending;
@@ -222,7 +289,9 @@
     if (node.isConnected && node.data === original) node.replaceWith(...replacements);
   }
   function enhance(element) {
-    if (!element || !root.MathJax?.startup) return Promise.resolve();
+    if (!element) return Promise.resolve();
+    resizePlotLabels(element);
+    if (!root.MathJax) return Promise.resolve();
     const jobs = [...element.querySelectorAll("svg[data-bounds] text")].map(graphLabel);
     const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT),
       nodes = [];
@@ -241,6 +310,22 @@
     work.finally(() => pending.delete(work));
     return work;
   }
-  root.LectureMath = { enhance, toTex, segments, conversion, whenIdle: () => Promise.all([...pending]) };
+  function namePlots(lab) {
+    const charts = lab.querySelectorAll(".lab-chart svg:not(svg svg)");
+    const title = lab.closest(".lecture-slide")?.dataset.title || "交互图";
+    for (const [index, svg] of charts.entries()) {
+      const label =
+        svg.getAttribute("aria-label") ||
+        svg.querySelector(":scope > title")?.textContent.trim() ||
+        svg.closest("figure")?.querySelector("figcaption")?.textContent.trim() ||
+        title + (charts.length > 1 ? " · 图 " + (index + 1) : "");
+      if (!svg.hasAttribute("aria-labelledby")) svg.setAttribute("aria-label", label);
+      svg.setAttribute("role", svg.querySelector("[tabindex]") ? "group" : "img");
+    }
+  }
+  root.LectureMath = { enhance, namePlots, toTex, segments, conversion, whenIdle: () => Promise.all([...pending]) };
+  root.document?.addEventListener("lecture:fontchange", (event) => {
+    if (!event.detail?.key || event.detail.key === "plot") resizePlotLabels();
+  });
   if (typeof module !== "undefined" && module.exports) module.exports = { toTex, segments };
 })(globalThis);

@@ -107,7 +107,7 @@
       "为什么最优接触点满足 f′(x)=y？指数函数的共轭定义域是什么？",
       "§3.3",
       91,
-      [select("mode", "函数", ["square|x²/2", "exp|exp(x)"], "square"), r("y", "斜率 y", 0.05, 2.5, 0.05, 1), r("x", "试探点 x", -1.5, 2, 0.05, 0.2)],
+      [select("mode", "函数", ["square|x²/2", "exp|exp(x)"], "square"), r("y", "斜率 y", -1.5, 2.5, 0.05, 1), r("x", "试探点 x", -1.5, 2, 0.05, 0.2)],
       { animate: "x" }
     ),
     card(
@@ -950,25 +950,40 @@
       metrics = [metric("x²/t", data.value), metric("满足 x²/t≤c", data.inside ? "是" : "否"), metric("定义域余量 t", s.py)];
       notice = "紫色区域是次水平集在图框中的部分；t 保持严格为正。";
     } else if (id === "conjugate") {
-      const domain = [-2, 2.5],
-        curvePoints = M.seq(...domain).flatMap((x) => [
-          [x, data.f(x)],
-          [x, data.tangent(x)],
-        ]);
+      const domain = [Math.min(-2, (data.xstar ?? 0) - 0.4), 2.5];
+      const curvePoints = M.seq(...domain).flatMap((x) =>
+        data.tangent
+          ? [
+              [x, data.f(x)],
+              [x, data.tangent(x)],
+            ]
+          : [[x, data.f(x)]]
+      );
       fitPlot(curvePoints, { padding: [0.035, 0.1], minSpan: [4.5, 2] }, false, "x", "f(x)");
       g.curve(data.f, ...domain, c.blue);
-      g.curve(data.tangent, ...domain, c.orange, "5 3");
-      g.dot([data.xstar, data.f(data.xstar)], "接触点", c.green);
-      g.path(
-        [
-          [s.x, data.f(s.x)],
-          [s.x, data.tangent(s.x)],
-        ],
-        c.red,
-        3
-      );
-      metrics = [metric("f*(y)", data.conjugate), metric("接触点 x*", data.xstar), metric("Fenchel–Young 间隙", data.gap)];
-      notice = "橙线为斜率 y 的最紧仿射下界。指数函数此处只选 y>0；y<0 时共轭为 +∞。";
+      if (data.tangent) {
+        g.curve(data.tangent, ...domain, c.orange, "5 3");
+        g.path(
+          [
+            [s.x, data.f(s.x)],
+            [s.x, data.tangent(s.x)],
+          ],
+          c.red,
+          3
+        );
+      }
+      if (data.xstar !== null) g.dot([data.xstar, data.f(data.xstar)], "接触点", c.green);
+      metrics = [
+        metric("f*(y)", Number.isFinite(data.conjugate) ? data.conjugate : "+∞"),
+        metric("接触点 x*", data.xstar ?? "无有限接触点"),
+        metric("Fenchel–Young 间隙", Number.isFinite(data.gap) ? data.gap : "+∞"),
+      ];
+      notice =
+        data.xstar !== null
+          ? "橙线为斜率 y 的最紧仿射下界。"
+          : data.y === 0
+            ? "y=0 时，下界为零。指数函数只在 x 趋于负无穷时逼近这条线。"
+            : "y<0 时，不存在该斜率的仿射下界，共轭值为 +∞。";
     } else if (id === "lp") {
       fitPlot(data.polygon.length ? data.polygon : M.vertices, { padding: 0.12, minSpan: [2.2, 1.3] });
       if (data.polygon.length) g.polygon(data.polygon, c.blue, 0.17);

@@ -4,6 +4,9 @@
     slides = [...document.querySelectorAll(".lecture-slide")],
     Labs = globalThis.LectureLabs;
   const resolveSlide = (id) => slides.find((s) => s.id === id || s.dataset.aliases?.split(" ").includes(id));
+  const params = new URLSearchParams(location.search);
+  const compactViewport = globalThis.matchMedia?.(document.body.dataset.compactViewport || "(max-width:819px)");
+  const deckTitle = document.body.dataset.title;
   const reading = document.documentElement.classList.contains("reading");
   let current = slides[0],
     toastTimer,
@@ -11,20 +14,30 @@
     resizeTimer,
     resizeAnchor = null;
   const reviewLocked = () => document.documentElement.classList.contains("review-editing");
+  const fontExpanded = () => document.documentElement.classList.contains("font-expanded");
   function toast(text) {
     $("toast").textContent = text;
     $("toast").classList.add("show");
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => $("toast").classList.remove("show"), 3500);
   }
+  function hashID() {
+    const encoded = location.hash.replace(/^#\/?/, "").split("/")[0];
+    try {
+      return decodeURIComponent(encoded);
+    } catch {
+      return "";
+    }
+  }
   function fromHash() {
-    const id = decodeURIComponent(location.hash.replace(/^#\/?/, "").split("/")[0]);
-    return resolveSlide(id) || slides[0];
+    return resolveSlide(hashID()) || slides[0];
   }
   function closeDialogs() {
     document.querySelectorAll("dialog[open]").forEach((d) => d.close());
   }
   function position(slide) {
+    if (!slides.includes(slide)) slide = fromHash();
+    if (current !== slide) $("lab-announcement").textContent = "";
     current = slide;
     const i = slides.indexOf(slide);
     $("page-position").textContent = `${i + 1} / ${slides.length}`;
@@ -33,7 +46,7 @@
     $("next").disabled = i === slides.length - 1 && !globalThis.Reveal?.availableFragments?.().next;
     document.querySelectorAll("#toc-list a[aria-current]").forEach((a) => a.removeAttribute("aria-current"));
     document.querySelector(`#toc-list a[data-go="${slide.id}"]`)?.setAttribute("aria-current", "page");
-    document.title = `${slide.dataset.title} · MATH6015`;
+    document.title = [...new Set([slide.dataset.title, deckTitle].filter(Boolean)), "MATH6015"].join(" · ");
     Labs.activate(slide);
     document.dispatchEvent(new CustomEvent("lecture:page", { detail: { id: slide.id } }));
   }
@@ -143,13 +156,48 @@
       figureDrag = null;
       figureViewport.classList.remove("is-dragging");
     });
+  const inlineAreas = ".slide-body .typeset-math:not(.table-scroll *),.table-scroll";
+  function scrollRegion(target, enabled, label) {
+    if (enabled) {
+      target.tabIndex = 0;
+      target.setAttribute("role", "region");
+      target.setAttribute("aria-label", label);
+    } else if (target.getAttribute("role") === "region") {
+      for (const name of ["tabindex", "role", "aria-label"]) target.removeAttribute(name);
+    }
+  }
+  function measureInline(target) {
+    const overflow = (reading || fontExpanded()) && target.clientWidth > 0 && target.scrollWidth > target.clientWidth + 2;
+    target.classList.toggle("can-scroll-inline", overflow);
+    scrollRegion(target, overflow, target.matches(".table-scroll") ? "表格，可横向滚动" : "公式，可横向滚动");
+  }
+  function fitExpandedSlide(slide, body) {
+    // Keep the selected sizes and scroll between the heading and citation.
+    for (const name of ["--content-scale", "--body-room", "--multi-figure-height"]) body.style.removeProperty(name);
+    body.querySelector(".figure-art")?.style.removeProperty("--figure-height");
+    if (slide.dataset.figureLayout) {
+      slide.classList.toggle("figure-wide", slide.dataset.figureLayout === "wide");
+      slide.classList.toggle("figure-side", slide.dataset.figureLayout === "side");
+    }
+    const scrolling = body.clientHeight > 0 && body.scrollHeight > body.clientHeight + 2;
+    scrollRegion(body, scrolling, "本页正文，可滚动");
+    slide.querySelectorAll(inlineAreas).forEach(measureInline);
+    slide.dataset.fits = String(!scrolling);
+  }
   function fit(slide) {
-    if (window.CourseLayout) {
-      window.CourseLayout.fit(slide);
+    if (reading || !slide) return;
+    const body = slide.querySelector(".slide-body");
+    if (fontExpanded()) {
+      fitExpandedSlide(slide, body);
       return;
     }
-    if (reading || slide.matches(".cover,.section-divider,.interactive-slide")) return;
-    const body = slide.querySelector(".slide-body");
+    scrollRegion(body, false);
+    slide.querySelectorAll(".can-scroll-inline").forEach(measureInline);
+    if (globalThis.CourseLayout) {
+      globalThis.CourseLayout.fit(slide);
+      return;
+    }
+    if (slide.matches(".cover,.section-divider,.interactive-slide")) return;
     let scale = 1;
     body.style.setProperty("--content-scale", "1");
     const footerTop = slide.querySelector(".slide-footer").offsetTop || (slide.clientHeight || 800) - 35;
@@ -239,14 +287,20 @@
     if (!reviewLocked()) reading ? go(slides[Math.min(slides.length - 1, slides.indexOf(current) + 1)].id) : Reveal.next();
   };
   $("mode-toggle").textContent = reading ? "课堂幻灯片" : "连续阅读";
-  $("mode-toggle").onclick = () => {
+  function switchMode(view, force = false) {
     Labs.stop();
     const url = new URL(location.href);
-    url.searchParams.set("view", reading ? "slides" : "read");
+    url.searchParams.set("view", view);
+    if (force) url.searchParams.set("force", "1");
+    else url.searchParams.delete("force");
     url.searchParams.set("lab", JSON.stringify(Labs.snapshot()));
     url.hash = "/" + current.id;
     location.href = url.href;
-  };
+  }
+  $("mode-toggle").onclick = () => switchMode(reading ? "slides" : "read", reading);
+  compactViewport?.addEventListener?.("change", (event) => {
+    if (event.matches && !reading && params.get("force") !== "1" && !reviewLocked()) switchMode("auto");
+  });
   $("share").onclick = async () => {
     const url = new URL(location.href);
     url.hash = "/" + current.id;
@@ -273,7 +327,7 @@
       e.metaKey ||
       e.ctrlKey ||
       e.altKey ||
-      e.target.closest("input,select,textarea,button,[data-drag]") ||
+      e.target.closest("input,select,textarea,button,summary,[role=region],[data-drag]") ||
       document.querySelector("dialog[open]")
     )
       return;
@@ -294,11 +348,60 @@
       $("next").click();
     }
   });
+  let announcementTimer;
+  function announceMetrics(event) {
+    const lab = event.target.closest(".lecture-lab");
+    if (!lab) return;
+    clearTimeout(announcementTimer);
+    announcementTimer = setTimeout(() => {
+      if (lab.closest(".lecture-slide") !== current) return;
+      const metrics = [...lab.querySelectorAll(".lab-metric")].map((metric) => {
+        const value = metric.querySelector("strong");
+        return value ? metric.textContent.slice(0, -value.textContent.length).trim() + " " + value.textContent.trim() : metric.textContent.trim();
+      });
+      $("lab-announcement").textContent = metrics.join("，");
+    }, 300);
+  }
+  document.addEventListener("change", announceMetrics);
+  document.addEventListener("click", (event) => {
+    if (event.target.closest("[data-action=reset],[data-action=rewind],[data-action=step]")) announceMetrics(event);
+  });
+  document.addEventListener("keyup", (event) => {
+    if (event.key.startsWith("Arrow") && event.target.closest("[data-drag]")) announceMetrics(event);
+  });
+  document.addEventListener("pointerup", (event) => {
+    if (event.target.closest("[data-drag]")) announceMetrics(event);
+  });
   window.addEventListener("beforeprint", () => {
     Labs.stop();
     Labs.mountAll();
   });
   if (reading) {
+    const overflowObserver =
+      typeof ResizeObserver === "function"
+        ? new ResizeObserver((entries) => {
+            for (const { target } of entries) measureInline(target);
+          })
+        : null;
+    const watched = new WeakSet();
+    const observe = (slide) => {
+      slide?.querySelectorAll(inlineAreas).forEach((target) => {
+        measureInline(target);
+        if (!watched.has(target)) {
+          watched.add(target);
+          overflowObserver?.observe(target);
+        }
+      });
+    };
+    let fontFrame;
+    document.addEventListener("lecture:fontchange", () => {
+      if (fontFrame) return;
+      fontFrame = requestAnimationFrame(() => {
+        fontFrame = null;
+        observe(current);
+      });
+    });
+    document.addEventListener("lecture:page", (event) => observe(resolveSlide(event.detail.id)));
     const observer = new IntersectionObserver(
       (entries) => {
         for (const e of entries) if (e.isIntersecting) e.target.querySelectorAll(".lecture-lab").forEach(Labs.mount);
@@ -380,8 +483,7 @@
         }
       });
     }
-    if (fromHash().id !== decodeURIComponent(location.hash.replace(/^#\/?/, "").split("/")[0]) && location.hash)
-      history.replaceState(null, "", "#/" + fromHash().id);
+    if (fromHash().id !== hashID() && location.hash) history.replaceState(null, "", "#/" + fromHash().id);
     await Reveal.initialize({
       ...presentationSize(),
       margin: 0.02,
@@ -406,7 +508,9 @@
       view: "slide",
       pdfSeparateFragments: false,
       keyboardCondition: (e) =>
-        !reviewLocked() && !document.querySelector("dialog[open]") && !e.target.closest("input,select,textarea,button,.lecture-lab"),
+        !reviewLocked() &&
+        !document.querySelector("dialog[open]") &&
+        !e.target.closest("input,select,textarea,button,summary,[role=region],.lecture-lab"),
     });
     Reveal.on("beforeslidechange", (e) => {
       if (reviewLocked()) e.preventDefault();
@@ -425,7 +529,7 @@
       $("prev").disabled = slides.indexOf(current) === 0 && !Reveal.availableFragments().prev;
     });
     position(Reveal.getCurrentSlide());
-    fit(Reveal.getCurrentSlide());
+    fit(current);
     $("expand-toggle").onclick = () => {
       if (reviewLocked()) return;
       const enabled = $("expand-toggle").getAttribute("aria-pressed") !== "true";
@@ -436,14 +540,19 @@
       url.searchParams.set("steps", enabled ? "on" : "all");
       history.replaceState(null, "", url);
     };
-    window.addEventListener("resize", () =>
-      requestAnimationFrame(() => {
+    let layoutFrame;
+    function scheduleLayout() {
+      if (layoutFrame) return;
+      layoutFrame = requestAnimationFrame(() => {
+        layoutFrame = null;
         const size = presentationSize(),
           config = Reveal.getConfig();
         if (size.width !== config.width || size.height !== config.height) Reveal.configure(size);
         fit(Reveal.getCurrentSlide());
-      })
-    );
+      });
+    }
+    window.addEventListener("resize", scheduleLayout);
+    document.addEventListener("lecture:fontchange", scheduleLayout);
     for (const img of document.images)
       img.addEventListener("load", () => {
         if (img.closest(".lecture-slide") === Reveal.getCurrentSlide()) fit(Reveal.getCurrentSlide());

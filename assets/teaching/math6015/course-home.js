@@ -12,6 +12,28 @@
   }
   legacyLink();
   window.addEventListener("hashchange", legacyLink);
+  const search = document.getElementById("course-search");
+  if (search) {
+    const input = document.getElementById("course-query"),
+      results = document.getElementById("course-matches"),
+      count = document.getElementById("course-result-count");
+    const entries = [...results.children];
+    search.hidden = false;
+    const filter = () => {
+      const words = input.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      let matches = 0;
+      for (const entry of entries) {
+        const title = (entry.textContent + " " + entry.dataset.keywords).toLowerCase();
+        const match = words.length > 0 && words.every((word) => title.includes(word));
+        entry.hidden = !match;
+        if (match) matches++;
+      }
+      results.hidden = !matches;
+      count.value = words.length ? matches + " 项匹配" : "";
+    };
+    input.addEventListener("input", filter);
+    filter();
+  }
   const theme = document.getElementById("course-preview-theme");
   if (!theme) return;
   const apply = (dark) => {

@@ -15,7 +15,7 @@
   padding: 18px 8px 0;
 }
 .section-divider-kicker {
-  font-size: 16px !important;
+  font-size: calc(16px * var(--font-notes-scale, 1)) !important;
   font-weight: 650;
   letter-spacing: 0.08em;
   color: #65717b;
@@ -37,7 +37,7 @@
 }
 .section-divider-title {
   color: #202b35;
-  font-size: 56px;
+  font-size: calc(56px * var(--font-title-scale, 1));
   line-height: 1.22;
   font-weight: 720;
   letter-spacing: -0.025em;
@@ -73,7 +73,7 @@
   font-size: 80px !important;
 }
 .reading .section-divider-title {
-  font-size: 44px;
+  font-size: calc(44px * var(--font-title-scale, 1));
 }
 .reading .section-divider-gate {
   height: 260px;
@@ -90,7 +90,7 @@
     padding: 10px 0 0;
   }
   .reading .section-divider-kicker {
-    font-size: 12px !important;
+    font-size: calc(12px * var(--font-notes-scale, 1)) !important;
     letter-spacing: 0.035em;
   }
   .reading .section-divider-number {
@@ -98,7 +98,7 @@
     margin-bottom: 18px !important;
   }
   .reading .section-divider-title {
-    font-size: 34px;
+    font-size: calc(34px * var(--font-title-scale, 1));
     overflow-wrap: anywhere;
   }
   .reading .section-divider-gate {
@@ -113,7 +113,7 @@
     height: 65mm;
   }
   .section-divider-title {
-    font-size: 38px;
+    font-size: calc(38px * var(--font-title-scale, 1));
   }
   .section-divider-number {
     font-size: 72px !important;

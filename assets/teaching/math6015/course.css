@@ -305,133 +305,164 @@
   }
 }
 
-/* Local review shell only; the published page uses the existing site navigation. */
-.course-preview {
-  --global-bg-color: #fff;
-  --global-card-bg-color: #fff;
-  --global-text-color: #242a32;
-  --global-text-color-light: #657079;
-  --site-border: #e1e3e5;
-  --site-accent-fill: #9d078f;
-  --site-accent-on-soft: #9d078f;
+.course-home {
+  --course-link: #126b60;
+}
+[data-theme="dark"] .course-home {
+  --course-link: #9adecf;
+}
+.course-home .course-information {
+  border-top: 1px solid var(--course-border);
+  scroll-margin-top: 78px;
+  padding-bottom: 26px;
+}
+.course-home .course-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
   margin: 0;
-  color: var(--global-text-color);
-  background: var(--global-bg-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
-html[data-theme="dark"] .course-preview {
-  --global-bg-color: #1c1e22;
-  --global-card-bg-color: #22252a;
-  --global-text-color: #e6e9ed;
-  --global-text-color-light: #b8bec5;
-  --site-border: #3c424a;
-  --site-accent-fill: #006b85;
-  --site-accent-on-soft: #71c7df;
-  color-scheme: dark;
+.course-home .course-facts dt {
+  color: var(--course-muted);
+  font-size: 12px;
+  margin-bottom: 4px;
 }
-.course-preview-header {
-  height: 59px;
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  border-bottom: 1px solid var(--site-border);
-  background: var(--global-bg-color);
+.course-home .course-facts dd {
+  margin: 0;
 }
-.course-preview-header > div {
-  max-width: 1024px;
-  box-sizing: border-box;
-  padding: 0 24px;
-  height: 100%;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 23px;
+.course-home .course-preparation {
+  margin-top: 18px;
+  font-size: 13px;
 }
-.course-preview-header a {
-  text-decoration: none;
+.course-home .course-preparation p {
+  margin-top: 8px;
+  max-width: 72ch;
+}
+.course-home .course-map {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 3fr;
+  gap: 0 16px;
+}
+.course-home .course-map :is(dt, dd) {
+  margin: 0;
+  padding: 10px 0;
+  border-top: 1px solid var(--course-border);
+}
+.course-home .course-map dt {
+  font-weight: 620;
+}
+.course-home .course-map p {
+  margin: 0;
+}
+.course-home .course-map-prep {
+  color: var(--course-muted);
+}
+.course-home summary {
+  cursor: pointer;
+  width: fit-content;
+  color: var(--course-link);
+}
+.course-home summary:focus-visible,
+.course-home input:focus-visible {
+  outline: 3px solid var(--course-link);
+  outline-offset: 2px;
+}
+.course-home .lecture-formats {
+  margin: 0 0 14px;
+  color: var(--course-muted);
+}
+.course-home .lecture-summary h3 a {
   color: inherit;
 }
-.course-preview-brand {
-  font-size: 20px;
-  font-weight: 650;
-  letter-spacing: -0.5px;
-  margin-right: auto;
-  white-space: nowrap;
+.course-home .lecture-reference {
+  line-height: 1.4;
 }
-.course-preview-header nav {
+.course-home .lecture-actions a:last-child {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+}
+.course-home .lecture-actions .pdf-name {
+  font-size: inherit;
+  margin: 0;
+}
+.course-home .pdf-version {
+  font:
+    10px/1.1 ui-monospace,
+    monospace;
+  letter-spacing: 0.03em;
+  color: var(--course-muted);
+}
+.course-home .course-citation {
+  padding: 0 0 18px;
+  font-size: 13px;
+}
+.course-home .course-citation a {
+  display: inline-block;
+  margin-left: 8px;
+}
+.course-home .course-search {
   display: flex;
-  gap: 18px;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-bottom: 12px;
+  padding: 12px;
+  background: var(--course-soft);
+  border-radius: 6px;
+}
+.course-home .course-search input {
+  min-width: min(100%, 190px);
+  max-width: 100%;
+  flex: 1;
+  border: 1px solid var(--course-border);
+  border-radius: 4px;
+  padding: 8px;
+  font: inherit;
+  color: var(--course-ink);
+  background: var(--course-paper);
+}
+.course-home #course-result-count {
   font-size: 12px;
+  color: var(--course-muted);
 }
-.course-preview-header a.active {
-  color: var(--site-accent-on-soft);
+.course-home #course-matches {
+  width: 100%;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  max-height: 340px;
+  overflow: auto;
 }
-.course-preview-header button {
-  font-size: 21px;
-  border: 0;
-  background: none;
-  color: var(--global-text-color);
-  cursor: pointer;
-  padding: 5px;
-}
-.course-preview-main {
-  max-width: 1024px;
-  padding: 30px 24px 40px;
-  box-sizing: border-box;
-  margin: auto;
-}
-.course-preview-footer {
-  max-width: 976px;
-  margin: 0 auto 25px;
-  border-top: 1px solid var(--site-border);
-  padding-top: 17px;
+.course-home #course-matches li {
   display: flex;
   justify-content: space-between;
-  gap: 14px;
-  font-size: 10px;
-  color: var(--global-text-color-light);
+  flex-wrap: wrap;
+  gap: 2px 15px;
+  padding: 7px 0;
+  border-top: 1px solid var(--course-border);
 }
-.course-preview-footer a {
-  color: inherit;
+.course-home #course-matches span {
+  font-size: 12px;
+  color: var(--course-muted);
 }
-.course-preview-skip {
-  position: fixed;
-  z-index: 100;
-  left: 15px;
-  top: -80px;
-  padding: 10px;
-  background: #fff;
-  color: #000;
-  border: 2px solid #9d078f;
-}
-.course-preview-skip:focus {
-  top: 10px;
-}
-.course-preview :is(a, button):focus-visible {
-  outline: 3px solid var(--site-accent-on-soft);
-  outline-offset: 4px;
-}
-
-@media (max-width: 700px) {
-  .course-preview-header > div {
-    padding-inline: 18px;
+@media (max-width: 520px) {
+  .course-home .course-facts {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
-  .course-preview-brand {
-    font-size: 18px;
+  .course-home .course-search label {
+    width: 100%;
   }
-  .course-preview-header nav a:not(.active) {
-    display: none;
+}
+@media (max-width: 520px) {
+  .course-home .course-map {
+    display: block;
   }
-  .course-preview-header nav {
-    font-size: 12px;
+  .course-home .course-map dt {
+    padding-bottom: 0;
   }
-  .course-preview-main {
-    padding: 22px 16px 30px;
-  }
-  .course-preview-footer {
-    margin-inline: 16px;
-    flex-wrap: wrap;
+  .course-home .course-map dd {
+    border: 0;
   }
 }

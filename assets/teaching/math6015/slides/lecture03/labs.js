@@ -424,6 +424,7 @@
         }[v.stage] || notice;
     v.el.querySelector(".lab-notice").textContent = notice;
     syncControls(v);
+    root.LectureMath?.namePlots(v.el);
     root.LectureMath?.enhance(v.el);
     if (v.kind === "nonquadratic" && v.stage !== "geometry") {
       const selected = N.methods.filter((m) => s["show_" + m.id]);

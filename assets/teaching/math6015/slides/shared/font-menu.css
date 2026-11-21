@@ -1,0 +1,225 @@
+.font-settings {
+  position: relative;
+  align-self: center;
+  color: var(--ink);
+  font-size: calc(14px * var(--font-navigation-scale, 1));
+}
+
+.lecture-toolbar:has(.font-settings[open]) {
+  z-index: 80;
+}
+
+.font-settings > summary {
+  display: block;
+  list-style: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  padding: 7px 9px;
+  line-height: 1.2;
+  user-select: none;
+}
+
+.font-settings > summary::-webkit-details-marker {
+  display: none;
+}
+
+.font-settings > summary::after {
+  content: "";
+  display: inline-block;
+  width: 0.42em;
+  height: 0.42em;
+  margin: 0 0 0.22em 0.48em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.font-settings[open] > summary::after {
+  transform: translateY(0.2em) rotate(225deg);
+}
+
+.font-settings > summary:hover,
+.font-settings[open] > summary,
+.font-adjusted .font-settings > summary {
+  border-color: var(--line);
+  background: var(--pale);
+}
+
+.font-adjusted .font-settings > summary {
+  color: var(--green);
+}
+
+.font-settings-panel {
+  position: absolute;
+  z-index: 120;
+  top: calc(100% + 7px);
+  right: 0;
+  width: min(256px, calc(100vw - 16px));
+  max-height: calc(100dvh - var(--lecture-toolbar-height, 43px) - var(--lecture-navigation-height, 49px) - 18px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  box-shadow: 0 14px 45px #10281c29;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.font-settings-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 11px;
+  border-bottom: 1px solid var(--line);
+}
+
+.font-settings-heading h2 {
+  margin: 0 0 3px;
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.font-settings-heading p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.lecture-toolbar .font-settings-heading button {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-color: var(--line);
+  background: transparent;
+  color: var(--green);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.font-settings-controls {
+  display: grid;
+  gap: 5px;
+}
+
+.font-setting-row {
+  display: grid;
+  grid-template-columns: 5em max-content;
+  align-items: center;
+  gap: 10px;
+}
+
+.font-setting-row > label {
+  font-weight: 580;
+  white-space: nowrap;
+}
+
+.font-setting-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lecture-toolbar .font-setting-value button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-color: var(--line);
+  background: var(--paper);
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.lecture-toolbar .font-setting-value button:hover:not(:disabled) {
+  background: var(--pale);
+}
+
+.font-setting-percent {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.font-setting-percent input[type="number"] {
+  appearance: textfield;
+  width: 48px;
+  min-width: 0;
+  padding: 4px 3px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  text-align: right;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.font-setting-percent input::-webkit-inner-spin-button,
+.font-setting-percent input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.font-settings-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .font-settings-panel {
+    position: fixed;
+    top: calc(var(--lecture-toolbar-height, 43px) + 6px);
+    right: 8px;
+    max-height: calc(100dvh - var(--lecture-toolbar-height, 43px) - var(--lecture-navigation-height, 49px) - 20px);
+  }
+}
+
+@media (max-width: 900px) {
+  .font-settings {
+    font-size: calc(12px * var(--font-navigation-scale, 1));
+  }
+}
+
+@media (max-width: 620px) {
+  .font-settings {
+    font-size: calc(11px * var(--font-navigation-scale, 1));
+  }
+
+  .font-settings > summary {
+    padding: 6px 5px;
+  }
+}
+
+@media print {
+  .font-settings {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .font-settings > summary::after {
+    transition: none;
+  }
+}

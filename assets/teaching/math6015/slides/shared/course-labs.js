@@ -104,6 +104,7 @@
       .join("");
     v.el.querySelector(".lab-notice").textContent = result.notice || "";
     sync(v);
+    math?.namePlots(v.el);
     math?.enhance(v.el.closest("section.lecture-slide"));
   }
   function stop() {
