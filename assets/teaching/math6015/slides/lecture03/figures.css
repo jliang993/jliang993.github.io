@@ -46,7 +46,7 @@
   min-width: 0;
 }
 .figure-side .figure-copy {
-  font-size: calc(24px * var(--content-scale, 1));
+  font-size: calc(24px * var(--content-scale, 1) * var(--font-body-scale, 1));
 }
 .figure-side .figure-copy > :last-child {
   margin-bottom: 0;
@@ -86,7 +86,7 @@
   height: 370px;
 }
 .figure-result .slide-body {
-  font-size: 23px;
+  font-size: calc(23px * var(--font-body-scale, 1));
 }
 .figure-result .block {
   margin-top: 20px;
@@ -127,11 +127,6 @@
 .derivation-step {
   display: block;
 }
-.lecture-toolbar #expand-toggle[aria-pressed="true"] {
-  background: var(--pale);
-  color: var(--green);
-  border-color: #c5d8cf;
-}
 html:not(.reading):not(.all-visible) .reveal .lecture-step.current-fragment {
   background-color: #edf5f1;
   box-shadow: 0 0 0 6px #edf5f1;
@@ -158,7 +153,7 @@ html:not(.reading):not(.all-visible) .reveal .lecture-step.current-fragment .typ
   margin-bottom: 8px;
 }
 .plot-views button {
-  font-size: 13px;
+  font-size: calc(13px * var(--font-lab-scale, 1));
   padding: 5px 11px;
 }
 .lab-chart svg text {
@@ -270,7 +265,7 @@ html:not(.reading) .reveal #s072 .source-figure {
   padding: 4px 6px;
   border: 1px solid var(--line);
   border-radius: 5px;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-lab-scale, 1));
   line-height: 1.25;
   cursor: pointer;
 }
@@ -298,12 +293,12 @@ html:not(.reading) .reveal #s072 .source-figure {
   flex-wrap: wrap;
   gap: 7px;
   margin: 6px 0 10px;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-lab-scale, 1));
   color: var(--muted);
 }
 .plot-zoom button {
   padding: 3px 9px;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-lab-scale, 1));
 }
 .plot-zoom input {
   width: 110px;
@@ -334,11 +329,11 @@ html:not(.reading) .reveal #s072 .source-figure {
 }
 .model-rows h3 {
   margin: 0 0 6px;
-  font-size: 23px;
+  font-size: calc(23px * var(--font-body-scale, 1));
 }
 .model-rows p {
   margin: 0 0 5px;
-  font-size: 21px;
+  font-size: calc(21px * var(--font-body-scale, 1));
   line-height: 1.4;
 }
 .model-rows p:last-child {
@@ -349,13 +344,13 @@ html:not(.reading) .reveal #s072 .source-figure {
   gap: 30px;
 }
 .merged-figure .figure-copy {
-  font-size: calc(22px * var(--content-scale, 1));
+  font-size: calc(22px * var(--content-scale, 1) * var(--font-body-scale, 1));
 }
 .merged-figure .figure-copy .block {
   margin-bottom: 22px;
 }
 .norm-comparison .slide-body {
-  font-size: calc(22px * var(--content-scale, 1));
+  font-size: calc(22px * var(--content-scale, 1) * var(--font-body-scale, 1));
 }
 .norm-comparison .columns {
   display: grid;
@@ -383,10 +378,10 @@ html:not(.reading) .reveal #s072 .source-figure {
   border-color: #bad8c6;
 }
 #s010-2 .figure-copy {
-  font-size: calc(21px * var(--content-scale, 1));
+  font-size: calc(21px * var(--content-scale, 1) * var(--font-body-scale, 1));
 }
 #s028 .slide-body {
-  font-size: 21px;
+  font-size: calc(21px * var(--font-body-scale, 1));
   line-height: 1.4;
 }
 #s028 .slide-body p {
@@ -410,7 +405,7 @@ html:not(.reading) .reveal #s072 .source-figure {
   margin-top: 24px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
+  font-size: calc(13px * var(--font-notes-scale, 1));
   line-height: 1.55;
 }
 .lab-controls .source-note button {
@@ -419,11 +414,11 @@ html:not(.reading) .reveal #s072 .source-figure {
 .lab-prompt .typeset-math.is-display {
   display: inline-block;
   margin: 0;
-  font-size: 0.95em;
+  --display-equation-em: 0.95em;
 }
 .source-note > button {
   padding: 4px 9px;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-notes-scale, 1));
 }
 
 /* The document view has no slide-height constraint. */
@@ -481,7 +476,7 @@ html:not(.reading) .reveal #s072 .source-figure {
   padding-bottom: 10px;
 }
 #figure-title {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-navigation-scale, 1));
 }
 .figure-tools {
   display: flex;
@@ -489,7 +484,7 @@ html:not(.reading) .reveal #s072 .source-figure {
   gap: 8px;
   align-items: center;
   margin-bottom: 12px;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-navigation-scale, 1));
 }
 .figure-tools output {
   min-width: 85px;
@@ -499,7 +494,7 @@ html:not(.reading) .reveal #s072 .source-figure {
 .figure-tools span {
   margin-left: auto;
   color: var(--muted);
-  font-size: 13px;
+  font-size: calc(13px * var(--font-notes-scale, 1));
 }
 .figure-viewport {
   flex: 1;
@@ -568,7 +563,7 @@ html:not(.reading) .reveal #s072 .source-figure {
     height: calc(100dvh - 12px);
   }
   #figure-title {
-    font-size: 16px;
+    font-size: calc(16px * var(--font-navigation-scale, 1));
   }
   .figure-tools span {
     display: none;
@@ -588,7 +583,7 @@ html:not(.reading) .reveal #s072 .source-figure {
     min-height: 0;
   }
   .figure-side .figure-copy {
-    font-size: 16px;
+    font-size: calc(16px * var(--font-body-scale, 1));
   }
   .figure-open {
     outline: none !important;

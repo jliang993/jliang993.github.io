@@ -31,7 +31,7 @@
   padding-bottom: 10px;
 }
 #figure-title {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-navigation-scale, 1));
 }
 .figure-tools {
   display: flex;
@@ -39,7 +39,7 @@
   gap: 8px;
   align-items: center;
   margin-bottom: 12px;
-  font-size: 14px;
+  font-size: calc(14px * var(--font-navigation-scale, 1));
 }
 .figure-tools output {
   min-width: 85px;
@@ -186,7 +186,7 @@
   max-height: var(--figure-height, 400px);
 }
 .course-deck .bibliography-slide .slide-body {
-  font-size: 21px;
+  font-size: calc(21px * var(--font-body-scale, 1));
   line-height: 1.35;
 }
 .course-deck .bibliography-slide .figure-copy .columns {
@@ -235,12 +235,12 @@
   padding-top: 60px;
 }
 .course-deck .cover h1 {
-  font-size: 76px;
+  font-size: calc(76px * var(--font-title-scale, 1));
   max-width: 1000px;
 }
 .course-deck .cover-kicker {
   color: var(--green);
-  font-size: 18px;
+  font-size: calc(18px * var(--font-notes-scale, 1));
   letter-spacing: 0.16em;
 }
 .course-deck .cover-outline {
@@ -276,7 +276,7 @@
   min-width: 0;
 }
 .course-deck .lab-choice-field legend {
-  font-size: 14px;
+  font-size: calc(14px * var(--font-lab-scale, 1));
   font-weight: 600;
   margin-bottom: 6px;
 }
@@ -289,7 +289,7 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 13px;
+  font-size: calc(13px * var(--font-lab-scale, 1));
   border: 1px solid var(--line);
   border-radius: 5px;
   padding: 5px 7px;
@@ -305,7 +305,7 @@
   margin: 0;
 }
 .course-deck .lab-hint {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-notes-scale, 1));
   color: var(--annotation-color);
   line-height: 1.45;
 }
@@ -314,7 +314,7 @@
   gap: 6px;
   flex-wrap: wrap;
   margin: 0 0 6px;
-  font-size: 12px;
+  font-size: calc(12px * var(--font-lab-scale, 1));
 }
 .course-deck .plot-views button {
   padding: 5px 9px;
@@ -335,7 +335,7 @@
   margin: 0;
 }
 .course-deck .lab-chart figcaption {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-notes-scale, 1));
 }
 .course-deck .lab-metrics {
   gap: 9px;
@@ -346,7 +346,7 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 .course-deck [data-lab="supporting-duality"] .lab-hint {
-  font-size: 15px;
+  font-size: calc(15px * var(--font-notes-scale, 1));
   color: var(--ink);
   margin: 0;
 }
@@ -356,25 +356,25 @@
   }
 }
 .course-deck .lab-metric span {
-  font-size: 15px;
+  font-size: calc(15px * var(--font-lab-scale, 1));
 }
 .course-deck .lab-metric strong {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-lab-scale, 1));
 }
 .course-deck .lab-notice {
-  font-size: 16px;
+  font-size: calc(16px * var(--font-notes-scale, 1));
   line-height: 1.45;
   margin-top: 9px;
 }
 .course-deck .lab-equation {
-  font-size: 22px;
+  font-size: calc(22px * var(--font-formula-scale, 1));
   flex-wrap: wrap;
   gap: 0.1em 1.4em;
 }
 .course-deck .lab-source-text {
   display: grid;
   gap: 7px;
-  font-size: 20px;
+  font-size: calc(20px * var(--font-body-scale, 1));
   line-height: 1.45;
   margin-bottom: 14px;
 }
@@ -392,19 +392,19 @@
   display: none;
 }
 .course-deck .experiment-question {
-  font-size: 15px;
+  font-size: calc(15px * var(--font-notes-scale, 1));
   color: var(--green);
   margin-top: 12px;
 }
 .course-deck .lab-controls .experiment-question {
-  font-size: 14px;
+  font-size: calc(14px * var(--font-notes-scale, 1));
   line-height: 1.55;
   margin: 0;
   padding-top: 9px;
   border-top: 1px solid var(--line);
 }
 .course-deck .lab-legend {
-  font-size: 12px;
+  font-size: calc(12px * var(--font-plot-scale, 1));
 }
 .course-deck .modal-controls {
   display: grid;
@@ -415,13 +415,13 @@
   align-items: start;
 }
 .reading .course-deck .slide-body {
-  font-size: 20px;
+  font-size: calc(20px * var(--font-body-scale, 1));
 }
 .reading .course-deck .figure-art:has(> .source-figure:nth-child(2)) img {
   max-height: 340px;
 }
 .reading .course-deck .cover h1 {
-  font-size: 65px;
+  font-size: calc(65px * var(--font-title-scale, 1));
 }
 .reading .course-deck .cover-credit {
   margin-top: 40px;
@@ -434,7 +434,7 @@
     max-height: 430px;
   }
   .reading .course-deck .cover h1 {
-    font-size: 50px;
+    font-size: calc(50px * var(--font-title-scale, 1));
   }
   .reading .course-deck .cover-outline {
     margin: 25px 0;
@@ -448,14 +448,14 @@
     display: block;
   }
   .reading .course-deck .cover h1 {
-    font-size: 42px;
+    font-size: calc(42px * var(--font-title-scale, 1));
   }
   .reading .course-deck .lab-chart svg[data-bounds] {
     height: auto;
     max-height: none;
   }
   .reading .course-deck .slide-body {
-    font-size: 18px;
+    font-size: calc(18px * var(--font-body-scale, 1));
   }
   .reading .course-deck .lab-controls {
     grid-template-columns: 1fr 1fr;
@@ -480,7 +480,7 @@
 }
 @media (max-width: 620px) {
   .reading .course-deck .lab-source-text {
-    font-size: 17px;
+    font-size: calc(17px * var(--font-body-scale, 1));
   }
   .reading .course-deck .embedded-experiment .lab-chart svg[data-bounds] {
     height: auto;
@@ -505,7 +505,7 @@
   align-items: start;
 }
 .course-deck .slide-body pre {
-  font-size: 19px;
+  font-size: calc(19px * var(--font-body-scale, 1));
   line-height: 1.4;
   margin: 0;
   white-space: pre-wrap;
