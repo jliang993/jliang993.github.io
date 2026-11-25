@@ -2,6 +2,7 @@
   "use strict";
   const $ = (id) => document.getElementById(id),
     slides = [...document.querySelectorAll(".lecture-slide")],
+    mainSlides = slides.filter((slide) => !slide.dataset.proofOf),
     Labs = globalThis.LectureLabs;
   const resolveSlide = (id) => slides.find((s) => s.id === id || s.dataset.aliases?.split(" ").includes(id));
   const params = new URLSearchParams(location.search);
@@ -13,6 +14,7 @@
     scrollFrame,
     resizeTimer,
     resizeAnchor = null;
+  for (const details of document.querySelectorAll(".proof-disclosure")) details.open = !reading;
   const reviewLocked = () => document.documentElement.classList.contains("review-editing");
   const fontExpanded = () => document.documentElement.classList.contains("font-expanded");
   function toast(text) {
@@ -39,11 +41,14 @@
     if (!slides.includes(slide)) slide = fromHash();
     if (current !== slide) $("lab-announcement").textContent = "";
     current = slide;
-    const i = slides.indexOf(slide);
-    $("page-position").textContent = `${i + 1} / ${slides.length}`;
+    const mainPage = +(slide.dataset.mainPage || mainSlides.indexOf(slide) + 1),
+      i = mainPage - 1,
+      label = slide.dataset.pageLabel || String(mainPage);
+    $("page-position").textContent = `${label} / ${mainSlides.length}`;
     $("section-position").textContent = slide.dataset.section;
+    if (reading && slide.dataset.proofOf) slide.querySelector(".proof-disclosure").open = true;
     $("prev").disabled = i === 0 && !globalThis.Reveal?.availableFragments?.().prev;
-    $("next").disabled = i === slides.length - 1 && !globalThis.Reveal?.availableFragments?.().next;
+    $("next").disabled = i === mainSlides.length - 1 && !globalThis.Reveal?.availableFragments?.().next;
     document.querySelectorAll("#toc-list a[aria-current]").forEach((a) => a.removeAttribute("aria-current"));
     document.querySelector(`#toc-list a[data-go="${slide.id}"]`)?.setAttribute("aria-current", "page");
     document.title = [...new Set([slide.dataset.title, deckTitle].filter(Boolean)), "MATH6015"].join(" · ");
@@ -59,7 +64,10 @@
       position(slide);
       history.replaceState(null, "", `#/${id}`);
       slide.scrollIntoView({ behavior: "instant", block: "start" });
-    } else Reveal.slide(slides.indexOf(slide));
+    } else {
+      const { h, v } = Reveal.getIndices(slide);
+      Reveal.slide(h, v);
+    }
   }
   function revealTarget(element) {
     if (reading || !element || !Reveal.getConfig().fragments) return;
@@ -274,10 +282,10 @@
     }
   });
   $("prev").onclick = () => {
-    if (!reviewLocked()) reading ? go(slides[Math.max(0, slides.indexOf(current) - 1)].id) : Reveal.prev();
+    if (!reviewLocked()) reading ? go(mainSlides[Math.max(0, (+current.dataset.mainPage || 1) - 2)].id) : Reveal.left();
   };
   $("next").onclick = () => {
-    if (!reviewLocked()) reading ? go(slides[Math.min(slides.length - 1, slides.indexOf(current) + 1)].id) : Reveal.next();
+    if (!reviewLocked()) reading ? go(mainSlides[Math.min(mainSlides.length - 1, +current.dataset.mainPage || 1)].id) : Reveal.right();
   };
   $("mode-toggle").textContent = reading ? "课堂幻灯片" : "连续阅读";
   function switchMode(view, force = false) {
@@ -500,6 +508,7 @@
       autoAnimateEasing: "ease-in-out",
       view: "slide",
       pdfSeparateFragments: false,
+      keyboard: { 38: () => Reveal.up({ skipFragments: true }), 40: () => Reveal.down({ skipFragments: true }) },
       keyboardCondition: (e) =>
         !reviewLocked() &&
         !document.querySelector("dialog[open]") &&
@@ -514,12 +523,12 @@
       requestAnimationFrame(() => fit(e.currentSlide));
     });
     Reveal.on("fragmentshown", () => {
-      const i = slides.indexOf(current);
+      const i = (+current.dataset.mainPage || 1) - 1;
       $("prev").disabled = false;
-      $("next").disabled = i === slides.length - 1 && !Reveal.availableFragments().next;
+      $("next").disabled = i === mainSlides.length - 1 && !Reveal.availableFragments().next;
     });
     Reveal.on("fragmenthidden", () => {
-      $("prev").disabled = slides.indexOf(current) === 0 && !Reveal.availableFragments().prev;
+      $("prev").disabled = (+current.dataset.mainPage || 1) === 1 && !Reveal.availableFragments().prev;
     });
     position(Reveal.getCurrentSlide());
     fit(current);
@@ -528,7 +537,8 @@
       const enabled = $("expand-toggle").getAttribute("aria-pressed") !== "true";
       syncProgressive(enabled);
       Reveal.configure({ fragments: enabled });
-      Reveal.slide(Reveal.getIndices().h, 0, enabled ? -1 : undefined);
+      const { h, v } = Reveal.getIndices();
+      Reveal.slide(h, v, enabled ? -1 : undefined);
       const url = new URL(location.href);
       url.searchParams.set("steps", enabled ? "on" : "all");
       history.replaceState(null, "", url);

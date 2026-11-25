@@ -1364,6 +1364,198 @@ html:not(.js) .fragment {
   border-color: #c5d8cf;
 }
 
+/* Optional proof branches. Reveal treats each lecture-stack as one horizontal
+   page and its children as vertical pages. The main page keeps its original
+   number; proof pages use the stable label “main↓branch”. */
+.reveal .slides > section.lecture-stack {
+  height: 100%;
+}
+.reveal .slides section.lecture-slide {
+  height: 100%;
+  padding: 11px var(--slide-inline-padding) 40px;
+  top: 0 !important;
+  box-sizing: border-box;
+  line-height: 1.43;
+}
+.slide-heading {
+  position: relative;
+}
+.proof-cue {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  border-color: #b8cbc5;
+  background: #f1f7f4;
+  color: var(--green);
+  font-size: calc(15px * var(--font-notes-scale, 1));
+  font-weight: 700;
+  padding: 5px 10px;
+}
+.proof-cue:hover {
+  background: #e5f1ec;
+}
+.proof-heading > p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.proof-heading > p button {
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-size: inherit;
+  padding: 2px 4px;
+}
+.proof-slide .slide-body {
+  max-width: 1080px;
+}
+.proof-disclosure {
+  display: block;
+}
+.proof-disclosure > summary {
+  display: none;
+}
+.proof-steps {
+  counter-reset: proof-step;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0.15em 0 !important;
+  display: grid;
+  gap: 0.72em;
+}
+.proof-steps > li {
+  position: relative;
+  padding: 0.12em 0 0.12em 2.25em !important;
+  margin: 0 !important;
+}
+.proof-steps > li::before {
+  counter-increment: proof-step;
+  content: counter(proof-step);
+  position: absolute;
+  left: 0;
+  top: 0.08em;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e8f2ed;
+  color: var(--green);
+  font-size: 0.74em;
+  font-weight: 750;
+}
+.proof-toc-link {
+  padding-left: 24px !important;
+  background: #fbfcfa;
+}
+.proof-toc-link > span:first-child {
+  color: var(--green) !important;
+  font-weight: 700;
+}
+
+:is(.reading, html:not(.js)) .reveal .slides > section.lecture-stack {
+  display: contents !important;
+}
+:is(.reading, html:not(.js)) .reveal .slides section.lecture-slide {
+  position: relative !important;
+  display: block !important;
+  width: 100%;
+  height: auto;
+  min-height: 650px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  top: auto !important;
+  padding: 44px 48px 65px;
+  border-bottom: 1px solid var(--line);
+  margin: 0;
+  scroll-margin-top: var(--lecture-toolbar-height);
+  pointer-events: auto;
+}
+.reading .proof-slide {
+  min-height: 0 !important;
+  padding-top: 24px !important;
+  padding-bottom: 28px !important;
+  background: #fbfcfa;
+}
+.reading .proof-slide .slide-heading {
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+}
+.reading .proof-slide .slide-heading h2 {
+  font-size: calc(24px * var(--font-title-scale, 1));
+}
+.reading .proof-slide .slide-footer {
+  position: static;
+  margin-top: 18px;
+}
+.reading .proof-disclosure > summary {
+  display: list-item;
+  color: var(--green);
+  font-size: calc(18px * var(--font-body-scale, 1));
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 0;
+}
+.reading .proof-disclosure:not([open]) > .proof-content {
+  display: none;
+}
+.reading .proof-content {
+  padding: 14px 0 2px;
+}
+
+@media (max-width: 900px) {
+  :is(.reading, html:not(.js)) .reveal .slides section.lecture-slide {
+    padding: 30px 24px 55px;
+    min-height: 0;
+  }
+}
+@media (max-width: 620px) {
+  :is(.reading, html:not(.js)) .reveal .slides section.lecture-slide {
+    padding: 26px 18px 55px;
+  }
+  .proof-cue {
+    position: static;
+    margin: 8px 0 0;
+  }
+  .reading .proof-slide {
+    padding-top: 18px !important;
+    padding-bottom: 22px !important;
+  }
+}
+@media screen {
+  .font-expanded:not(.reading) .reveal .slides section.lecture-slide.present {
+    display: flex !important;
+    flex-direction: column;
+    padding-bottom: 11px;
+  }
+  .font-expanded.reading .reveal .slides section.lecture-slide {
+    padding-bottom: 26px;
+  }
+}
+@media print {
+  .reveal .slides > section.lecture-stack {
+    display: contents !important;
+  }
+  .reveal .slides section.lecture-slide {
+    position: relative !important;
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 7mm 9mm !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    break-before: page;
+    break-inside: avoid;
+    page-break-before: always;
+  }
+  .proof-disclosure > summary {
+    display: none !important;
+  }
+}
+
 /* Keep the section name once, in the slide's lower-left corner. */
 .slide-heading {
   display: flex;
@@ -1573,6 +1765,139 @@ html:not(.js) .fragment {
   }
   .font-expanded.reading .live-math > .math-accessible {
     left: 0;
+  }
+}
+
+/* Newton decrement: semantic replacement for the fixed-coordinate TeX SVG.
+   All labels and formulas inherit the user-controlled plot-text scale. */
+.newton-decrement-lead {
+  margin-bottom: 4px !important;
+}
+.newton-decrement-definition {
+  font-size: calc(23px * var(--font-formula-scale, 1));
+  margin: 0 0 8px;
+}
+.newton-decrement-definition .typeset-math.is-display {
+  margin: 0.15em 0;
+}
+.newton-decrement-diagram {
+  display: grid;
+  grid-template-columns: fit-content(440px) 64px fit-content(440px) 70px fit-content(560px);
+  grid-template-rows: auto;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  max-width: 1490px;
+  margin: 4px auto 6px;
+  font-size: calc(24px * var(--font-plot-scale, 1));
+  line-height: 1.25;
+}
+.newton-decrement-card {
+  min-width: 0;
+  width: max-content;
+  max-width: 100%;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12em;
+  padding: 0.32em 0.52em;
+  border: 2px solid;
+  border-radius: 12px;
+  text-align: center;
+}
+.newton-decrement-card strong {
+  display: block;
+  font-size: 0.95em;
+  line-height: 1.15;
+  font-weight: 680;
+}
+.newton-decrement-card.is-blue {
+  border-color: #7299df;
+  background: #edf2fc;
+}
+.newton-decrement-card.is-green {
+  border-color: #55aa9f;
+  background: #eaf6f3;
+}
+.newton-decrement-card.is-red {
+  grid-column: 5;
+  grid-row: 1;
+  justify-self: center;
+  border-color: #cb6a77;
+  background: #fbf1f2;
+}
+.newton-decrement-formula {
+  width: auto;
+  font-size: 0.98em;
+  line-height: 1.08;
+}
+.newton-decrement-formula .typeset-math.is-display {
+  margin: 0.08em 0;
+}
+.newton-decrement-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue, #285fca);
+  font-weight: 650;
+  text-align: center;
+  min-width: 0;
+}
+.newton-decrement-connector span {
+  white-space: nowrap;
+}
+.newton-decrement-connector b {
+  font-family: system-ui, sans-serif;
+  font-weight: 500;
+  line-height: 0.8;
+}
+.newton-decrement-connector.is-equality {
+  grid-column: 2;
+  grid-row: 1;
+  flex-direction: column;
+  gap: 0.12em;
+}
+.newton-decrement-connector.is-equality b {
+  font-size: 2.05em;
+}
+.newton-decrement-connector.is-half {
+  grid-column: 4;
+  grid-row: 1;
+  flex-direction: column;
+  color: var(--green);
+  gap: 0.04em;
+  align-self: center;
+  justify-content: center;
+  padding-top: 0;
+}
+.newton-decrement-connector.is-half b {
+  font-size: 1.65em;
+}
+.newton-decrement-connector.is-half .typeset-math {
+  font-size: 1em;
+}
+@media screen and (max-width: 900px) {
+  .reading .newton-decrement-diagram {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto;
+    gap: 10px;
+    font-size: calc(20px * var(--font-plot-scale, 1));
+  }
+  .reading .newton-decrement-card,
+  .reading .newton-decrement-card.is-red,
+  .reading .newton-decrement-connector.is-equality,
+  .reading .newton-decrement-connector.is-half {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+  }
+  .reading .newton-decrement-connector.is-equality b {
+    transform: rotate(90deg);
+  }
+  .reading .newton-decrement-connector.is-half b {
+    transform: rotate(90deg);
   }
 }
 
