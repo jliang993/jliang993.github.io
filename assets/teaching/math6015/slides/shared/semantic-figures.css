@@ -1,0 +1,223 @@
+/* Native equivalents for text-heavy source diagrams.
+   Cards size to their contents; the plot-text control scales labels and math. */
+.semantic-figure-shell {
+  width: 100%;
+  min-width: 0;
+  margin: 10px auto 14px;
+  font-size: calc(18px * var(--font-plot-scale, 1));
+  line-height: 1.32;
+  color: var(--ink, #202b35);
+}
+.semantic-diagram {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+.semantic-row .semantic-diagram {
+  flex-flow: row nowrap;
+}
+.semantic-column .semantic-diagram {
+  flex-direction: column;
+  gap: 7px;
+}
+.semantic-callout .semantic-diagram {
+  display: block;
+  text-align: center;
+}
+.semantic-compact {
+  font-size: calc(17px * var(--font-plot-scale, 1));
+}
+.semantic-card {
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  inline-size: max-content;
+  max-inline-size: min(100%, 320px);
+  min-inline-size: 0;
+  padding: 0.42em 0.66em;
+  border: 1.5px solid #7da1e5;
+  border-radius: 9px;
+  background: #eef3ff;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.semantic-row.semantic-compact .semantic-card {
+  max-inline-size: 340px;
+}
+.semantic-card.tone-green {
+  border-color: #5bb7a7;
+  background: #edf8f5;
+}
+.semantic-card.tone-red {
+  border-color: #ce7380;
+  background: #fbf1f3;
+}
+.semantic-card.tone-orange {
+  border-color: #e5a052;
+  background: #fff6ea;
+}
+.semantic-card.tone-plain {
+  border-color: #cbd3d8;
+  background: #f7f8f8;
+}
+.semantic-card > strong {
+  display: block;
+  font-size: 1.04em;
+  line-height: 1.22;
+}
+.semantic-card-body {
+  display: block;
+  margin-top: 0.18em;
+}
+.semantic-card-body > span:not(.math):not(.typeset-math) {
+  display: block;
+  margin-top: 0.12em;
+  color: var(--muted, #65717b);
+}
+.semantic-card .typeset-math {
+  margin: 0.04em 0.08em !important;
+  vertical-align: middle;
+}
+.semantic-card .typeset-math.is-display {
+  display: block;
+  margin: 0.12em auto !important;
+}
+.semantic-card mjx-container {
+  margin: 0 !important;
+}
+.semantic-connector {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55em;
+  color: #2358c4;
+  line-height: 1;
+}
+.semantic-connector.tone-green {
+  color: #00816e;
+}
+.semantic-connector.tone-red {
+  color: #a6192e;
+}
+.semantic-connector > span {
+  font-size: 0.72em;
+  line-height: 1.1;
+  white-space: nowrap;
+  margin-bottom: 0.12em;
+}
+.semantic-connector > b {
+  font-family: system-ui, sans-serif;
+  font-size: 1.7em;
+  font-weight: 500;
+  line-height: 0.72;
+}
+.semantic-column .semantic-connector > b {
+  font-size: 1.45em;
+  line-height: 0.58;
+}
+.semantic-column .semantic-connector > span {
+  margin: 0 0 0.05em;
+}
+.semantic-operator {
+  font:
+    500 1.35em/1 system-ui,
+    sans-serif;
+  color: var(--muted, #65717b);
+}
+.semantic-caption,
+.semantic-loop-note {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 0.35em);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 94%;
+  margin: 0;
+  color: var(--muted, #65717b);
+  font-size: 0.78em;
+  text-align: center;
+}
+.semantic-caption + .semantic-loop-note {
+  top: calc(100% + 1.7em);
+}
+.semantic-row:has(.semantic-caption, .semantic-loop-note) {
+  margin-bottom: 2.15em;
+}
+.semantic-callout .semantic-card {
+  display: inline-block;
+  max-inline-size: min(100%, 980px);
+  text-align: left;
+  padding: 0.55em 0.78em;
+}
+.semantic-callout .semantic-card > strong {
+  text-align: center;
+  margin-bottom: 0.2em;
+}
+.semantic-loop .semantic-diagram {
+  padding-bottom: 0.2em;
+}
+.semantic-source {
+  display: none;
+}
+.reading .semantic-figure-shell {
+  font-size: calc(18px * var(--font-plot-scale, 1));
+  margin-block: 18px;
+}
+.reading .semantic-source {
+  display: block;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line, #d9dedb);
+  font-size: 14px;
+  color: var(--muted, #65717b);
+}
+.reading .semantic-source > summary {
+  cursor: pointer;
+}
+.reading .semantic-source .source-figure {
+  margin-top: 12px;
+}
+@media (max-width: 900px) {
+  .reading .semantic-row .semantic-diagram {
+    flex-wrap: wrap;
+  }
+  .reading .semantic-row .semantic-connector {
+    min-width: auto;
+  }
+  .reading .semantic-row .semantic-connector > b {
+    transform: rotate(90deg);
+  }
+}
+@media (max-width: 620px) {
+  .reading .semantic-diagram {
+    font-size: 0.94em;
+  }
+  .reading .semantic-row .semantic-diagram {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .reading .semantic-card {
+    max-inline-size: 100%;
+  }
+  .reading .semantic-caption,
+  .reading .semantic-loop-note {
+    position: static;
+    transform: none;
+    width: auto;
+    max-width: 100%;
+    margin-top: 0.55em;
+  }
+  .reading .semantic-row:has(.semantic-caption, .semantic-loop-note) {
+    margin-bottom: 0;
+  }
+}
+@media print {
+  .semantic-source {
+    display: none !important;
+  }
+}
